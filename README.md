@@ -4,7 +4,7 @@
 
 ---
 ## Description
-A web application connected to a backend for the ==The Little Green Larder== shop.
+A web application connected to a backend for the >The Little Green Larder< shop.
 
 ---
 ## Authors
