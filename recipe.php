@@ -21,6 +21,7 @@
                   <li>Vel quam elementum pulvinar etiam non.</li>
                 </ol>';
         ?>
+        <h3>Allergy Disclaimer: LGL's products are plastic free and we can thus not ensure that cross-contamination has not occured.</h3>
     </div>
 
 <?php include 'footer.php';?>
