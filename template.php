@@ -47,7 +47,7 @@
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link" href="https://www.facebook.com/thelittlegreenlarder" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/facebook.svg" alt="Instagram icon"> </a>
+                <a class="nav-link" href="https://www.facebook.com/thelittlegreenlarder" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/facebook.svg" alt="Facebook icon"> </a>
                 <a class="nav-link" href="https://www.instagram.com/thelittlegreenlarder/?hl=en" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/instagram.svg" alt="Instagram icon"> </a>
                 <a class="nav-link" href="https://twitter.com/green_larder" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/square-twitter.svg" alt="Twitter icon"> </a>
             </div>
