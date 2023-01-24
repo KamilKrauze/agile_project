@@ -1,10 +1,12 @@
-<html>
-<body>
 
+<body>
 <?php include 'header.php';?>
     
     <!-- Main container -->
     <div class="main-body">
+        <?php 
+         include("counter.php") 
+        ?>
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
             echo '<h1>Recipe title</h1>';
@@ -27,4 +29,3 @@
 <?php include 'footer.php';?>
 
 </body>
-</html>
