@@ -65,9 +65,6 @@
             ?>
             </form>
 
-            <input type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
-            <label class="btn btn-primary" for="btn-check">Single toggle</label>
-
             <h4>Any other ingredients?</h4>
             <h4>Anything to exclude?</h4>
         </div>

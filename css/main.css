@@ -166,11 +166,26 @@ body {
 label {
     height: 32px;
     border-radius: 16px;
+    padding: 4px;
     display: flex;
     align-items: center;
-    background: #EAEAEA;
+    justify-content: center;
+    /* background: #EAEAEA; */
 
     flex-grow: 1;
+}
+
+label:has(input[type="checkbox"]) {
+    background: #EAEAEA;
+}
+
+label:has(input[type="checkbox"]:checked) {
+    background: #66BB6A;
+    color: white;
+}
+
+input[type="checkbox"] {
+    display: none;
 }
 
 /* -------------------------------------------------------- */
