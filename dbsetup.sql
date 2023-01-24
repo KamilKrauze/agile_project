@@ -34,6 +34,8 @@ DROP TABLE IF EXISTS RecipeIngredients;
 CREATE TABLE RecipeIngredients (
   RecipeID		int(6) NOT NULL, 
   IngredientID	int(6) NOT NULL, 
+  Quantity		double(4,1) NOT NULL,
+  Measurement	varchar(30),
   PRIMARY KEY (RecipeID, IngredientID));
 
 
@@ -279,16 +281,16 @@ pepper to taste
 - Serve and enjoy');
 
 INSERT INTO RecipeIngredients VALUES
-(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,2),(1,20),(1,1),
-(2,3),(2,17),(2,14),(2,21),(2,22),(2,23),(2,24),(2,4),
-(3,5),(3,14),(3,25),(3,26),(3,17),(3,24),(3,28),(3,32),(3,39),
-(4,14),(4,15),(4,27),(4,6),(4,17),(4,25),(4,28),(4,29),(4,20),(4,1),
-(5,14),(5,17),(5,19),(5,28),(5,2),(5,22),
-(6,30),(6,31),(6,32),(6,29),(6,14),(6,33),(6,28),(6,19),
-(7,27),(7,14),(7,34),(7,17),(7,19),(7,35),(7,24),(7,7),
-(8,36),(8,8),(8,9),(8,37),(8,38),
-(9,10),(9,17),(9,25),(9,11),(9,2),(9,39),(9,14),(9,12),
-(10,13),(10,26),(10,33),(10,32),(10,28),(10,38),(10,14);
+(1,14,2,'clove(s)'),(1,15,3,'tbsp'),(1,16,2,'tsp'),(1,17,2,''),(1,18,2,''),(1,19,3,''),(1,2,300,'g'),(1,20,1,'can(s)'),(1,1,400,'g'),
+(2,3,1,'can(s)'),(2,17,2,''),(2,14,2,'clove(s)'),(2,21,4,'stick(s)'),(2,19,2,''),(2,22,2,''),(2,23,1,'bunch(es)'),(2,24,500,'ml'),(2,4,150,'g'),
+(3,5,400,'g'),(3,14,4,'clove(s)'),(3,25,2,''),(3,26,4,''),(3,17,2,''),(3,24,800,'ml'),(3,28,1,''),(3,32,1,''),(3,39,2,'tbsp'),
+(4,14,2,'clove(s)'),(4,15,2,'tbsp'),(4,27,1,'piece(s)'),(4,6,200,'g'),(4,17,1,''),(4,25,1,''),(4,28,1,''),(4,29,1,''),(4,20,1,'can(s)'),(4,1,200,'g'),
+(5,14,2,'clove(s)'),(5,17,1,''),(5,19,1,''),(5,28,1,''),(5,2,200,'g'),(5,22,1,''),
+(6,30,200,'g'),(6,31,1,''),(6,32,0.5,''),(6,29,1,''),(6,14,2,'clove(s)'),(6,33,60,'g'),(6,28,1,''),(6,19,1,''),
+(7,27,1,'2cm piece(s)'),(7,14,2,'clove(s)'),(7,34,1,'tsp to taste'),(7,17,1,''),(7,19,1,''),(7,35,6,''),(7,24,1,'l'),(7,7,2,'nest(s)'),
+(8,36,2,'cup(s)'),(8,8,1,'cup(s)'),(8,9,1,'tbsp'),(8,37,400,'ml'),(8,38,1,'tbsp'),
+(9,10,1,'can(s)'),(9,17,2,''),(9,25,2,''),(9,11,200,'g'),(9,2,60,'g'),(9,39,1,'tsp'),(9,14,2,'clove(s)'),(9,12,500,'g'),
+(10,13,1,'loaf(s)'),(10,26,200,'g'),(10,33,200,'g'),(10,32,2,''),(10,28,1,''),(10,38,1,'tsp'),(10,14,2,'clove(s)');
 
 
 INSERT INTO Ingredients (IngredientName, AllergenID, ShopLink) VALUES
@@ -346,18 +348,18 @@ INSERT INTO Ingredients (IngredientName, AllergenID, ShopLink) VALUES
 
 -- tests
 
-SELECT RecipeName FROM RecipeIngredients JOIN Recipes ON Recipes.RecipeID = RecipeIngredients.RecipeID WHERE IngredientID = 28 ;
+-- SELECT RecipeName FROM RecipeIngredients JOIN Recipes ON Recipes.RecipeID = RecipeIngredients.RecipeID WHERE IngredientID = 28 ;
 
-SELECT RecipeName,Recipes.RecipeID FROM Recipes JOIN
-	(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 28
-	INTERSECT
-	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 32
-	INTERSECT 
-	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 33) r 
-ON Recipes.RecipeID=r.RecipeID;
+-- SELECT RecipeName,Recipes.RecipeID FROM Recipes JOIN
+-- 	(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 28
+-- 	INTERSECT
+-- 	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 32
+-- 	INTERSECT 
+-- 	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 33) r 
+-- ON Recipes.RecipeID=r.RecipeID;
 
-SELECT RecipeID FROM RecipeIngredients JOIN
-	(SELECT IngredientID FROM Ingredients WHERE AllergenID = 4
-    UNION
-	SELECT IngredientID FROM Ingredients WHERE AllergenID = 7) a
-ON RecipeIngredients.IngredientID=a.IngredientID;
+-- SELECT RecipeID FROM RecipeIngredients JOIN
+-- 	(SELECT IngredientID FROM Ingredients WHERE AllergenID = 4
+--     UNION
+-- 	SELECT IngredientID FROM Ingredients WHERE AllergenID = 7) a
+-- ON RecipeIngredients.IngredientID=a.IngredientID;
