@@ -3,6 +3,7 @@
 
     <!-- Main container -->
     <div class="main-body">
+    
     <div class="featured-recipe-list">
         <h1>List of recipes</h1>
         <div class="recipe-row">
@@ -42,9 +43,7 @@
                 <h3>Tomato, Cucumber, Rice, Green Lentils...</h3>
             </div>
 
-            <!-- <div class="fade-out"> -->
-                <img class="arrow-scroll" src="./media/img/right-arrow.png">
-            <!-- </div> -->
+            <div class="fade-out"></div>
         </div>
     </div>
     </div>
