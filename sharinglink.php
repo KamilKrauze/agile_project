@@ -1,13 +1,3 @@
-<!-- from How to Share your site on All Social Platforms using jQuery Plugin? Complete tutorial | Code Grind - https://youtu.be/jKElY3hWpIY -->
-
-    <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="jssocials.css" />
-    <link rel="stylesheet" type="text/css" href="jssocials-theme-flat.css" />
-</head>
-
 <body>
     <?php include 'header.php';?>
     
@@ -15,24 +5,16 @@
     <div class="main-body">
     </div>
 
-    <div id="share"></div>
+    <!-- Twitter Share Button -->
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-    <script src="jquery.js"></script>
-    <script src="jssocials.min.js"></script>
-    <script>
-        $("#share").jsSocials({
-            url:"https://agile-team1.azurewebsites.net/index.php", //link placeholder, replace with recipe URL 
-            text: "Share this recipe!",
-            shares: ["twitter", "instagram", "facebook"]
-        });
-    </script>
+    <!-- Facebook Share Button -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0" nonce="i5TxLOMx"></script>
 
-    <script src="https://kit.fontawesome.com/7368c40b21.js" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-
-    <script src="./jsSocials/jssocials.js"></script>
+    <p></p>
+    <!-- link placeholder -->
+    <div class="fb-share-button" data-href="https://agile-team1.azurewebsites.net/index.php" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fagile-team1.azurewebsites.net%2Findex.php&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 
     <?php include 'footer.php';?>
 </body>
-
