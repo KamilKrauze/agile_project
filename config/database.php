@@ -13,11 +13,11 @@ $options = array(
 );
 
 try {
-    $pdo = new PDO($dsn ,$username, $password, $options);
+    $pdo = new PDO($dsn ,$username, $pwd, $options);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch (PDOException $e) {
-    include './errors/connection_failed.php';
+    include '../errors/connection_failed.php';
     die("ERROR: Could not connect. " . $e->getMessage());
 }
 
