@@ -150,6 +150,16 @@ body {
     background-image: linear-gradient(to right, transparent, #D9D9D9);
 }
 
+a.anchor {
+    all: unset;
+    display: block;
+    position: relative;
+    top: -32px;
+    visibility: hidden;
+}
+
+/* Buttons and Checkboxes */
+
 .flex-buttons-container {
     display: flex;
     flex-flow: row wrap;
@@ -170,7 +180,7 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background: #EAEAEA; */
+    background: #EAEAEA;
 
     flex-grow: 1;
 }
@@ -180,6 +190,11 @@ label:has(input[type="checkbox"]) {
 }
 
 label:has(input[type="checkbox"]:checked) {
+    background: #66BB6A;
+    color: white;
+}
+
+label.checked {
     background: #66BB6A;
     color: white;
 }

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
     $ingredients = $_POST['ingredientSelection'];
     if(empty($ingredients)) 
@@ -26,8 +27,9 @@
     
     
     <div class="filtering-recipes basic-flex">
+        <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
-            <h1 id='for-you'>Recipes <i>for you</i></h1>
+            <h1>Recipes <i>for you</i></h1>
             <h4>Tell us what Little Green Larder ingredients you have:</h4>
             
             <form action="" class="flex-buttons-container" method="POST">
