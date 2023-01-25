@@ -25,15 +25,13 @@
         <?php include 'php_templates/recipe-row.php';?>
     </div>
     
-    
-    <div class="filtering-recipes basic-flex">
+    <form action="" class="filtering-recipes basic-flex" method="POST">
         <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
             <h1>Recipes <i>for you</i></h1>
             <h4>Tell us what Little Green Larder ingredients you have:</h4>
             
-            <form action="" class="flex-buttons-container" method="POST">
-
+            <div class="flex-buttons-container">
             <?php
             $name = 'Tomato';
             include 'php_templates/checkbox.php';
@@ -59,13 +57,16 @@
             $name = 'Green Lentils';
             include 'php_templates/checkbox.php';
 
+            $name = 'Raisins';
+            include 'php_templates/checkbox.php';
+
             $name = 'Potato';
             include 'php_templates/checkbox.php';
 
             $name = 'Whole Wheat Pasta Organic';
             include 'php_templates/checkbox.php';
             ?>
-            </form>
+            </div>
 
             <h4>Any other ingredients?</h4>
             <h4>Anything to exclude?</h4>
@@ -73,9 +74,42 @@
 
         <div class="suggestions basic-flex flex-column">
             <?php include 'php_templates/recipe-row.php';?>
-            <?php include 'php_templates/recipe-row.php';?>
+            <div class="additional-ingredients basic-flex flex-column">
+                <h2>Suggested ingredients</h1>
+                <div class="basic-flex flex-column flex-end flex-small">
+                    <div class="basic-flex flex-small">
+                        <p>7 more recipes unlocked with</p>
+                        <div class="flex-buttons-container">
+                        <?php
+                            $dontgrow = true; $name = 'Potato';
+                            include 'php_templates/checkbox.php';
+                            $dontgrow = true; $name = 'Tomato';
+                            include 'php_templates/checkbox.php';
+                        ?>
+                        </div>
+                    </div>
+                    <div class="basic-flex flex-small">
+                        <p>5 more with</p>
+                        <div class="flex-buttons-container">
+                        <?php
+                            $dontgrow = true; $name = 'Raisins';
+                            include 'php_templates/checkbox.php';
+                        ?>
+                        </div>
+                    </div>
+                    <div class="basic-flex flex-small">
+                        <p>2 more with</p>
+                        <div class="flex-buttons-container">
+                        <?php
+                            $dontgrow = true; $name = 'Rice';
+                            include 'php_templates/checkbox.php';
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 
     <?php include 'footer.php';?>
     </div>
