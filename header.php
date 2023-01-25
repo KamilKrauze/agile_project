@@ -3,6 +3,7 @@
 <?php
 // Server based cookies, will come in handy when implementing QoL features, better done at the start
 session_start();
+include "./config/database.php"
 ?>
 <head>
     <meta charset="UTF-8">
