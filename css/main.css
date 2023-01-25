@@ -69,6 +69,10 @@ body {
     flex-direction: column;
 }
 
+.no-padding {
+    padding: 0;
+}
+
 .flex-small {
     padding: 0;
     gap: 8px;
@@ -87,6 +91,7 @@ body {
 
 .suggestions {
     width: 60%;
+    padding: 0 16px;
 }
 
 .ingredients-selector, .additional-ingredients, .recipe-card {
@@ -98,7 +103,7 @@ body {
     flex-flow: row no-wrap;
     overflow-x: auto;
     align-items: center;
-    padding: 0px;
+    padding: 0;
     gap: 16px;
 
     width: 100%;
@@ -224,7 +229,7 @@ h3 {
     line-height: 20px;
 }
 
-p {
+h5 {
     font-style: normal;
     font-weight: 300;
     font-size: 16px;

@@ -25,7 +25,7 @@
         <?php include 'php_templates/recipe-row.php';?>
     </div>
     
-    <form action="" class="filtering-recipes basic-flex" method="POST">
+    <form action="" class="filtering-recipes basic-flex"  style="padding:32px 16px;" method="POST">
         <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
             <h1>Recipes <i>for you</i></h1>
@@ -78,7 +78,7 @@
                 <h2>Suggested ingredients</h1>
                 <div class="basic-flex flex-column flex-end flex-small">
                     <div class="basic-flex flex-small">
-                        <p>7 more recipes unlocked with</p>
+                        <h5>7 more recipes unlocked with</h5>
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Potato';
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="basic-flex flex-small">
-                        <p>5 more with</p>
+                        <h5>5 more with</h5>
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Raisins';
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div class="basic-flex flex-small">
-                        <p>2 more with</p>
+                        <h5>2 more with</h5>
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Rice';
@@ -114,5 +114,4 @@
     <?php include 'footer.php';?>
     </div>
 
-    
 </body>
