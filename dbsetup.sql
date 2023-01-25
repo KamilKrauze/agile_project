@@ -3,46 +3,53 @@ SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS Recipes;
 CREATE TABLE Recipes (
-  RecipeID		int(6) NOT NULL AUTO_INCREMENT, 
-  RecipeName	varchar(100) NOT NULL, 
-  ShortDesc		varchar(255), 
-  PrepTime		double(2,1), 
-  CookTime		double(2,1), 
-  TotalTime		double(2,1), 
-  Servings		tinyint(2),
-  Instructions	varchar(2000),
+  RecipeID    int(6) NOT NULL AUTO_INCREMENT, 
+  RecipeName  varchar(100) NOT NULL, 
+  ShortDesc   varchar(255), 
+  PrepTime    double(2,1), 
+  CookTime    double(2,1), 
+  TotalTime   double(2,1), 
+  Servings    tinyint(2),
+  Instructions  varchar(2000),
   PRIMARY KEY (RecipeID));
 
 
 DROP TABLE IF EXISTS Ingredients;
 CREATE TABLE Ingredients (
-  IngredientID		int(6) NOT NULL AUTO_INCREMENT, 
-  IngredientName	varchar(100) NOT NULL, 
-  AllergenID   		int(3) NOT NULL, 
-  ShopLink    		varchar(255), 
+  IngredientID    int(6) NOT NULL AUTO_INCREMENT, 
+  IngredientName  varchar(100) NOT NULL, 
+  AllergenID      int(3) NOT NULL, 
+  ShopLink        varchar(255), 
   PRIMARY KEY (IngredientID));
   
   
 DROP TABLE IF EXISTS Allergens;
 CREATE TABLE Allergens (
   AllergenID        int(3) NOT NULL AUTO_INCREMENT, 
-  AllergenName   	varchar(100) NOT NULL, 
-  ShortDesc    		varchar(255), 
+  AllergenName    varchar(100) NOT NULL, 
+  ShortDesc       varchar(255), 
   PRIMARY KEY (AllergenID));
 
 DROP TABLE IF EXISTS RecipeIngredients;
 CREATE TABLE RecipeIngredients (
-  RecipeID		int(6) NOT NULL, 
-  IngredientID	int(6) NOT NULL, 
-  Quantity		double(4,1) NOT NULL,
-  Measurement	varchar(30),
+  RecipeID    int(6) NOT NULL, 
+  IngredientID  int(6) NOT NULL, 
+  Quantity    double(4,1) NOT NULL,
+  MeasurementID int(2) NOT NULL,
   PRIMARY KEY (RecipeID, IngredientID));
+
+DROP TABLE IF EXISTS Measurements;
+CREATE TABLE Measurements (
+  MeasurementID int(2) NOT NULL AUTO_INCREMENT,
+  MeasurementType varchar(64) NOT NULL,
+  PRIMARY KEY (MeasurementID));
 
 
 ALTER TABLE Ingredients ADD CONSTRAINT AllergenKey FOREIGN KEY (AllergenID) REFERENCES Allergens (AllergenID);
 
 ALTER TABLE RecipeIngredients ADD CONSTRAINT RecipeKey FOREIGN KEY (RecipeID) REFERENCES Recipes (RecipeID);
 ALTER TABLE RecipeIngredients ADD CONSTRAINT IngredientKey FOREIGN KEY (IngredientID) REFERENCES Ingredients (IngredientID);
+ALTER TABLE RecipeIngredients ADD CONSTRAINT MeasurementKey FOREIGN KEY (MeasurementID) REFERENCES Measurements (MeasurementID);
 
 
 SET FOREIGN_KEY_CHECKS=1;
@@ -50,6 +57,9 @@ SET FOREIGN_KEY_CHECKS=1;
 INSERT INTO Allergens(AllergenName) VALUES
 ('None'),('Nuts'),('Sesame'),('Soya'),('Legumes'),('Celery'),('Gluten'),('Sugar'),('Citrus'),('Milk'),('Eggs');
 
+
+INSERT INTO Measurements(MeasurementType) VALUES
+(''),('g'),('kg'),('ml'),('l'),('oz'),('tbsp'),('tsp'),('cup(s)'),('glass(es)'),('can(s)'),('bunch'),('clove(s)'),('roll(s)'),('stick(s)'),('piece(s)'),('nest(s)');
 
 INSERT INTO Ingredients (IngredientName, AllergenID, ShopLink) VALUES
 ('Basmati rice',1,'https://thelittlegreenlarder.com/products/basmati-rice?_pos=1&_psq=basmati&_ss=e&_v=1.0'),
@@ -281,16 +291,16 @@ pepper to taste
 - Serve and enjoy');
 
 INSERT INTO RecipeIngredients VALUES
-(1,14,2,'clove(s)'),(1,15,3,'tbsp'),(1,16,2,'tsp'),(1,17,2,''),(1,18,2,''),(1,19,3,''),(1,2,300,'g'),(1,20,1,'can(s)'),(1,1,400,'g'),
-(2,3,1,'can(s)'),(2,17,2,''),(2,14,2,'clove(s)'),(2,21,4,'stick(s)'),(2,19,2,''),(2,22,2,''),(2,23,1,'bunch(es)'),(2,24,500,'ml'),(2,4,150,'g'),
-(3,5,400,'g'),(3,14,4,'clove(s)'),(3,25,2,''),(3,26,4,''),(3,17,2,''),(3,24,800,'ml'),(3,28,1,''),(3,32,1,''),(3,39,2,'tbsp'),
-(4,14,2,'clove(s)'),(4,15,2,'tbsp'),(4,27,1,'piece(s)'),(4,6,200,'g'),(4,17,1,''),(4,25,1,''),(4,28,1,''),(4,29,1,''),(4,20,1,'can(s)'),(4,1,200,'g'),
-(5,14,2,'clove(s)'),(5,17,1,''),(5,19,1,''),(5,28,1,''),(5,2,200,'g'),(5,22,1,''),
-(6,30,200,'g'),(6,31,1,''),(6,32,0.5,''),(6,29,1,''),(6,14,2,'clove(s)'),(6,33,60,'g'),(6,28,1,''),(6,19,1,''),
-(7,27,1,'2cm piece(s)'),(7,14,2,'clove(s)'),(7,34,1,'tsp to taste'),(7,17,1,''),(7,19,1,''),(7,35,6,''),(7,24,1,'l'),(7,7,2,'nest(s)'),
-(8,36,2,'cup(s)'),(8,8,1,'cup(s)'),(8,9,1,'tbsp'),(8,37,400,'ml'),(8,38,1,'tbsp'),
-(9,10,1,'can(s)'),(9,17,2,''),(9,25,2,''),(9,11,200,'g'),(9,2,60,'g'),(9,39,1,'tsp'),(9,14,2,'clove(s)'),(9,12,500,'g'),
-(10,13,1,'loaf(s)'),(10,26,200,'g'),(10,33,200,'g'),(10,32,2,''),(10,28,1,''),(10,38,1,'tsp'),(10,14,2,'clove(s)');
+(1,14,2,13),(1,15,3,7),(1,16,2,8),(1,17,2,1),(1,18,2,1),(1,19,3,1),(1,2,300,2),(1,20,1,11),(1,1,400,2),
+(2,3,1,11),(2,17,2,1),(2,14,2,13),(2,21,4,15),(2,19,2,1),(2,22,2,1),(2,23,1,12),(2,24,500,4),(2,4,150,2),
+(3,5,400,2),(3,14,4,13),(3,25,2,1),(3,26,4,1),(3,17,2,1),(3,24,800,4),(3,28,1,1),(3,32,1,1),(3,39,2,7),
+(4,14,2,13),(4,15,2,7),(4,27,1,16),(4,6,200,2),(4,17,1,1),(4,25,1,1),(4,28,1,1),(4,29,1,1),(4,20,1,11),(4,1,200,2),
+(5,14,2,13),(5,17,1,1),(5,19,1,1),(5,28,1,1),(5,2,200,2),(5,22,1,1),
+(6,30,200,2),(6,31,1,1),(6,32,0.5,1),(6,29,1,1),(6,14,2,13),(6,33,60,2),(6,28,1,1),(6,19,1,1),
+(7,27,1,16),(7,14,2,13),(7,34,1,8),(7,17,1,1),(7,19,1,1),(7,35,6,1),(7,24,1,5),(7,7,2,17),
+(8,36,2,9),(8,8,1,9),(8,9,1,7),(8,37,400,4),(8,38,1,7),
+(9,10,1,11),(9,17,2,1),(9,25,2,1),(9,11,200,2),(9,2,60,2),(9,39,1,8),(9,14,2,13),(9,12,500,2),
+(10,13,1,14),(10,26,200,2),(10,33,200,2),(10,32,2,1),(10,28,1,1),(10,38,1,8),(10,14,2,13);
 
 
 INSERT INTO Ingredients (IngredientName, AllergenID, ShopLink) VALUES
@@ -351,15 +361,15 @@ INSERT INTO Ingredients (IngredientName, AllergenID, ShopLink) VALUES
 -- SELECT RecipeName FROM RecipeIngredients JOIN Recipes ON Recipes.RecipeID = RecipeIngredients.RecipeID WHERE IngredientID = 28 ;
 
 -- SELECT RecipeName,Recipes.RecipeID FROM Recipes JOIN
--- 	(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 28
--- 	INTERSECT
--- 	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 32
--- 	INTERSECT 
--- 	SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 33) r 
+--  (SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 28
+--  INTERSECT
+--  SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 32
+--  INTERSECT 
+--  SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = 33) r 
 -- ON Recipes.RecipeID=r.RecipeID;
 
 -- SELECT RecipeID FROM RecipeIngredients JOIN
--- 	(SELECT IngredientID FROM Ingredients WHERE AllergenID = 4
+--  (SELECT IngredientID FROM Ingredients WHERE AllergenID = 4
 --     UNION
--- 	SELECT IngredientID FROM Ingredients WHERE AllergenID = 7) a
+--  SELECT IngredientID FROM Ingredients WHERE AllergenID = 7) a
 -- ON RecipeIngredients.IngredientID=a.IngredientID;
