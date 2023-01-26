@@ -24,17 +24,20 @@ $title = "Admin Search";
     <!-- Bootstrap Link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     
-     <!-- AJAX JS link -->
+    <!-- AJAX JS link -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-
-    <!-- Local jQuery script link - Firefox fix -->
+    <script src="./js/bs5-masonry.js">
+    
+    // <!-- Local jQuery script link - Firefox fix -->
     <script src="../js/jQuery/jquery-3.6.3.min.js"></script>
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
-    <!-- <link rel="stylesheet" href="../../css/main.css"> -->
+
     <link rel="stylesheet" href="./css/admin.css">
 
     <!-- Custom JS scripts -->
@@ -87,7 +90,7 @@ $title = "Admin Search";
         ?>
     </div>
     
-    <div class="contents row p-2 mx-2 my-2">
+    <div class="contents row p-2 mx-2 my-2" style="height: 95vh; overflow-y: scroll;">
 
     <?php
     try {
