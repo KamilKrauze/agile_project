@@ -10,8 +10,8 @@
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
             //default recipe id set to 1
-            if(isset($_GET['rid'])) {
-                $rid = $_GET['rid'];
+            if(isset($_GET['id'])) {
+                $rid = $_GET['id'];
             }
             else{
                 $rid = 1;
