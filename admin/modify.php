@@ -5,12 +5,16 @@
 <?php
 session_start();
 
+if ($_SESSION['loggedIn'] == "false") {
+    header("Location: ./index.php", true, 301);
+    exit();
+}
+
 if(isset($_SESSION['operation_type']) && $_SESSION['item_type'] && $_SESSION['item_id']) {
 // Do something
 }
 
 $title = "Management";
-include './components/head.php';
 ?>
 
 <head>
@@ -33,6 +37,9 @@ include './components/head.php';
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
     <link rel="stylesheet" href="./css/admin.css">
+
+    <!-- Custom JS scripts -->
+    <script src="./js/logout.js"></script>
     
 </head>
 
@@ -45,7 +52,7 @@ include './components/head.php';
         </div>
 
         <div class="col-xs-12 col-md-1 offset-md-7">
-            <button type="button" class="btn btn-primary">Log out</button>
+            <button type="button" class="btn btn-green" onclick="logout()">Log out</button>
         </div>
     </nav>
 </header>
