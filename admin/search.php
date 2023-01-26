@@ -3,6 +3,7 @@
 <head>
 
 <?php
+include '../config/database.php';
 session_start();
 
 if ($_SESSION['loggedIn'] == "false") {
@@ -87,42 +88,62 @@ $title = "Admin Search";
     </div>
     
     <div class="contents row p-2 mx-2 my-2">
-    <?php  
-    echo '
-        <div class="col-xs-12 col-md-2 my-2">
-            <div class="card">
-                <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
-                <div class="card-body">
-                    <h2>Recipe title</h2>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal">View</button>
+
+    <?php
+    try {
+        $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
+        $stmt = $pdo->prepare($fetchIngredients);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+            $id = $row['IngredientID'];
+            $name = $row['IngredientName'];
+
+            echo '
+            <div class="col-xs-12 col-md-2 my-2">
+                <div class="card">
+                    <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
+                    <div class="card-body">
+                        <h2>'.$name.'</h2>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    ';
-    ?>        
+            ';
+
+            echo '
+            <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
+                        <p>Details</p>     
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" value="edit">Remove</button>
+                        <button type="button" class="btn btn-green" value="edit">Edit</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            ';
+        }
+
+    }
+    catch (PDOException $exception) {
+        echo $exception;
+        die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+    }
+    ?> 
+          
     </div>
-    <!-- Modal https://getbootstrap.com/docs/4.0/components/modal/-->
-    <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
-        <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleRecipeLabel">Recipe title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
-        <p>Details</p>     
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" value="edit">Remove</button>
-        <button type="button" class="btn btn-green" value="edit">Edit</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <footer class="footer bg-grey px-2">
     <div class="container-fluid">
