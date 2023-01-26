@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 
-include 'database.php';
+include './config/database.php';
 
 // Server based cookies, will come in handy when implementing QoL features, better done at the start
 session_start();

@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<?php
-    $ingredients = $_POST['ingredientSelection'];
-    if(empty($ingredients)) 
-    {
-        // echo("You didn't select any ingredients.");
-    } 
-    else 
-    {
-        $query_result = http_build_query($ingredients);  
-        header('Location: '. $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you');
-    }
 
-    $ingredients = $_GET;
+<?php
+    if(isset($_POST['ingredientSelection']))
+    {
+        $ingredients = $_POST['ingredientSelection'];
+        if(empty($ingredients)) 
+        {
+            // echo("You didn't select any ingredients.");
+        } 
+        else 
+        {
+            $query_result = http_build_query($ingredients);  
+            header('Location: '. $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you');
+        }
+
+        $ingredients = $_GET;
+    }
 ?>
 
+<?php include 'header.php';?>
+
 <body>
-    <?php include 'header.php';?>
+    
 
     <!-- Main container -->
     <div class="main-body">
@@ -34,37 +40,37 @@
             <div class="flex-buttons-container">
             <?php
             $name = 'Tomato';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
             
             $name = 'Cucumber';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Spaghetti';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Rice';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Chickpeas';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Organic Bulgur Wheat';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Sweet Potato';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Green Lentils';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Raisins';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Potato';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
 
             $name = 'Whole Wheat Pasta Organic';
-            include 'php_templates/checkbox.php';
+            // include 'php_templates/checkbox.php';
             ?>
             </div>
 
@@ -82,9 +88,9 @@
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Potato';
-                            include 'php_templates/checkbox.php';
+                            // include 'php_templates/checkbox.php';
                             $dontgrow = true; $name = 'Tomato';
-                            include 'php_templates/checkbox.php';
+                            // include 'php_templates/checkbox.php';
                         ?>
                         </div>
                     </div>
@@ -93,7 +99,7 @@
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Raisins';
-                            include 'php_templates/checkbox.php';
+                            // include 'php_templates/checkbox.php';
                         ?>
                         </div>
                     </div>
@@ -102,7 +108,7 @@
                         <div class="flex-buttons-container">
                         <?php
                             $dontgrow = true; $name = 'Rice';
-                            include 'php_templates/checkbox.php';
+                            // include 'php_templates/checkbox.php';
                         ?>
                         </div>
                     </div>
@@ -110,8 +116,8 @@
             </div>
         </div>
     </form>
-
-    <?php include 'footer.php';?>
     </div>
+
+    <?php include './footer.php';?>
 
 </body>
