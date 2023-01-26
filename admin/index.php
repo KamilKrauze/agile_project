@@ -27,7 +27,7 @@ $title = "Login";
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
-    <link rel="stylesheet" href="./css/management.css">
+    <link rel="stylesheet" href="./css/admin.css">
 
     <!-- Custom JS scripts -->
     <script src="./js/login.js"></script>
@@ -36,7 +36,7 @@ $title = "Login";
 
 <header class="container-fluid">
     <nav class="row navbar navbar-expand-lg underline-grey">
-        <div class="col-2 offset-5">
+        <div class="col-xs-12 col-md-2 offset-md-5">
             <a href="../../index.php">
                 <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
             </a>
@@ -47,7 +47,7 @@ $title = "Login";
 <body>
 <div class="container-fluid my-5">
     <div class="row">
-        <div class="contents col-xs-12 col-md-6 col-lg-4 my-3 p-5 mx-auto justify-content-centered">
+        <div class="contents col-xs-12 col-md-6 col-lg-3 my-3 p-5 mx-auto justify-content-centered">
             <h1>Login</h1>
             
             <!-- Login Section -->

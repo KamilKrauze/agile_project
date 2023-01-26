@@ -28,7 +28,7 @@ $title = "Admin Search";
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
-    <link rel="stylesheet" href="./css/management.css">
+    <link rel="stylesheet" href="./css/admin.css">
     
 </head>
 
