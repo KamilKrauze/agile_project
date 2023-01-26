@@ -1,0 +1,62 @@
+.navbar .navbar-nav .nav-link {
+    color: #000000
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: #00b30f;
+}
+
+.navbar .navbar-nav .nav-item{
+    position: relative;
+}
+
+.navbar .navbar-nav .nav-item::after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #00b30f;
+    width: 0%;
+    content: "";
+    height: 3px;
+    transition: all 0.5s;
+}
+
+.navbar .navbar-nav .nav-item:hover::after{
+    width: 100%;
+}
+
+.bg-grey {
+    background-color: #ededed;
+}
+
+.underline-grey {
+    border: 0px;
+    border-bottom: 2.5px;
+    border-style: solid;
+    border-color: #ededed;
+}
+
+.contents {
+    background-color: #dfdfdf;
+    border-radius: 12px;
+    border: 2px;
+    border-style: solid;
+    border-color: #9c9c9c;
+}
+
+.btn-primary {
+    background-color: #42b04d;
+    color: white;
+    border-color: #2f7c37;
+}
+
+/*Button dynamic update*/
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active    {
+    background-color: #2d7634;
+    color: white;
+    border-color: #42b04d;
+}
