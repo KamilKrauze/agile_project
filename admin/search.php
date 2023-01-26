@@ -30,9 +30,8 @@ $title = "Admin Search";
     <!-- Bootstrap scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-    <script src="./js/bs5-masonry.js">
     
-    // <!-- Local jQuery script link - Firefox fix -->
+    <!-- Local jQuery script link - Firefox fix -->
     <script src="../js/jQuery/jquery-3.6.3.min.js"></script>
     
     <!-- Custom CSS -->
@@ -69,14 +68,16 @@ $title = "Admin Search";
 
 <body>
      <!-- Main container -->
-    <div class="main-body mx-2 my-2">
+    <div class="container-fluid mx-2 my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
-        <div class="input-group">
-            <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
-            <form action="modify.php" method="post">
-                <button type="submit" class="btn btn-success" value="add">Add item</button>
-            </form>
+        <div class="row px-2">
+            <div class="input-group">
+                <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
+                <form action="modify.php" method="post">
+                    <button type="submit" class="btn btn-success" value="add">Add item</button>
+                </form>
+            </div>
         </div>
         <?php
         // Get user search query from search bar - from $_POST to $_REQUEST
@@ -88,64 +89,64 @@ $title = "Admin Search";
             }
 
         ?>
-    </div>
     
-    <div class="contents row p-2 mx-2 my-2" style="height: 95vh; overflow-y: scroll;">
+        <div class="contents row p-2 mx-2 my-2" style="height: 95vh; overflow-y: scroll;">
 
-    <?php
-    try {
-        $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
-        $stmt = $pdo->prepare($fetchIngredients);
-        $stmt->execute();
+        <?php
+        try {
+            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
+            $stmt = $pdo->prepare($fetchIngredients);
+            $stmt->execute();
 
-        while ($row = $stmt->fetch()) {
-            $id = $row['IngredientID'];
-            $name = $row['IngredientName'];
+            while ($row = $stmt->fetch()) {
+                $id = $row['IngredientID'];
+                $name = $row['IngredientName'];
 
-            echo '
-            <div class="col-xs-12 col-md-2 my-2">
-                <div class="card">
-                    <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
-                    <div class="card-body">
-                        <h2>'.$name.'</h2>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
-                    </div>
-                </div>
-            </div>
-            ';
-
-            echo '
-            <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+                echo '
+                <div class="col-xs-12 col-md-2 my-2">
+                    <div class="card">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
-                        <p>Details</p>     
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" value="edit">Remove</button>
-                        <button type="button" class="btn btn-green" value="edit">Edit</button>
-                    </div>
+                        <div class="card-body">
+                            <h2>'.$name.'</h2>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            ';
-        }
+                ';
 
-    }
-    catch (PDOException $exception) {
-        echo $exception;
-        die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
-    }
-    ?> 
-          
+                echo '
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
+                            <p>Details</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" value="remove">Remove</button>
+                            <button type="button" class="btn btn-green" value="edit">Edit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+
+        }
+        catch (PDOException $exception) {
+            echo $exception;
+            die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+        }
+        ?> 
+            
+        </div>
     </div>
 
 <footer class="footer bg-grey px-2">
