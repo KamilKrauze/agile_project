@@ -41,6 +41,7 @@ $title = "Management";
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
     <script type="text/javascript" src="../js\jQuery/onclickEvents.js" defer></script>
+    <link rel="./css/management.css">
 
     
 </head>
@@ -70,17 +71,19 @@ $title = "Management";
                         <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 offset-md-5">
+                <div class="col-sm-12 col-md-7 col-lg-8">
                     <div class="form-group mt-md-0 mt-sm-3">
-                        <input type="submit" class="btn btn-danger" value="cancel">
-                        <input type="submit" class="btn btn-success" value="submit">
+                        <input type="submit" class="btn btn-danger" id="cancelButton" value="cancel">
+                        <input type="submit" class="btn btn-success" id="submitButton" value="submit">
                     </div>
                 </div>
             </div>
             <div class="row mb-3" id="description">
-
-                <div class="col-md-12">
+                <div class="col-xs-12 col-sm-5 col-md-4">
                     <textarea type="text" rows="25" class="form-control" id="ingredientList" aria-describedby="description text box" placeholder="Ingredients"></textarea>
+                </div>  
+                <div class="col-xs-12 col-sm-7 col-md-8">
+                    <textarea type="text" rows="25" class="form-control" id="Description" aria-describedby="description text box" placeholder="Description"></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">
