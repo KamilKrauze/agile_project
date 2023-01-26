@@ -3,8 +3,12 @@
 
 <?php
 session_start();
+
 $title = "Login";
-// include './components/head.php';
+
+if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == "true")) {$_SESSION['loggedIn'] = "false";}
+else {$_SESSION['loggedIn'] = "false";}
+$title = "Login";
 
 ?>
 
@@ -27,29 +31,20 @@ $title = "Login";
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
-    <link rel="stylesheet" href="./css/management.css">
+    <link rel="stylesheet" href="./css/admin.css">
+
+    <!-- Custom JS scripts -->
+    <script src="./js/login.js"></script>
     
 </head>
 
 <header class="container-fluid">
-    <nav class="navbar navbar-expand-lg underline-grey">
-    <a href="../../index.php">
-        <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
-    </a>
-
-    <div class="container-fluid">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../../index.php">Home</a>
-                </li>
-            <ul>
+    <nav class="row navbar navbar-expand-lg underline-grey">
+        <div class="col-xs-12 col-md-2 offset-md-5">
+            <a href="../../index.php">
+                <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
+            </a>
         </div>
-        <button type="button" class="btn btn-primary">Log out</button>
     </nav>
 </header>
 
@@ -69,7 +64,7 @@ $title = "Login";
                     <label for="password">Enter password:</label>
                     <input id="password" type="password" class="form-control col-6" autocomplete="false" placeholder="Password" aria-label="Password text field">
                 </div>
-                <button type="button" class="my-5 btn btn-primary btn-lg">Login</button>
+                <button type="button"  class="my-5 btn btn-green btn-lg" onclick="login()" oncontextmenu="return false">Login</button>
             </form>
         </div>
     </div>
