@@ -2,7 +2,7 @@
     <?php 
         foreach ($products as $recipe) {
             echo '<a href="./recipe.php?id=' . $recipe['RecipeID'] . '"' . 'class="recipe-card">
-            <img class="card-image">
+            '.'<img src="./media/img/recipes/'. $recipe['RecipeID']. '.jpg" ' . 'alt="a picture of ' . $recipe['RecipeName'] . '" '.'class="card-image">
             <h2>' . $recipe['RecipeName'] . '</h2>
             <h3>' . $recipe['Ingredients'] . '</h3></a>';
         }
