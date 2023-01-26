@@ -36,8 +36,8 @@
                 $ingredients_stmt = $pdo->prepare("SELECT IngredientName FROM Ingredients JOIN recipeIngredients ON Ingredients.IngredientID = recipeIngredients.IngredientID WHERE RecipeID = :RecipeID;");
                 $ingredients_stmt->bindValue(":RecipeID", $row['RecipeID']);
                 $ingredients_stmt->execute();
-                $ingredients = $ingredients_stmt->fetchAll(PDO::FETCH_ASSOC);
-                $row['Ingredients']=implode(", ", array_map(function($x) {return $x['IngredientName'];}, $ingredients));
+                $ingredients_result = $ingredients_stmt->fetchAll(PDO::FETCH_ASSOC);
+                $row['Ingredients']=implode(", ", array_map(function($x) {return $x['IngredientName'];}, $ingredients_result));
             }
             include 'php_templates/recipe-row.php';
         ?>
