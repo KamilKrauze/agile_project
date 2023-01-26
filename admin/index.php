@@ -3,8 +3,9 @@
 
 <?php
 session_start();
+if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == "true")) {$_SESSION['loggedIn'] = "false";}
+else {$_SESSION['loggedIn'] = "false";}
 $title = "Login";
-// include './components/head.php';
 
 ?>
 
@@ -47,7 +48,7 @@ $title = "Login";
 <body>
 <div class="container-fluid my-5">
     <div class="row">
-        <div class="contents col-xs-12 col-md-6 col-lg-3 my-3 p-5 mx-auto justify-content-centered">
+        <div class="contents col-xs-12 col-md-6 col-lg-4 my-3 p-5 mx-auto justify-content-centered">
             <h1>Login</h1>
             
             <!-- Login Section -->
