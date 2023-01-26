@@ -4,6 +4,12 @@
 
 <?php
 session_start();
+
+if ($_SESSION['loggedIn'] == "false") {
+    header("Location: ./index.php", true, 301);
+    exit();
+}
+
 $title = "Admin Search";
 // include './components/head.php';
 
@@ -29,6 +35,9 @@ $title = "Admin Search";
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
     <link rel="stylesheet" href="./css/admin.css">
+
+    <!-- Custom JS scripts -->
+    <script src="./js/logout.js"></script>
     
 </head>
 
@@ -50,7 +59,7 @@ $title = "Admin Search";
                 </li>
             <ul>
         </div>
-        <button type="button" class="btn btn-primary">Log out</button>
+        <button type="button" class="btn btn-green" onclick="logout()">Log out</button>
     </nav>
 </header>
 
@@ -79,7 +88,7 @@ $title = "Admin Search";
     
     <div class="contents row p-2 mx-2 my-2">
     <?php  
-    echo (
+    echo '
         <div class="col-xs-12 col-md-2 my-2">
             <div class="card">
                 <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
@@ -87,13 +96,12 @@ $title = "Admin Search";
                     <h2>Recipe title</h2>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal">View</button>
+                    <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal">View</button>
                 </div>
             </div>
         </div>
-    );
-    ?>
-        
+    ';
+    ?>        
     </div>
     <!-- Modal https://getbootstrap.com/docs/4.0/components/modal/-->
     <div class="modal fade" id="recipeModal" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
@@ -109,9 +117,8 @@ $title = "Admin Search";
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <form action="modify.php" method="post">
-            <button type="submit" class="btn btn-success" value="edit">Edit</button>
-        </form>
+        <button type="button" class="btn btn-danger" value="edit">Remove</button>
+        <button type="button" class="btn btn-green" value="edit">Edit</button>
       </div>
     </div>
   </div>
