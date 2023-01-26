@@ -10,7 +10,6 @@ if(isset($_SESSION['operation_type']) && $_SESSION['item_type'] && $_SESSION['it
 }
 
 $title = "Management";
-include './components/head.php';
 ?>
 
 <head>
@@ -33,6 +32,7 @@ include './components/head.php';
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
     <!-- <link rel="stylesheet" href="../../css/main.css"> -->
     <link rel="stylesheet" href="./css/management.css">
+    <script type="text/javascript" src="../js\jQuery/onclickEvents.js" defer></script>
     
 </head>
 
@@ -56,32 +56,50 @@ include './components/head.php';
         <h1></h1>
         <form class="contents p-4">
             <div class="row mb-3">
-                <div class="col-sm-12 col-md-5">
+                <div class="col-sm-12 col-md-5 col-lg-4">
                     <div class="form-group">
                         <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2 offset-md-5">
+                <div class="col-sm-12 col-md-7 col-lg-8">
                     <div class="form-group mt-md-0 mt-sm-3">
-                        <input type="submit" class="btn btn-danger" value="cancel">
-                        <input type="submit" class="btn btn-success" value="submit">
+                        <input type="submit" class="btn btn-danger" id="cancelButton" value="cancel">
+                        <input type="submit" class="btn btn-success" id="submitButton" value="submit">
                     </div>
                 </div>
             </div>
             <div class="row mb-3" id="description">
-                <div class="col-md-12">
-                    <textarea type="text" rows="25" class="form-control" id="title" aria-describedby="description text box" placeholder="Description"></textarea>
+                <div class="col-xs-12 col-sm-5 col-md-4">
+                    <textarea type="text" rows="25" class="form-control" id="ingredientList" aria-describedby="description text box" placeholder="Ingredients"></textarea>
+                </div>  
+                <div class="col-xs-12 col-sm-7 col-md-8">
+                    <textarea type="text" rows="25" class="form-control" id="Description" aria-describedby="description text box" placeholder="Description"></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Allergens">
+                    <div class="input-group">
+                        <input type="text" id="Allergen" class="form-control" placeholder="Allergen">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="addAlergen" type="button">Add</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Diatary tags">
+                    <div class="input-group">
+                        <input type="text" id="dietaryTag" class="form-control" placeholder="Dietary tag">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="addDietaryTag" type="button">Add</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Ingredients">
+                    <div class="input-group">
+                        <input type="text" id="ingredient" class="form-control" placeholder="Ingredient">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" onclick="onclickAdd()" id="addIngredient" type="button">Add</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mb-3">

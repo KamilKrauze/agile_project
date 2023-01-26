@@ -60,3 +60,9 @@
     color: white;
     border-color: #42b04d;
 }
+#cancelButton{
+    float: right;
+}
+#submitButton{
+    float: right;
+}
