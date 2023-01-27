@@ -28,7 +28,7 @@
     <div class="featured-recipe-list basic-flex flex-column">
         <h1>List of recipes</h1>
         <?php
-            $stmt = $pdo->prepare("SELECT RecipeID, RecipeName FROM recipes;");
+            $stmt = $pdo->prepare("SELECT RecipeID, RecipeName FROM recipes ORDER BY numberOfViews;");
         
             $stmt->execute();
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
