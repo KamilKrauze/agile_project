@@ -49,40 +49,14 @@
             <h1>Recipes <i>for you</i></h1>
             <h4>Tell us what Little Green Larder ingredients you have:</h4>
             
-            <div class="flex-buttons-container">
+            <div class="flex-buttons-container scroller">
             <?php
-            $name = 'Tomato';
-            include 'php_templates/checkbox.php';
-            
-            $name = 'Cucumber';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Spaghetti';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Rice';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Chickpeas';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Organic Bulgur Wheat';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Sweet Potato';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Green Lentils';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Raisins';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Potato';
-            include 'php_templates/checkbox.php';
-
-            $name = 'Whole Wheat Pasta Organic';
-            include 'php_templates/checkbox.php';
+            $stmt = $pdo->prepare("SELECT IngredientID, IngredientName FROM Ingredients;");
+            $stmt->execute();
+            $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($ingredients_names as $ingr_row) {
+                include 'php_templates/checkbox.php';
+            }
             ?>
             </div>
 
@@ -93,7 +67,34 @@
         <div class="suggestions basic-flex flex-column">
             <?php
                 // Refresh $products based on user's selected ingredients
-                include 'php_templates/recipe-row.php';
+                if (empty($ingredients)) {
+                    echo '<div class="recipe-row"> <h2>Select any ingredients to get suggested recipes </h2></div>';
+                } else {
+                    $select_query = "SELECT RecipeName, Recipes.RecipeID FROM Recipes JOIN (" . 
+                    implode('<br>INTERSECT <br>', array_fill(0, count($ingredients), 'SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?')) . 
+                    ") r ON Recipes.RecipeID=r.RecipeID;";
+
+                    $stmt = $pdo->prepare($select_query);
+                    print_r($select_query);
+                    $stmt->execute($ingredients);
+                    echo "BBB";
+                    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    print_r($products);
+                    if (empty($products)) {
+                        echo '<div class="recipe-row"><center><h2>No recipes with these ingredients :(</h2></center></div>';
+                    } else {
+                        foreach ($products as &$row) {
+                            $ingredients_stmt = $pdo->prepare("SELECT IngredientName FROM Ingredients JOIN recipeIngredients ON Ingredients.IngredientID = recipeIngredients.IngredientID WHERE RecipeID = :RecipeID;");
+                            $ingredients_stmt->bindValue(":RecipeID", $row['RecipeID']);
+                            $ingredients_stmt->execute();
+                            $ingredients_result = $ingredients_stmt->fetchAll(PDO::FETCH_ASSOC);
+                            $row['Ingredients']=implode(", ", array_map(function($x) {return $x['IngredientName'];}, $ingredients_result));
+                        }
+
+                        include 'php_templates/recipe-row.php';
+                    }
+                }
             ?>
             <div class="additional-ingredients basic-flex flex-column">
                 <h2>Suggested ingredients</h1>

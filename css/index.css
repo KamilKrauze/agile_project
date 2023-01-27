@@ -47,6 +47,10 @@
     width:100%;
 }
 
+.ingredients-selector {
+    width: 40%;
+}
+
 .suggestions {
     width: 60%;
     padding: 0 16px;
@@ -91,6 +95,11 @@
     flex: 0 0 auto;
 }
 
+.recipe-card:hover {
+    text-decoration:underline;
+    color: black;
+}
+
 .card-image {
     width: 218px;
     height: 144px;
@@ -128,6 +137,11 @@ a.anchor {
     align-items: flex-start;
     padding: 0;
     gap: 8px;
+}
+
+.scroller {
+    height: 200px;
+    overflow-y: scroll;
 }
 
 label {
