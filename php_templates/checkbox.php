@@ -1,14 +1,17 @@
 <label <?php
-    if (in_array($name, $ingredients) and $dontgrow) {
+    $name = $ingr_row['IngredientName'];
+    $id = $ingr_row['IngredientID'];
+    $is_checked = in_array($id, $ingredients);
+    if ($is_checked and $dontgrow) {
         echo "class='checked dont-grow'";
     }
-    else if (in_array($name, $ingredients)) {
+    else if ($is_checked) {
         echo "class='checked'";
     }
     else if ($dontgrow) {
         echo "class='dont-grow'";
     }
 ?>>
-    <input onChange="this.form.submit()" type="checkbox" name="ingredientSelection[]" value="<?php echo $name; ?>" 
-    <?php if (in_array($name, $ingredients)) echo "checked='checked'"; ?>><span><?php echo $name; ?></span>
+    <input onChange="this.form.submit()" type="checkbox" name="ingredientSelection[]" value="<?php echo $id; ?>" 
+    <?php if ($is_checked) echo "checked='checked'"; ?>><span><?php echo $name; ?></span>
 </label>
