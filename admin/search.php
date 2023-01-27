@@ -41,6 +41,7 @@ $title = "Admin Search";
 
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
+    <script src="./js/search_buttons.js"></script>
     
 </head>
 
@@ -104,8 +105,8 @@ $title = "Admin Search";
 
                 echo '
                 <div class="col-xs-12 col-md-2 my-2">
-                    <div class="card">
-                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
+                    <div class="card" style="height:40vh;">
+                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
                             <h2>'.$name.'</h2>
                         </div>
@@ -125,13 +126,13 @@ $title = "Admin Search";
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap">
+                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
                             <p>Details</p>     
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" value="remove">Remove</button>
-                            <button type="button" class="btn btn-green" value="edit">Edit</button>
+                            <button type="button" class="btn btn-danger" aria-label="'.$id.'" value="remove" onclick="remItem(this)">Remove</button>
+                            <button type="button" class="btn btn-green" aria-label="'.$id.'" value="edit" onclick="editItem(this)">Edit</button>
                         </div>
                         </div>
                     </div>
