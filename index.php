@@ -43,7 +43,7 @@
         ?>
     </div>
     
-    <form action="" class="filtering-recipes basic-flex"  style="padding:32px 16px;" method="POST">
+    <form action="" class="filtering-recipes basic-flex" style="" method="POST">
         <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
             <h1>Recipes <i>for you</i></h1>
@@ -75,12 +75,9 @@
                     ") r ON Recipes.RecipeID=r.RecipeID;";
 
                     $stmt = $pdo->prepare($select_query);
-                    print_r($select_query);
                     $stmt->execute($ingredients);
-                    echo "BBB";
                     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     
-                    print_r($products);
                     if (empty($products)) {
                         echo '<div class="recipe-row"><center><h2>No recipes with these ingredients :(</h2></center></div>';
                     } else {
