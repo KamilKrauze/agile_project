@@ -7,8 +7,10 @@ include '../config/database.php';
 session_start();
 
 $query = "";
-if($_POST['submit']) {
-    $query = $_POST['query'];
+if (isset($_POST['submit'])) {
+    if ($_POST['submit']) {
+        $query = $_POST['query'];
+    }
 }
 
 if ($_SESSION['loggedIn'] != "true") {
@@ -95,7 +97,7 @@ $title = "Admin Search";
         else { $value= "%".$query."%"; }
 
         try {
-            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients WHERE IngredientName LIKE :name;";
+            $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
             $stmt = $pdo->prepare($fetchIngredients);
             $stmt->bindParam(':name', $value, PDO::PARAM_STR);
             $stmt->execute();
@@ -103,6 +105,7 @@ $title = "Admin Search";
             while ($row = $stmt->fetch()) {
                 $id = $row['IngredientID'];
                 $name = $row['IngredientName'];
+                $allergen = $row['AllergenName'];
 
                 echo '
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
@@ -128,7 +131,7 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-body">
                             <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
-                            <p>...</p>     
+                            <p>Allergen: '.$allergen.'</p>     
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -144,6 +147,7 @@ $title = "Admin Search";
             unset($id);
             unset($row);
             unset($name);
+            unset($allergen);
             unset($stmt);
             unset($pdo);
         }
