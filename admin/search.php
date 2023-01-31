@@ -71,7 +71,7 @@ $title = "Admin Search";
      <!-- Main container -->
     <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
-        <div class="row px-5">
+        <div class="row px-md-5">
             <form action="">
                 <div class="input-group">
                     <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
@@ -104,21 +104,21 @@ $title = "Admin Search";
                 $name = $row['IngredientName'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
                             <h3>'.$name.'</h3>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
+                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#ingredientModal-'.$id.'">View</button>
                         </div>
                     </div>
                 </div>
                 ';
 
                 echo '
-                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                <div class="modal fade" id="ingredientModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -127,38 +127,47 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-body">
                             <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
-                            <p>Details</p>     
+                            <p>...</p>     
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" aria-label="'.$id.'" value="remove" onclick="remItem(this)">Remove</button>
-                            <button type="button" class="btn btn-green" aria-label="'.$id.'" value="edit" onclick="editItem(this)">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="remItem(this'.$id.',Ingredient)">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this'.$id.',Ingredient)">Edit</button>
                         </div>
                         </div>
                     </div>
                 </div>
                 ';
             }
-
+            unset($fetchIngredients);
+            unset($id);
+            unset($row);
+            unset($name);
+            unset($stmt);
+            unset($pdo);
         }
         catch (PDOException $exception) {
             echo $exception;
-            die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+            unset($pdo);
+            die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
         }
         ?>
 
         <?php
-                try {
-            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
-            $stmt = $pdo->prepare($fetchIngredients);
+        include '../config/database.php';
+
+        try {
+            $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes";
+            $stmt = $pdo->prepare($fetchRecipes);
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
-                $id = $row['IngredientID'];
-                $name = $row['IngredientName'];
+                $id = $row['RecipeID'];
+                $name = $row['RecipeName'];
+                $desc = $row['Instructions'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
@@ -181,12 +190,12 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-body">
                             <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
-                            <p>Details</p>     
+                            <p>'.$desc.'</p>     
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" aria-label="'.$id.'" value="remove" onclick="remItem(this)">Remove</button>
-                            <button type="button" class="btn btn-green" aria-label="'.$id.'" value="edit" onclick="editItem(this)">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="remItem(this,'.$id.',Recipe)">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this'.$id.',Recipe)">Edit</button>
                         </div>
                         </div>
                     </div>
@@ -194,10 +203,18 @@ $title = "Admin Search";
                 ';
             }
 
+            unset($fetchIngredients);
+            unset($id);
+            unset($name);
+            unset($desc);
+            unset($stmt);
+            unset($pdo);
+
         }
         catch (PDOException $exception) {
             echo $exception;
-            die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+            unset($pdo);
+            die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
         }
         ?>
             
