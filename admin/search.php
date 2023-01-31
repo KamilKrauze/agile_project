@@ -6,7 +6,7 @@
 include '../config/database.php';
 session_start();
 
-if ($_SESSION['loggedIn'] == "false") {
+if ($_SESSION['loggedIn'] == "true") {
     header("Location: ./index.php", true, 301);
     exit();
 }
@@ -145,7 +145,61 @@ $title = "Admin Search";
             echo $exception;
             die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
         }
-        ?> 
+        ?>
+
+        <?php
+                try {
+            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
+            $stmt = $pdo->prepare($fetchIngredients);
+            $stmt->execute();
+
+            while ($row = $stmt->fetch()) {
+                $id = $row['IngredientID'];
+                $name = $row['IngredientName'];
+
+                echo '
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card h-100">
+                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
+                        <div class="card-body">
+                            <h3>'.$name.'</h3>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+                echo '
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
+                            <p>Details</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" aria-label="'.$id.'" value="remove" onclick="remItem(this)">Remove</button>
+                            <button type="button" class="btn btn-green" aria-label="'.$id.'" value="edit" onclick="editItem(this)">Edit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+
+        }
+        catch (PDOException $exception) {
+            echo $exception;
+            die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+        }
+        ?>
             
         </div>
     </div>
