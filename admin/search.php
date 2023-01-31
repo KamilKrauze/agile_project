@@ -6,7 +6,7 @@
 include '../config/database.php';
 session_start();
 
-if ($_SESSION['loggedIn'] == "true") {
+if ($_SESSION['loggedIn'] != "true") {
     header("Location: ./index.php", true, 301);
     exit();
 }
