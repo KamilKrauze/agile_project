@@ -69,7 +69,7 @@ $title = "Admin Search";
 
 <body>
      <!-- Main container -->
-    <div class="container-fluid mx-2 my-2">
+    <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
         <div class="row px-2">
             <div class="input-group">
@@ -91,7 +91,7 @@ $title = "Admin Search";
 
         ?>
     
-        <div class="contents row p-2 mx-2 my-2" style="height: 95vh; overflow-y: scroll;">
+        <div class="contents row mx-2 my-3" style="height: 95vh; overflow-y: scroll;">
 
         <?php
         try {
