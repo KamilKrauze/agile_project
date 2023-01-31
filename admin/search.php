@@ -131,8 +131,8 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" onclick="remItem(this'.$id.',Ingredient)">Remove</button>
-                            <button type="button" class="btn btn-green" onclick="editItem(this'.$id.',Ingredient)">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="remItem(this,'.$id.',`Ingredient`)">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Ingredient`)">Edit</button>
                         </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" onclick="remItem(this,'.$id.',Recipe)">Remove</button>
-                            <button type="button" class="btn btn-green" onclick="editItem(this'.$id.',Recipe)">Edit</button>
+                            <button type="button" class="btn btn-danger" onclick="remItem(this,'.$id.',`Recipe`)">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Recipe`)">Edit</button>
                         </div>
                         </div>
                     </div>
