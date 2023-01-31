@@ -72,13 +72,13 @@ $title = "Admin Search";
     <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
         <div class="row px-2">
-            <div class="input-group">
-                <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
-                <form action="modify.php" method="post">
-                    <button type="submit" class="btn btn-success" value="add">Add item</button>
-                </form>
-            </div>
+            <form action="">
+                <div class="input-group">
+                    <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
+                    <button type="button" class="btn btn-success" value="add">Add item</button>
+                </div>
+            </form>
         </div>
         <?php
         // Get user search query from search bar - from $_POST to $_REQUEST
@@ -108,7 +108,7 @@ $title = "Admin Search";
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
-                            <h2>'.$name.'</h2>
+                            <h3>'.$name.'</h3>
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
@@ -153,11 +153,11 @@ $title = "Admin Search";
 <footer class="footer bg-grey px-2">
     <div class="container-fluid">
         <div class="row mt-2">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-3">
                 <p>Created by: </p>
                 <p>&copy Andrii Sultanov, Daryna Hnatenko, Dimitar Valkov, Kamil Krauze, Maria Mara Gatillo, Vera Borvinski, Victor Iyida</p>
             </div>
-            <div class="col-sm-12 col-md-6 justify-content-xs-start justify-content-md-end">
+            <div class="col-sm-12 col-md-3 offset-md-3">
                 <p>Some copyright content</p>
             </div>
         </div>
