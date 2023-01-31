@@ -104,8 +104,8 @@ $title = "Admin Search";
                 $name = $row['IngredientName'];
 
                 echo '
-                <div class="col-xs-12 col-md-2 my-2">
-                    <div class="card" style="height:40vh;">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 my-2">
+                    <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
                             <h2>'.$name.'</h2>
