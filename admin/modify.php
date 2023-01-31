@@ -132,7 +132,7 @@ function print_ingredients(){
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-5 col-lg-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title">
+                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title" value="Item name...">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-7 col-lg-8">
@@ -145,7 +145,7 @@ function print_ingredients(){
 
             <div class="row mb-3" id="description">
                 <!-- Ingredient List -->
-                <div class="col-xs-12 col-sm-6 col-md-5" style="height: 65vh; overflow-y: scroll;">
+                <div class="col-xs-12 col-md-12 col-lg-5 my-sm-2" style="max-height: 615px; overflow-y: scroll;">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -157,35 +157,43 @@ function print_ingredients(){
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <th>--name--</th>
-                                <th><input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value=1></th>
-                                <th>
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                                        Offset
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                        <li><a class="dropdown-item">Action</a></li>
-                                        <li><a class="dropdown-item">Another action</a></li>q
-                                        <li><a class="dropdown-item">Something else here</a></li>
-                                    </ul>
-                                </th>
-                                <th>
-                                    <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
-                                        X
-                                    </button>
-                                </th>
-                            </tr>
+                            <?php
+                            for ($i=0; $i < 25; $i++)
+                            {
+                                echo
+                                    '
+                                    <tr>
+                                        <th>--name--</th>
+                                        <th><input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value=1></th>
+                                        <th>
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                                                Offset
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                                <li><a class="dropdown-item">Action</a></li>
+                                                <li><a class="dropdown-item">Another action</a></li>q
+                                                <li><a class="dropdown-item">Something else here</a></li>
+                                            </ul>
+                                        </th>
+                                        <th>
+                                            <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
+                                                X
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    ';
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
 
-                <div class="col-xs-12 col-sm-6 col-md-7">
+                <div class="col-xs-12 col-md-12 col-lg-7 my-sm-2">
                     <textarea type="text" rows="25" class="form-control" id="Description" aria-describedby="description text box" placeholder="Description"> <?php print_description();?></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">
-                <div class="col-md-4">
+                <div class="col-md-4 my-xs-1">
                     <div class="input-group">
                         <input type="text" id="Allergen" class="form-control" placeholder="Allergen">
                         <div class="input-group-append">
@@ -193,7 +201,7 @@ function print_ingredients(){
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 my-xs-1">
                     <div class="input-group">
                         <input type="text" id="dietaryTag" class="form-control" placeholder="Dietary tag">
                         <div class="input-group-append">
@@ -201,7 +209,7 @@ function print_ingredients(){
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 my-xs-1">
                     <div class="input-group">
                         <input type="text" id="ingredient" class="form-control" placeholder="Ingredient">
                         <div class="input-group-append">
