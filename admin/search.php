@@ -41,7 +41,7 @@ $title = "Admin Search";
 
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
-    <script src="./js/search_buttons.js"></script>
+    <script src="./js/search_buttons.js" defer></script>
     
 </head>
 
@@ -75,8 +75,8 @@ $title = "Admin Search";
             <form action="">
                 <div class="input-group">
                     <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
-                    <button type="button" class="btn btn-success" value="add">Add item</button>
+                    <button type="submit" class="btn btn-secondary"> Search</button>
+                    <button type="button" class="btn btn-green">Add item</button>
                 </div>
             </form>
         </div>
