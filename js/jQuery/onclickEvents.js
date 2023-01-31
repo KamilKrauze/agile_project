@@ -4,8 +4,43 @@ var ingredients = document.getElementById('ingredientList');
 
 function onclickAdd(){
     var placeholder;
+    var ingredient = document.getElementById('ingredient').value;
+    var quantity = document.getElementById('quantity').value;
+    var measurementType = document.getElementById('measurementType').value;
+    var allergenType = document.getElementById('allergenType').value;
+    console.log(ingredient+" "+quantity+" "+measurementType+" "+allergenType);
     switch(event.target.id){
         case'addIngredient':
+           var ingredientPart1 = `<tr>
+                    <th>${ingredient}</th>
+                    <th>
+                        <input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value="${quantity}">
+                    </th>
+                    <th>
+                        <div class="input-group">
+                            <select id="measurementType" class = "form-select">
+                                <option selected hidden = "true" value = "${measurementType}">${measurementType}</option>`;
+            $.post('../../modules/fetchmeasurements.php',
+            function(measurements){
+                console.log(measurements);
+            });
+    //                        </select>
+    //                        <select id="allergenType" class = "form-select" style="max-width:20vw;">
+    //                        <option selected disabled = "true" hidden = "true" value="None" >Allergen Tag</option>
+    //                    <?php 
+    //                    fetchallergens();
+    //                    ?>
+    //                    </select>
+    //        echo    '        
+                   
+    //            </div>
+    //        </th>
+    //        <th>
+    //            <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
+    //                X
+    //            </button>
+    //        </th>
+    //    </tr>" 
            placeholder = document.getElementById('ingredient').value; 
            ingredients = document.getElementById('ingredientList');
            $(ingredients).val($(ingredients).val()+placeholder+"\n");
