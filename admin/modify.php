@@ -72,11 +72,61 @@ function print_ingredients(){
             $allergens[$a] = $row['AllergenName'];
             $a++;
         }
+        $query = "SELECT measurementType FROM measurements" ;
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
         for ($i = 0; $i < $a - 1; $i++) {
-            echo $igredientNames[$i] . " " . $quantity[$i] . " " . $measurmentTypes[$i] . "\n";
+            echo
+                '
+                <tr>
+                    <th>' . $igredientNames[$i] . '</th>
+                    <th><input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $quantity[$i] . '></th>
+                    <th>
+                        <div class="input-group">
+                            <select id="measurementType class = "form-select">
+                            <option>'.$measurmentTypes[$i].'</option>';
+                                    foreach( $result as $measurement ) {
+                                        echo "<option value=".$measurement['measurementType'].">".$measurement['measurementType'].'</option>';
+                                    }
+                    echo    '        
+                            </select>
+                        </div>
+                    </th>
+                    <th>
+                        <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
+                            X
+                        </button>
+                    </th>
+                </tr>
+                ';
         }
     } else {
         return;}
+}
+function fetchmeasurements(){
+    global $pdo;
+    
+    $query = "SELECT measurementType FROM measurements" ;
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    foreach( $result as $measurement ) {
+        echo "<option value=".$measurement['measurementType'].">".$measurement['measurementType'].'</option>';
+    }
+}
+function fetchallergens(){
+    global $pdo;
+    
+    $query = "SELECT allergenName FROM allergens" ;
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    foreach( $result as $allergen ) {
+        echo "<option value=".$allergen['allergenName'].">".$allergen['allergenName'].'</option>';
+    }
+
 }
 ?>
 
@@ -157,33 +207,7 @@ function print_ingredients(){
                         </thead>
 
                         <tbody>
-                            <?php
-                            for ($i=0; $i < 25; $i++)
-                            {
-                                echo
-                                    '
-                                    <tr>
-                                        <th>--name--</th>
-                                        <th><input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value=1></th>
-                                        <th>
-                                            <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                                                Offset
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                                <li><a class="dropdown-item">Action</a></li>
-                                                <li><a class="dropdown-item">Another action</a></li>q
-                                                <li><a class="dropdown-item">Something else here</a></li>
-                                            </ul>
-                                        </th>
-                                        <th>
-                                            <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
-                                                X
-                                            </button>
-                                        </th>
-                                    </tr>
-                                    ';
-                            }
-                            ?>
+                            <?php print_ingredients();?>
                         </tbody>
                     </table>
                 </div>
@@ -193,27 +217,24 @@ function print_ingredients(){
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">
-                <div class="col-md-4 my-xs-1">
+                <div class="col-md-12 my-xs-12">
                     <div class="input-group">
-                        <input type="text" id="Allergen" class="form-control" placeholder="Allergen">
+                        <input type="text" style="max-width:45vw;" id="ingredient" class="form-control" placeholder="Ingredient">
+                        <input type="number" style="max-width:15vw;"id="quantity" class="form-control quantity-input" min="1" onkeypress="return event.keyCode != 13;">
+                        <select id="measurementType" class = "form-select" style="max-width:20vw;">
+                            <option selected disabled="true" hidden="true" value=""></option>
+                        <?php
+                        fetchmeasurements();
+                        ?>
+                        </select>
+                        <select id="allergenType" class = "form-select" style="max-width:20vw;">
+                            <option selected disabled = "true" hidden = "true" value="None" >Allergen Tag</option>
+                        <?php 
+                        fetchallergens();
+                        ?>
+                        </select>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" id="addAlergen" type="button">Add</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 my-xs-1">
-                    <div class="input-group">
-                        <input type="text" id="dietaryTag" class="form-control" placeholder="Dietary tag">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" id="addDietaryTag" type="button">Add</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 my-xs-1">
-                    <div class="input-group">
-                        <input type="text" id="ingredient" class="form-control" placeholder="Ingredient">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" onclick="onclickAdd()" id="addIngredient" type="button">Add</button>
+                            <button class="btn btn-outline-success" onclick="onclickAdd()" id="addIngredient" type="button">Add</button>
                         </div>
                     </div>
                 </div>
