@@ -71,7 +71,7 @@ $title = "Admin Search";
      <!-- Main container -->
     <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
-        <div class="row px-2">
+        <div class="row px-5">
             <form action="">
                 <div class="input-group">
                     <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
@@ -91,7 +91,7 @@ $title = "Admin Search";
 
         ?>
     
-        <div class="contents row mx-2 my-3" style="height: 95vh; overflow-y: scroll;">
+        <div class="contents row mx-5 my-3" style="height: 95vh; overflow-y: scroll;">
 
         <?php
         try {
