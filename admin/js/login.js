@@ -23,6 +23,7 @@ function login() {
         password: String(passwordField.value)
     }, (response) => {
             if (response == "match") {window.location.href = "./search.php";}
+            else {alert("Invalid login credentials");}
         });
 
 }
