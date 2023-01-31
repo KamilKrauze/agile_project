@@ -119,7 +119,7 @@ $title = "Admin Search";
 
                 echo '
                 <div class="modal fade" id="ingredientModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
@@ -181,14 +181,14 @@ $title = "Admin Search";
                 ';
 
                 echo '
-                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:75%;">
+                    <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="word-wrap: break-word;">
                             <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
                             <p>'.$desc.'</p>     
                         </div>
