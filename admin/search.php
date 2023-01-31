@@ -6,6 +6,11 @@
 include '../config/database.php';
 session_start();
 
+$query = "";
+if($_POST['submit']) {
+    $query = $_POST['query'];
+}
+
 if ($_SESSION['loggedIn'] != "true") {
     header("Location: ./index.php", true, 301);
     exit();
@@ -72,31 +77,27 @@ $title = "Admin Search";
     <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
         <div class="row px-md-5">
-            <form action="">
+            <form method="post" action="search.php">
                 <div class="input-group">
-                    <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" class="btn btn-secondary"> Search</button>
+                    <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
+                    <button type="submit" name="submit" value="Search" class="btn btn-secondary">Search</button>
                     <button type="button" class="btn btn-green">Add item</button>
                 </div>
             </form>
         </div>
-        <?php
-        // Get user search query from search bar - from $_POST to $_REQUEST
-        $search = "";
-            if (isset($_REQUEST['search'])) {
-                if ($_REQUEST['search'] != "") {
-                    $search = $_REQUEST['search'];
-                }
-            }
-
-        ?>
     
-        <div class="contents row mx-5 my-3" style="height: 95vh; overflow-y: scroll;">
+        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll;">
 
         <?php
+        
+        $value = "";
+        if ($query == "") { $value = "%"; }
+        else { $value= "%".$query."%"; }
+
         try {
-            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
+            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients WHERE IngredientName LIKE :name;";
             $stmt = $pdo->prepare($fetchIngredients);
+            $stmt->bindParam(':name', $value, PDO::PARAM_STR);
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
@@ -118,7 +119,7 @@ $title = "Admin Search";
                 ';
 
                 echo '
-                <div class="modal fade" id="ingredientModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                <div class="modal fade" id="ingredientModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:85%;">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -157,8 +158,9 @@ $title = "Admin Search";
         include '../config/database.php';
 
         try {
-            $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes";
+            $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
             $stmt = $pdo->prepare($fetchRecipes);
+            $stmt->bindParam(':name', $value, PDO::PARAM_STR);
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
@@ -181,7 +183,7 @@ $title = "Admin Search";
                 ';
 
                 echo '
-                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:75%;">
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:85%;">
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
