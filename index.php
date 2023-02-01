@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 
-<?php
-    $ingredients = $_POST['ingredientSelection'];
-    if(empty($ingredients)) 
-    {
-        // echo("You didn't select any ingredients.");
-    } 
-    else 
-    {
-        $query_result = http_build_query($ingredients);  
-        header('Location: '. $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you');
-    }
-
-    $ingredients = $_GET;
-?>
-
 <?php include 'header.php';?>
 
 <head> 
@@ -43,7 +28,7 @@
         ?>
     </div>
     
-    <form action="" class="filtering-recipes basic-flex" style="" method="POST">
+    <div class="filtering-recipes basic-flex" style="">
         <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
             <h1>Recipes <i>for you</i></h1>
@@ -51,12 +36,13 @@
             
             <div class="flex-buttons-container scroller">
             <?php
-            $stmt = $pdo->prepare("SELECT IngredientID, IngredientName FROM Ingredients;");
-            $stmt->execute();
-            $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($ingredients_names as $ingr_row) {
-                include 'php_templates/checkbox.php';
-            }
+                $ingredients = $_GET;
+                $stmt = $pdo->prepare("SELECT IngredientID, IngredientName FROM Ingredients;");
+                $stmt->execute();
+                $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($ingredients_names as $ingr_row) {
+                    include 'php_templates/checkbox.php';
+                }
             ?>
             </div>
 
@@ -66,18 +52,23 @@
 
         <div class="suggestions basic-flex flex-column">
             <?php
+                
                 // Refresh $products based on user's selected ingredients
                 if (empty($ingredients)) {
                     echo '<div class="recipe-row"> <h2>Select any ingredients to get suggested recipes </h2></div>';
                 } else {
-                    $select_query = "SELECT RecipeName, Recipes.RecipeID FROM Recipes JOIN (" . 
-                    implode('<br>INTERSECT <br>', array_fill(0, count($ingredients), 'SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?')) . 
-                    ") r ON Recipes.RecipeID=r.RecipeID;";
+                    $select_query = "SELECT RecipeName, RecipeID FROM Recipes WHERE RecipeID IN " . 
+                    implode(' AND RecipeID IN ', array_fill(0, count($ingredients), '(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?)')) . ';';
 
                     $stmt = $pdo->prepare($select_query);
-                    $stmt->execute($ingredients);
-                    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     
+                    try {
+                        $stmt->execute($ingredients);
+                    } catch(Exception $e) {
+                        print_r("Error encountered, with SQL statement '" . $select_query . "Message: " . $e->getMessage());
+                    }
+                    
+                    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     if (empty($products)) {
                         echo '<div class="recipe-row"><center><h2>No recipes with these ingredients :(</h2></center></div>';
                     } else {
@@ -128,7 +119,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     </div>
 
     <?php include './footer.php';?>

@@ -1,17 +1,33 @@
-<label <?php
+<?php
     $name = $ingr_row['IngredientName'];
     $id = $ingr_row['IngredientID'];
     $is_checked = in_array($id, $ingredients);
-    if ($is_checked and $dontgrow) {
-        echo "class='checked dont-grow'";
+
+    $new_ingredients = $ingredients;
+    if ($is_checked) {
+        $new_ingredients = array_diff($new_ingredients, [$id]);
+    } else {
+        array_push($new_ingredients, $id);
     }
-    else if ($is_checked) {
-        echo "class='checked'";
-    }
-    else if ($dontgrow) {
-        echo "class='dont-grow'";
-    }
-?>>
-    <input onChange="this.form.submit()" type="checkbox" name="ingredientSelection[]" value="<?php echo $id; ?>" 
-    <?php if ($is_checked) echo "checked='checked'"; ?>><span><?php echo $name; ?></span>
-</label>
+    $query_result = http_build_query(array_values($new_ingredients));
+?>
+
+<a 
+<?php
+
+if ($is_checked and $dontgrow) {
+    echo "class='label checked dont-grow'";
+} else if ($is_checked) {
+    echo "class='label checked'";
+} else if ($dontgrow) {
+    echo "class='label dont-grow'";
+} else {
+    echo "class='label'";
+}
+
+echo ' href="' . $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you"';
+
+?>
+>
+    <span><?php echo $name; ?></span>
+</a>
