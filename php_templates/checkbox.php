@@ -1,16 +1,16 @@
 <?php
-    if (array_key_exists('AllergenID', $ingr_row)) {
-        $name = $ingr_row['AllergenName'];
-        $id = "allergen" . $ingr_row['AllergenID'];
-    } else {
+    if (array_key_exists('IngredientID', $ingr_row)) {
         $name = $ingr_row['IngredientName'];
         $id = $ingr_row['IngredientID'];
+    } else if (array_key_exists('AllergenID', $ingr_row)) {
+        $name = $ingr_row['AllergenName'];
+        $id = "allergen" . $ingr_row['AllergenID'];
+    } else if (array_key_exists('SeasonID', $ingr_row)) {
+        $name = $ingr_row['SeasonName'];
+        $id = "season" . $ingr_row['SeasonID'];
     }
 
     $is_checked = in_array($id, $ingredients);
-    if (!isset($dontgrow)) {
-        $dontgrow = false;
-    }
 
     $new_ingredients = $ingredients;
 
@@ -25,12 +25,8 @@
 <a 
 <?php
 
-if ($is_checked and $dontgrow) {
-    echo "class='label checked dont-grow'";
-} else if ($is_checked) {
+if ($is_checked) {
     echo "class='label checked'";
-} else if ($dontgrow) {
-    echo "class='label dont-grow'";
 } else {
     echo "class='label'";
 }
