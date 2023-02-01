@@ -19,7 +19,9 @@
 
     width: 100%;
 
-    background: #D9D9D9;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #93dfb3;
     border-radius: 16px;
 }
 
@@ -44,6 +46,7 @@
 }
 
 .filtering-recipes {
+    padding: 32px 16px;
     width:100%;
 }
 
@@ -53,11 +56,11 @@
 
 .suggestions {
     width: 60%;
-    padding: 0 16px;
+    padding: 16px;
 }
 
 .ingredients-selector, .additional-ingredients, .recipe-card {
-    background-color: #BCBCBC;
+    background-color: #93dfb3;
 }
 
 .recipe-row {
@@ -80,7 +83,7 @@
 .recipe-card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 8px 16px;
     gap: 8px;
 
@@ -98,6 +101,7 @@
 .recipe-card:hover {
     text-decoration:underline;
     color: black;
+    opacity: 80%;
 }
 
 .card-image {
@@ -105,19 +109,17 @@
     height: 144px;
     object-fit: cover;
 
-    background: #D9D9D9;
+    background: #cfffe4;
     border-radius: 8px;
-    
-    /* Inside auto layout */
-    /* flex: none; */
 }
 
 .fade-out {
     position: absolute;
     right: 48px;
-    width: 244px;
-    height: 288px;
-    background-image: linear-gradient(to right, transparent, #D9D9D9);
+    width: 20vw;
+    height: 260px;
+    background-image: linear-gradient(to right, transparent, white);
+    pointer-events: none;
 }
 
 a.anchor {
@@ -145,14 +147,17 @@ a.anchor {
     overflow-y: scroll;
 }
 
-label {
+a.label {
     height: 32px;
     border-radius: 16px;
     padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #EAEAEA;
+    background: white;
+
+    text-decoration: none;
+    color: black;
 
     flex-grow: 1;
 }
@@ -161,22 +166,18 @@ label {
     flex-grow: 0;
 }
 
-label:has(input[type="checkbox"]) {
-    background: #EAEAEA;
-}
+/* label:has(input[type="checkbox"]) {
+    background: white;
+} */
 
 label:has(input[type="checkbox"]:checked) {
-    background: #66BB6A;
+    background: #329e62;
     color: white;
 }
 
-label.checked {
-    background: #66BB6A;
+a.label.checked {
+    background: #329e62;
     color: white;
-}
-
-input[type="checkbox"] {
-    display: none;
 }
 
 /* -------------------------------------------------------- */
@@ -229,4 +230,67 @@ h5 {
     font-size: 16px;
     line-height: 10px;
     margin: 0;
+}
+
+
+/* Mobile */
+
+@media (max-width: 992px) {
+    .main-body {
+        padding: 8px;
+        gap: 16px;
+    }
+
+    .basic-flex {
+        padding: 8px 16px;
+        gap: 8px;
+    }
+
+    .fade-out {
+        right: 16px;
+        height: 270px;
+    }
+
+    .filtering-recipes {
+        flex-direction: column;
+        padding: 8px;
+    }
+
+    .ingredients-selector, .suggestions {
+        width: 100%;
+    }
+
+    .suggestions {
+        border-width: 0;
+        padding: 0;
+    }
+
+    /* Fonts */
+
+    h1 {
+        font-size: 25px;
+        line-height: 30px;
+        margin: 0;
+    }
+
+    h2, h4 {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 12px;
+        line-height: 16px;
+        margin: 0;
+    }
+    
+    .recipe-card > h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* number of lines to show */
+                line-clamp: 3; 
+        -webkit-box-orient: vertical;
+    }
 }

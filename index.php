@@ -1,20 +1,5 @@
 <!DOCTYPE html>
 
-<?php
-    $ingredients = $_POST['ingredientSelection'];
-    if(empty($ingredients)) 
-    {
-        // echo("You didn't select any ingredients.");
-    } 
-    else 
-    {
-        $query_result = http_build_query($ingredients);  
-        header('Location: '. $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you');
-    }
-
-    $ingredients = $_GET;
-?>
-
 <?php include 'header.php';?>
 
 <head> 
@@ -43,7 +28,7 @@
         ?>
     </div>
     
-    <form action="" class="filtering-recipes basic-flex"  style="padding:32px 16px;" method="POST">
+    <div class="filtering-recipes basic-flex" style="">
         <a class="anchor" id="for-you"></a>
         <div class="ingredients-selector basic-flex flex-column">
             <h1>Recipes <i>for you</i></h1>
@@ -51,36 +36,67 @@
             
             <div class="flex-buttons-container scroller">
             <?php
-            $stmt = $pdo->prepare("SELECT IngredientID, IngredientName FROM Ingredients;");
-            $stmt->execute();
-            $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($ingredients_names as $ingr_row) {
-                include 'php_templates/checkbox.php';
-            }
+                $ingredients = $_GET;
+                $stmt = $pdo->prepare("SELECT IngredientName, Ingredients.IngredientID FROM recipeIngredients JOIN Ingredients on Ingredients.IngredientID=RecipeIngredients.IngredientID WHERE Ingredients.isSpice=0 GROUP BY IngredientID ORDER BY COUNT(RecipeIngredients.IngredientID) DESC;");
+                $stmt->execute();
+                $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($ingredients_names as $ingr_row) {
+                    include 'php_templates/checkbox.php';
+                }
             ?>
             </div>
 
-            <h4>Any other ingredients?</h4>
             <h4>Anything to exclude?</h4>
+
+            <div class="flex-buttons-container">
+            <?php
+                $ingredients = $_GET;
+                $stmt = $pdo->prepare("SELECT AllergenID, AllergenName FROM Allergens WHERE AllergenName != 'None';");
+                $stmt->execute();
+                $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($ingredients_names as $ingr_row) {
+                    include 'php_templates/checkbox.php';
+                }
+            ?>
+            </div>
+
+            <h4>Choose seasonal recipes:</h4>
         </div>
 
         <div class="suggestions basic-flex flex-column">
             <?php
                 // Refresh $products based on user's selected ingredients
-                if (empty($ingredients)) {
+                
+                $allergens = preg_grep('/^allergen\d*/', $ingredients);
+                $actual_ingredients = array_diff($ingredients, $allergens);
+                $allergens = preg_filter('/^allergen(\d*)/', '$1', $allergens);
+
+                $replaced_ingredients = preg_replace('/^allergen(\d*)/', '$1', $ingredients);
+                
+                if (empty($actual_ingredients)) {
                     echo '<div class="recipe-row"> <h2>Select any ingredients to get suggested recipes </h2></div>';
                 } else {
-                    $select_query = "SELECT RecipeName, Recipes.RecipeID FROM Recipes JOIN (" . 
-                    implode('<br>INTERSECT <br>', array_fill(0, count($ingredients), 'SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?')) . 
-                    ") r ON Recipes.RecipeID=r.RecipeID;";
+                    $select_query = "SELECT RecipeName, RecipeID FROM Recipes WHERE RecipeID IN " . 
+                    implode(' AND RecipeID IN ', array_fill(0, count($actual_ingredients), '(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?)'));
+                    
+                    if (!empty($allergens)) {
+                        $select_query .= ' AND RecipeID NOT IN (SELECT DISTINCT recipeid FROM recipeingredients ' . 
+                        'WHERE IngredientID IN (SELECT ingredients.ingredientid FROM recipeingredients ' . 
+                        'JOIN ingredients ON ingredients.ingredientid=recipeingredients.ingredientid WHERE AllergenID IN (' .
+                        implode(', ', array_fill(0, count($allergens), '?')) . ')))';
+                    }
+
+                    $select_query .= ";";
 
                     $stmt = $pdo->prepare($select_query);
-                    print_r($select_query);
-                    $stmt->execute($ingredients);
-                    echo "BBB";
-                    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     
-                    print_r($products);
+                    try {
+                        $stmt->execute($replaced_ingredients);
+                    } catch(Exception $e) {
+                        print_r("Error encountered, with SQL statement '" . $select_query . "Message: " . $e->getMessage());
+                    }
+                    
+                    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     if (empty($products)) {
                         echo '<div class="recipe-row"><center><h2>No recipes with these ingredients :(</h2></center></div>';
                     } else {
@@ -97,41 +113,12 @@
                 }
             ?>
             <div class="additional-ingredients basic-flex flex-column">
-                <h2>Suggested ingredients</h1>
+                <h2>WIP // maybe something you can cook with ONLY selected ingredients if possible?</h1>
                 <div class="basic-flex flex-column flex-end flex-small">
-                    <div class="basic-flex flex-small">
-                        <h5>7 more recipes unlocked with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Potato';
-                            include 'php_templates/checkbox.php';
-                            $dontgrow = true; $name = 'Tomato';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
-                    <div class="basic-flex flex-small">
-                        <h5>5 more with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Raisins';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
-                    <div class="basic-flex flex-small">
-                        <h5>2 more with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Rice';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     </div>
 
     <?php include './footer.php';?>
