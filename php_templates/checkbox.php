@@ -1,9 +1,16 @@
 <?php
-    $name = $ingr_row['IngredientName'];
-    $id = $ingr_row['IngredientID'];
+    if ($ingr_row['AllergenID']) {
+        $name = $ingr_row['AllergenName'];
+        $id = "allergen" . $ingr_row['AllergenID'];
+    } else {
+        $name = $ingr_row['IngredientName'];
+        $id = $ingr_row['IngredientID'];
+    }
+
     $is_checked = in_array($id, $ingredients);
 
     $new_ingredients = $ingredients;
+
     if ($is_checked) {
         $new_ingredients = array_diff($new_ingredients, [$id]);
     } else {

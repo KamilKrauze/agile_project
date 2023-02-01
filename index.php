@@ -47,23 +47,51 @@
             </div>
 
             <h4>Anything to exclude?</h4>
+
+            <div class="flex-buttons-container">
+            <?php
+                $ingredients = $_GET;
+                $stmt = $pdo->prepare("SELECT AllergenID, AllergenName FROM Allergens WHERE AllergenName != 'None';");
+                $stmt->execute();
+                $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($ingredients_names as $ingr_row) {
+                    include 'php_templates/checkbox.php';
+                }
+            ?>
+            </div>
+
             <h4>Choose seasonal recipes:</h4>
         </div>
 
         <div class="suggestions basic-flex flex-column">
             <?php
-                
                 // Refresh $products based on user's selected ingredients
-                if (empty($ingredients)) {
+                
+                $allergens = preg_grep('/^allergen\d*/', $ingredients);
+                $actual_ingredients = array_diff($ingredients, $allergens);
+                $allergens = preg_filter('/^allergen(\d*)/', '$1', $allergens);
+
+                $replaced_ingredients = preg_replace('/^allergen(\d*)/', '$1', $ingredients);
+                
+                if (empty($actual_ingredients)) {
                     echo '<div class="recipe-row"> <h2>Select any ingredients to get suggested recipes </h2></div>';
                 } else {
                     $select_query = "SELECT RecipeName, RecipeID FROM Recipes WHERE RecipeID IN " . 
-                    implode(' AND RecipeID IN ', array_fill(0, count($ingredients), '(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?)')) . ';';
+                    implode(' AND RecipeID IN ', array_fill(0, count($actual_ingredients), '(SELECT RecipeID FROM RecipeIngredients WHERE IngredientID = ?)'));
+                    
+                    if (!empty($allergens)) {
+                        $select_query .= ' AND RecipeID NOT IN (SELECT DISTINCT recipeid FROM recipeingredients ' . 
+                        'WHERE IngredientID IN (SELECT ingredients.ingredientid FROM recipeingredients ' . 
+                        'JOIN ingredients ON ingredients.ingredientid=recipeingredients.ingredientid WHERE AllergenID IN (' .
+                        implode(', ', array_fill(0, count($allergens), '?')) . ')))';
+                    }
+
+                    $select_query .= ";";
 
                     $stmt = $pdo->prepare($select_query);
                     
                     try {
-                        $stmt->execute($ingredients);
+                        $stmt->execute($replaced_ingredients);
                     } catch(Exception $e) {
                         print_r("Error encountered, with SQL statement '" . $select_query . "Message: " . $e->getMessage());
                     }
