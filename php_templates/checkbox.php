@@ -1,5 +1,5 @@
 <?php
-    if ($ingr_row['AllergenID']) {
+    if (array_key_exists('AllergenID', $ingr_row)) {
         $name = $ingr_row['AllergenName'];
         $id = "allergen" . $ingr_row['AllergenID'];
     } else {
@@ -8,6 +8,9 @@
     }
 
     $is_checked = in_array($id, $ingredients);
+    if (!isset($dontgrow)) {
+        $dontgrow = false;
+    }
 
     $new_ingredients = $ingredients;
 
