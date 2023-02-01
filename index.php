@@ -37,7 +37,7 @@
             <div class="flex-buttons-container scroller">
             <?php
                 $ingredients = $_GET;
-                $stmt = $pdo->prepare("SELECT IngredientID, IngredientName FROM Ingredients;");
+                $stmt = $pdo->prepare("SELECT IngredientName, Ingredients.IngredientID FROM recipeIngredients JOIN Ingredients on Ingredients.IngredientID=RecipeIngredients.IngredientID WHERE Ingredients.isSpice=0 GROUP BY IngredientID ORDER BY COUNT(RecipeIngredients.IngredientID) DESC;");
                 $stmt->execute();
                 $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($ingredients_names as $ingr_row) {
@@ -46,8 +46,8 @@
             ?>
             </div>
 
-            <h4>Any other ingredients?</h4>
             <h4>Anything to exclude?</h4>
+            <h4>Choose seasonal recipes:</h4>
         </div>
 
         <div class="suggestions basic-flex flex-column">
@@ -85,37 +85,8 @@
                 }
             ?>
             <div class="additional-ingredients basic-flex flex-column">
-                <h2>Suggested ingredients</h1>
+                <h2>WIP // maybe something you can cook with ONLY selected ingredients if possible?</h1>
                 <div class="basic-flex flex-column flex-end flex-small">
-                    <div class="basic-flex flex-small">
-                        <h5>7 more recipes unlocked with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Potato';
-                            include 'php_templates/checkbox.php';
-                            $dontgrow = true; $name = 'Tomato';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
-                    <div class="basic-flex flex-small">
-                        <h5>5 more with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Raisins';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
-                    <div class="basic-flex flex-small">
-                        <h5>2 more with</h5>
-                        <div class="flex-buttons-container">
-                        <?php
-                            $dontgrow = true; $name = 'Rice';
-                            include 'php_templates/checkbox.php';
-                        ?>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
