@@ -6,14 +6,12 @@
     <!-- Main container -->
     <div class="main-body">
 
-        <!-- Picture placeholder -->
-        <div class = "picture">
-        <img src="..." class="img-fluid" alt="..."> 
-        </div>
-        <!-- Add PHP for picture -->
-
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
+
+            // Display Picture
+            echo '<img src="./media/img/recipes/'. $recipe['RecipeID']. '.jpg" ' . 'alt="a picture of ' . $recipe['RecipeName'] . '">';
+
             echo '<h1>Recipe title</h1>';
             echo '<h2>Ingredients</h2>';
             echo '<ol>
