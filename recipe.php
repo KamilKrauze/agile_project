@@ -38,8 +38,10 @@
             echo '<h1>' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
-            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
 
+            if (file_exists('./media/img/recipes/'.$rid.'.jpg')){
+                echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
+            }
             echo '<h2>Serves '.$fr['Servings'].' people</h2>';
 
             if (!empty($fr['TotalTime'])){
