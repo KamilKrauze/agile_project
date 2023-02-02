@@ -52,7 +52,7 @@
 
                     var el = document.getElementsByClassName("quantity")
                     for (var i = 0, ilen = el.length - 1; i < ilen; i++) {
-                        el[i].innerHTML = el[i].getAttribute('defaultvalue') * new_servings / old_servings;
+                        el[i].innerHTML = parseFloat((el[i].getAttribute('defaultvalue') * new_servings / old_servings).toFixed(2));
                     }
                 }
 
