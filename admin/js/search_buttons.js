@@ -10,15 +10,10 @@ function editItem(element, itemID, itemType) {
     } , (response) => {localStorage.setItem("modifyHTML", JSON.stringify(response));
             window.location.href = "modify.php";}
     );
-    /*
-    localStorage.setItem("op_type", JSON.stringify("edit"));
-    localStorage.setItem("item_id", JSON.stringify(itemID));
-    localStorage.setItem("item_type", JSON.stringify(itemType));
-    window.location.href = "modify.php";
-    */
 }
-
-
+window.onbeforeunload = () => {
+    console.log("Changing page!");
+}
 function remItem(element, itemID, itemType) {
     console.log(element);
     console.log(itemType);

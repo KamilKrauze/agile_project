@@ -4,8 +4,9 @@
 
 <?php
 
+error_reporting(E_ALL ^ E_WARNING);
 $title = "Management"; // Page title text
-
+$recipe_name = "";
 include '../config/database.php';
 session_start();
 /*if ($_SESSION['loggedIn'] == "false") {
@@ -31,12 +32,30 @@ if(isset($_SESSION['op_type']) && isset($_SESSION['item_type']) && isset($_SESSI
     echo "<h1> Hello 0_0</h1>";
 }
 */
-function print_ingredient_desc() {}
+function print_recipe_name() {
+    global $op_type;
+    global $item_id;
+    global $item_type;
+    global $pdo;
+    if (!isset($op_type) || $op_type == "add" || !($op_type == "edit")) {return;}
+    if($item_type == "Recipe"){
+        $fetchRecipeName = "SELECT RecipeName FROM Recipes WHERE RecipeID = ?";
+        $stmt = $pdo->prepare($fetchRecipeName);
+        $stmt->execute([$item_id]);
+        $recipe = $stmt->fetch();
+        echo $recipe['RecipeName'];
+    }
+}
 
 function print_recipe_desc() {}
+try{
     $op_type = $_POST['op_type'];
     $item_id = $_POST['item_id'];
     $item_type = $_POST['item_type'];
+    $_SESSION['recipe_ID'] = $_POST['item_id'];
+}catch(ErrorException $e){
+
+}
 function print_description() {
     
     global $op_type;
@@ -45,10 +64,11 @@ function print_description() {
     global $pdo;
     if (!isset($op_type) || $op_type == "add" || !($op_type == "edit")) {return;}
     if($item_type == "Recipe"){
-        $fetchRecipe = "SELECT RecipeName, Instructions FROM Recipes WHERE RecipeID = ?";
+        $fetchRecipe = "SELECT Instructions FROM Recipes WHERE RecipeID = ?";
         $stmt = $pdo->prepare($fetchRecipe);
         $stmt->execute([$item_id]);
-        echo $stmt->fetch()['Instructions'];
+        $recipe = $stmt->fetch();
+        echo $recipe['Instructions'];
     }
 }
 
@@ -63,34 +83,30 @@ function print_ingredients(){
         $stmtFetch = $pdo->prepare($fetchIngredients);
         $stmtFetch->execute([$item_id]);
         if(count($stmtFetch->fetch())!=0){
-            $a=0;
-        while($row = $stmtFetch->fetch()){
-
-            $igredientNames[$a] = $row['IngredientName'];
-            $quantity[$a] = $row['Quantity'];
-            $measurmentTypes[$a] = $row['measurementType'];
-            $allergens[$a] = $row['AllergenName'];
-            $a++;
-        }
-        $query = "SELECT measurementType FROM measurements" ;
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-
-        for ($i = 0; $i < $a - 1; $i++) {
+            $a = 0;
+        $ids = fetchIngredientIDS();
+        while($ingredient = $stmtFetch->fetch()){            
             echo
                 '
-                <tr>
-                    <th>' . $igredientNames[$i] . '</th>
-                    <th><input class="quantity-input" type="number" min="1" onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $quantity[$i] . '></th>
+                <tr class="ingredient" id=' . $ingredient['IngredientName'] . '>
+                    <th class="property"><input type="hidden" name="ingredientID-'. $a . '" value="'. $ids[$a] . '">' . $ingredient['IngredientName'] . '</th>
+                    <th><input class="quantity-input property" type="number" min="1" name="ingredientQuantity-' . $a . '"onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $ingredient['Quantity'] . '></th>
                     <th>
                         <div class="input-group">
-                            <select id="measurementType class = "form-select">
-                            <option>'.$measurmentTypes[$i].'</option>';
-                                    foreach( $result as $measurement ) {
-                                        echo "<option value=".$measurement['measurementType'].">".$measurement['measurementType'].'</option>';
-                                    }
+                            <select name = "ingredientMeasurement-' . $a . '"class = "form-select property">
+                            <option hidden="true">'.$ingredient['measurementType'].'</option>';
+                            fetchmeasurements();
                     echo    '        
+                            </select>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="input-group">
+                            <select class = "form-select property" name="ingredientAllergen-' . $a . '">
+                            <option hidden="true">'.$ingredient['AllergenName'].'</option>';
+                            fetchallergens();
+                    echo
+                            '
                             </select>
                         </div>
                     </th>
@@ -101,9 +117,28 @@ function print_ingredients(){
                     </th>
                 </tr>
                 ';
+            $a++;
+            $_SESSION['index'] = $a;
         }
+        $a = 0;
     } else {
         return;}
+}
+function fetchIngredientIDS(){
+    global $pdo;
+    global $item_id;
+    $fetchIngredientIDS = "SELECT IngredientID FROM recipeingredients WHERE RecipeID = ?";
+    $stmt = $pdo->prepare($fetchIngredientIDS);
+    $stmt->execute([$item_id]);
+
+    $ids = array();
+
+    $stmt->fetch();
+    while($row = $stmt->fetch()) {
+        array_push($ids, $row['IngredientID']);
+    }
+
+    return $ids;
 }
 function fetchmeasurements(){
     global $pdo;
@@ -124,7 +159,7 @@ function fetchallergens(){
     $stmt->execute();
     $result = $stmt->fetchAll();
     foreach( $result as $allergen ) {
-        echo "<option value=".$allergen['allergenName'].">".$allergen['allergenName'].'</option>';
+        echo "<option id=".$allergen['allergenName']." value=".$allergen['allergenName'].">".$allergen['allergenName'].'</option>';
     }
 
 }
@@ -156,7 +191,7 @@ function fetchallergens(){
     <script src="./js/logout.js"></script>
     <script type="text/javascript" src="../js\jQuery/onclickEvents.js" defer></script>
     <link rel="./css/management.css">
-
+    <script type="text/javascript" src="../js\jQuery/loadprogress.js"></script>
     
 </head>
 
@@ -174,21 +209,21 @@ function fetchallergens(){
     </nav>
 </header>
 
-
 <body>
     <div class="container-fluid my-4">
         <h1></h1>
-        <form class="p-4" method="post">
+        <form class="p-4" method="post" action="../modules/updateRecipe.php">
             <div class="row mb-3">
                 <div class="col-sm-12 col-md-5 col-lg-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title" value="Item name...">
+                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="recipeName" placeholder="Title" value="<?php print_recipe_name() ?>">
+                        <input type="hidden" name="recipeID" value="<?php echo $item_id?>">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-7 col-lg-8">
                     <div class="form-group mt-md-0 mt-sm-3">
                         <input type="submit" class="btn btn-danger" id="cancelButton" value="cancel">
-                        <input type="submit" class="btn btn-success" id="submitButton" value="submit">
+                        <input type="submit" class="btn btn-success" id="submitButton" name = "modifyRecipe" value="submit">
                     </div>
                 </div>
             </div>
@@ -202,18 +237,19 @@ function fetchallergens(){
                                 <th scope="col">Ingredient</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Measurement</th>
+                                <th scope="col">Allegen</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="ingredientList">
                             <?php print_ingredients();?>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="col-xs-12 col-md-12 col-lg-7 my-sm-2">
-                    <textarea type="text" rows="25" class="form-control" id="Description" aria-describedby="description text box" placeholder="Description"> <?php print_description();?></textarea>
+                    <textarea type="text" rows="25" class="form-control" id="Description" name="recipeInstructions" aria-describedby="description text box" placeholder="Description"> <?php print_description();?></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">
@@ -222,13 +258,13 @@ function fetchallergens(){
                         <input type="text" style="max-width:45vw;" id="ingredient" class="form-control" placeholder="Ingredient">
                         <input type="number" style="max-width:15vw;"id="quantity" class="form-control quantity-input" min="1" onkeypress="return event.keyCode != 13;">
                         <select id="measurementType" class = "form-select" style="max-width:20vw;">
-                            <option selected disabled="true" hidden="true" value=""></option>
+                            <option  hidden="true" value=""></option>
                         <?php
                         fetchmeasurements();
                         ?>
                         </select>
                         <select id="allergenType" class = "form-select" style="max-width:20vw;">
-                            <option selected disabled = "true" hidden = "true" value="None" >Allergen Tag</option>
+                            <option hidden = "true" value="" >Allergen Tag</option>
                         <?php 
                         fetchallergens();
                         ?>
