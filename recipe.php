@@ -39,39 +39,45 @@
 
             echo '<div class="flex-container">';
             echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
-
-            echo '<h2>Serves '.$fr['Servings'].' people</h2>';
-
+            
             if (!empty($fr['TotalTime'])){
-            echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
             }
 
+?>
+            <script>
+                function Scale() {
+                    var new_servings = document.getElementById("servingsNumber").value;
+                    var old_servings = document.getElementById("servingsNumber").defaultValue;
 
-
-            echo '<div><h2>Allergens</h2>';
-
-
-            echo '<ul>';
-            $allergens = array(1);
-            foreach ($iids as $iid) {
-                $findaid= $pdo->prepare("SELECT AllergenID FROM ingredients WHERE IngredientID = ?");
-                $findaid->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
-                $findaid->execute();
-
-                $aid = $findaid->fetch(PDO::FETCH_ASSOC)['AllergenID'];
-                
-                if(in_array($aid, $allergens) == false){
-                    $allergens[] = $aid;
-                    $findan= $pdo->prepare("SELECT * FROM allergens WHERE AllergenID = ?");
-                    $findan->bindParam(1, $aid, PDO::PARAM_INT);
-                    $findan->execute();
-
-                    $an = $findan->fetch(PDO::FETCH_ASSOC)['AllergenName'];
-                    echo '<li>' . $an . '</li>';
+                    var el = document.getElementsByClassName("quantity")
+                    for (var i = 0, ilen = el.length - 1; i < ilen; i++) {
+                        el[i].innerHTML = parseFloat((el[i].getAttribute('defaultvalue') * new_servings / old_servings).toFixed(2));
+                    }
                 }
-            }
-            echo '</ul></div>';
-            echo '<div><h2>Ingredients</h2>';
+
+                function Reset() {
+                    document.getElementById("servingsNumber").value = document.getElementById("servingsNumber").defaultValue;
+
+                    var el = document.getElementsByClassName("quantity")
+                    for (var i = 0, ilen = el.length - 1; i < ilen; i++) {
+                        el[i].innerHTML = el[i].getAttribute('defaultvalue');
+                    }
+                }
+            </script>
+            <h2>Serves
+                <input type="number" id="servingsNumber" name="servingsNumber"
+                    min="1" max="1000" value="<?php echo $fr['Servings']; ?>">
+            people</h2>
+            
+            <div class="button-container">
+                <button value="reset" onclick="Reset()">Reset servings</button>
+                <button value="scale" onclick="Scale()">Scale the recipe</button>
+            </div>
+
+<?php
+            echo '</div>';
+            echo '<div><h2 style="margin-top:16px;">Ingredients</h2>';
             echo '<ol>';
                 foreach ($iids as $iid) {
                     $findm= $pdo->prepare("SELECT * FROM measurements WHERE measurementID = (SELECT MeasurementID FROM recipeingredients WHERE IngredientID = ? and RecipeID = ?)");
@@ -96,14 +102,35 @@
                     $in = $f['IngredientName'];
                     $link = $f['ShopLink'];
                     if (!empty($link)){
-                    echo '<li><a href="'.$link .'">' . $q . ' ' . $m . ' ' . $in . '</a></li>';}
+                        echo '<li><a href="'.$link .'"><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</a></li>';}
                     else {
-                        echo '<li>' . $q . ' ' . $m . ' ' . $in . '</li>';
+                        echo '<li><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</li>';
                     }
                 }
             echo '</ol>';
 
-            echo '</div></div>';
+            echo '<div><h2>Allergens</h2>';
+            echo '<ul>';
+            $allergens = array(1);
+            foreach ($iids as $iid) {
+                $findaid= $pdo->prepare("SELECT AllergenID FROM ingredients WHERE IngredientID = ?");
+                $findaid->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
+                $findaid->execute();
+
+                $aid = $findaid->fetch(PDO::FETCH_ASSOC)['AllergenID'];
+                
+                if(in_array($aid, $allergens) == false){
+                    $allergens[] = $aid;
+                    $findan= $pdo->prepare("SELECT * FROM allergens WHERE AllergenID = ?");
+                    $findan->bindParam(1, $aid, PDO::PARAM_INT);
+                    $findan->execute();
+
+                    $an = $findan->fetch(PDO::FETCH_ASSOC)['AllergenName'];
+                    echo '<li>' . $an . '</li>';
+                }
+            }
+
+            echo '</ul></div></div>';
             if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
                 echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
                 echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';
