@@ -1,9 +1,12 @@
+<head> 
+    <link rel="stylesheet" href="./css/recipepage.css">
+</head>
 
 <body>
 <?php include 'header.php';?>
     
     <!-- Main container -->
-    <div class="main-body">
+    <div class="main-body" >
         <?php 
          include("counter.php") 
         ?>
@@ -21,26 +24,44 @@
             $findrn->bindParam(1, $rid, PDO::PARAM_INT);
             $findrn->execute();
 
-            $recipename = $findrn->fetch(PDO::FETCH_ASSOC)['RecipeName'];
+            $fr = $findrn->fetch(PDO::FETCH_ASSOC);
 
-            echo '<h1>' . $recipename . '</h1>';
+            $recipename = $fr['RecipeName'];
 
-            echo '<h2>Allergens</h2>';
             $findiid = $pdo->prepare("SELECT IngredientID FROM recipeingredients WHERE RecipeID = ?");
             $findiid->bindParam(1, $rid, PDO::PARAM_INT);
             $findiid->execute();
 
             $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
+
+
+            echo '<h1>' . $recipename . '</h1>';
+
+            echo '<div class="flex-container">';
+            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
+
+            echo '<h2>Serves '.$fr['Servings'].' people</h2>';
+
+            if (!empty($fr['TotalTime'])){
+            echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+            }
+
+
+
+            echo '<div><h2>Allergens</h2>';
+
+
             echo '<ul>';
+            $allergens = array(1);
             foreach ($iids as $iid) {
                 $findaid= $pdo->prepare("SELECT AllergenID FROM ingredients WHERE IngredientID = ?");
                 $findaid->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
                 $findaid->execute();
 
                 $aid = $findaid->fetch(PDO::FETCH_ASSOC)['AllergenID'];
-                $allergens = array(1);
+                
                 if(in_array($aid, $allergens) == false){
-                    array_push($allergens, $aid);
+                    $allergens[] = $aid;
                     $findan= $pdo->prepare("SELECT * FROM allergens WHERE AllergenID = ?");
                     $findan->bindParam(1, $aid, PDO::PARAM_INT);
                     $findan->execute();
@@ -49,8 +70,8 @@
                     echo '<li>' . $an . '</li>';
                 }
             }
-            echo '</ul>';
-            echo '<h2>Ingredients</h2>';
+            echo '</ul></div>';
+            echo '<div><h2>Ingredients</h2>';
             echo '<ol>';
                 foreach ($iids as $iid) {
                     $findm= $pdo->prepare("SELECT * FROM measurements WHERE measurementID = (SELECT MeasurementID FROM recipeingredients WHERE IngredientID = ? and RecipeID = ?)");
@@ -71,11 +92,22 @@
                     $findin->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
                     $findin->execute();
 
-                    $in = $findin->fetch(PDO::FETCH_ASSOC)['IngredientName'];
-
-                    echo '<li>' . $q . ' ' . $m . ' ' . $in . '</li>';
+                    $f = $findin->fetch(PDO::FETCH_ASSOC);
+                    $in = $f['IngredientName'];
+                    $link = $f['ShopLink'];
+                    if (!empty($link)){
+                    echo '<li><a href="'.$link .'">' . $q . ' ' . $m . ' ' . $in . '</a></li>';}
+                    else {
+                        echo '<li>' . $q . ' ' . $m . ' ' . $in . '</li>';
+                    }
                 }
             echo '</ol>';
+
+            echo '</div></div>';
+            if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
+                echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
+                echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';
+            }
             echo '<h2>Instructions</h2>';
                 $findr = $pdo->prepare("SELECT * FROM recipes WHERE RecipeID = ?");
                 $findr->bindParam(1, $rid, PDO::PARAM_INT);
@@ -83,14 +115,15 @@
 
                 $recipeinstructions = $findr->fetch(PDO::FETCH_ASSOC)['Instructions'];
 
-                echo '<p>' . $recipeinstructions. '</p>';
+                echo '<p>' . nl2br($recipeinstructions). '</p>';
         ?>
-        <h3><b>Allergy Disclaimer:</b> LGL's products are plastic free and we can thus not ensure that cross-contamination has not occured.</h3>
+        <h3><b>Allergy Disclaimer:</b> Although we do our best to minimise risk, due to the fact that we sell our products loose there is a risk of cross contamination between products.</h3>
+        <h6><i>Packed in an environment that also handles cereals containing gluten, mustard, nuts, peanuts, sesame seeds, lupin, soya, milk, and sulphur dioxide.</i></h6>
     </div>
 
         <!-- Sharing Alert -->
         <div class="alert alert-success" role="alert">
-          Share this recipe!
+        <p>Share this recipe!</p>
     
         <!-- Sharing Links -->
         <!-- Twitter Share Button -->

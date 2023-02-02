@@ -1,0 +1,62 @@
+.main-body {
+    width:55%;
+    margin:auto;
+}
+
+p {
+    margin-bottom: 32px !important;
+}
+
+br {
+    display: block;
+    content: "";
+    margin-top: 1rem;
+}
+
+a {
+    color: #3fa244 !important;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.r-image {
+    width: 50vw !important;
+    height: 30vw;
+    object-fit: cover;
+
+    border-radius: 20px;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert > p {
+    margin: 0 32px 0 0 !important;
+    padding: 0;
+}
+
+.fb-root {
+    height: 20px;
+}
+
+@media (max-width: 800px) {
+    .main-body {
+        width: 90%;
+    }
+    
+    .flex-container{
+        width:90%;
+    }
+
+    .r-image {
+        width: 90vw !important;
+        height: 50vw;
+    }
+}
