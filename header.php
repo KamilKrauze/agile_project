@@ -50,7 +50,7 @@ session_start();
         </button>
 
         <div class="row collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav justify-content-md-between">
+            <ul class="navbar-nav justify-content-md-around">
                 <li class="nav-item" style="margin-left:2.5%;">
                     <div class="col-xs-6 col-sm-6 col-md-auto pt-2">
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
