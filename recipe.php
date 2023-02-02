@@ -31,7 +31,7 @@
 
             $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
 
-            echo '<h1>' . $recipename . '</h1>';
+            echo '<h1 id="recipeName">' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
             echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';
@@ -99,11 +99,16 @@
                     $f = $findin->fetch(PDO::FETCH_ASSOC);
                     $in = $f['IngredientName'];
                     $link = $f['ShopLink'];
-                    if (!empty($link)){
-                        echo '<li><a href="'.$link .'"><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</a></li>';}
-                    else {
-                        echo '<li><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</li>';
+                    
+                    echo '<li>';
+                    if (!empty($link)) {
+                        echo '<a href="'.$link .'">';
                     }
+                    echo '<span class="quantity ingredientItems" ingredient-id="'.$iid['IngredientID'].'" ingredient-name="'.$in.'" defaultvalue="' . $q . '" measurement-type="'.$m.'"> '.$q . ' </span> ' . $m . ' ' . $in;
+                    if (!empty($link)) {
+                        echo '</a>';
+                    }
+                    echo '</li>';
                 }
             echo '</ol>';
 
