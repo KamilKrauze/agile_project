@@ -7,9 +7,6 @@
     
     <!-- Main container -->
     <div class="main-body" >
-        <?php 
-         include("counter.php") 
-        ?>
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
             //default recipe id set to 1
@@ -34,15 +31,10 @@
 
             $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
 
-
             echo '<h1>' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
-            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
-            
-            if (!empty($fr['TotalTime'])){
-                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
-            }
+            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';
 
 ?>
             <script>
@@ -65,14 +57,20 @@
                     }
                 }
             </script>
+            <div class="button-container" style="align-items: center;">
             <h2>Serves
                 <input type="number" id="servingsNumber" name="servingsNumber"
                     min="1" max="1000" value="<?php echo $fr['Servings']; ?>">
             people</h2>
+
+            <?php include("php_templates/counter.php") ?>
+            </div>
             
             <div class="button-container">
-                <button value="reset" onclick="Reset()">Reset servings</button>
-                <button value="scale" onclick="Scale()">Scale the recipe</button>
+                <button onclick="Reset();">Reset servings</button>
+                <button onclick="Scale();">Scale the recipe</button>
+                <button id="recipeAddButton" onclick="addRecipeToList();">Add recipe to the shopping list</button>
+                <script> refreshButton(); </script>
             </div>
 
 <?php
@@ -131,6 +129,9 @@
             }
 
             echo '</ul></div></div>';
+            if (!empty($fr['TotalTime'])){
+                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+            }
             if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
                 echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
                 echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';

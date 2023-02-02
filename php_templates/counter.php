@@ -14,8 +14,7 @@
 
     if(is_null($recipeviews)){
         $recipeviews = 1;
-    }
-    else{
+    } else{
         $recipeviews++;
     }
 
@@ -26,5 +25,5 @@
     $sendrv->bindParam(2, $rid, PDO::PARAM_INT);
     $sendrv->execute();
 
-    echo "<h3>Views: " . $recipeviews . "</h3>"
+    echo '<h3 style="text-align:right; flex-grow: 1;">Views: ' . $recipeviews . '</h3>';
 ?>
