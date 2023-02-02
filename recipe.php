@@ -24,7 +24,9 @@
             $findrn->bindParam(1, $rid, PDO::PARAM_INT);
             $findrn->execute();
 
-            $recipename = $findrn->fetch(PDO::FETCH_ASSOC)['RecipeName'];
+            $fr = $findrn->fetch(PDO::FETCH_ASSOC);
+
+            $recipename = $fr['RecipeName'];
 
             $findiid = $pdo->prepare("SELECT IngredientID FROM recipeingredients WHERE RecipeID = ?");
             $findiid->bindParam(1, $rid, PDO::PARAM_INT);
@@ -32,11 +34,22 @@
 
             $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
 
+
             echo '<h1>' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
-            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';
+            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
+
+            echo '<h2>Serves '.$fr['Servings'].' people</h2>';
+
+            if (!empty($fr['TotalTime'])){
+            echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+            }
+
+
+
             echo '<div><h2>Allergens</h2>';
+
 
             echo '<ul>';
             $allergens = array(1);
@@ -89,7 +102,12 @@
                     }
                 }
             echo '</ol>';
+
             echo '</div></div>';
+            if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
+                echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
+                echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';
+            }
             echo '<h2>Instructions</h2>';
                 $findr = $pdo->prepare("SELECT * FROM recipes WHERE RecipeID = ?");
                 $findr->bindParam(1, $rid, PDO::PARAM_INT);
