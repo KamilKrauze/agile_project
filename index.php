@@ -11,7 +11,7 @@
     <div class="main-body">
     
     <div class="featured-recipe-list basic-flex flex-column">
-        <h1>List of recipes</h1>
+        <h1>Popular recipes</h1>
         <?php
             $stmt = $pdo->prepare("SELECT RecipeID, RecipeName FROM recipes ORDER BY numberOfViews DESC;");
         
