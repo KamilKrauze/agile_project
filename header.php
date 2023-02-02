@@ -37,19 +37,20 @@ session_start();
 
 <header class="container-fluid underline-grey pt-3">
 
-    <div class="col-xs-12 col-sm-6 col-md-2 py-2">
-        <a href="index.php">
-            <img class="img-fluid" oncontextmenu="return false" src="./media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo" style="min-width: 75px; min-height: 75px; margin-top:-15px;">
-        </a>
-    </div>
-
     <nav class="navbar navbar-expand-lg">
+
+        <div class="col-xs-12 col-sm-6 col-md-2 py-2">
+            <a href="index.php">
+                <img class="img-fluid" oncontextmenu="return false" src="./media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo" style="min-width: 75px; min-height: 75px; margin-top:-15px;">
+            </a>
+        </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="row collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav justify-content-md-around">
                 <li class="nav-item" style="margin-left:2.5%;">
                     <div class="col-xs-6 col-sm-6 col-md-auto pt-2">
