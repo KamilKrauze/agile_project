@@ -6,7 +6,14 @@
 include '../config/database.php';
 session_start();
 
-if ($_SESSION['loggedIn'] == "false") {
+$query = "";
+if (isset($_POST['submit'])) {
+    if ($_POST['submit']) {
+        $query = $_POST['query'];
+    }
+}
+
+if ($_SESSION['loggedIn'] != "true") {
     header("Location: ./index.php", true, 301);
     exit();
 }
@@ -41,7 +48,7 @@ $title = "Admin Search";
 
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
-    <script src="./js/search_buttons.js"></script>
+    <script src="./js/search_buttons.js" defer></script>
     
 </head>
 
@@ -69,46 +76,127 @@ $title = "Admin Search";
 
 <body>
      <!-- Main container -->
-    <div class="container-fluid mx-2 my-2">
+    <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
-        <div class="row px-2">
-            <div class="input-group">
-                <input name ="search" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-secondary btn-sm" value="add">Search</button>
-                <form action="modify.php" method="post">
-                    <button type="submit" class="btn btn-success" value="add">Add item</button>
-                </form>
-            </div>
+        <div class="row px-md-5">
+            <form method="post" action="search.php">
+                <div class="input-group">
+                    <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
+                    <button type="submit" name="submit" value="Search" class="btn btn-secondary">Search</button>
+                    <button type="button" class="btn btn-green">Add item</button>
+                </div>
+            </form>
         </div>
-        <?php
-        // Get user search query from search bar - from $_POST to $_REQUEST
-        $search = "";
-            if (isset($_REQUEST['search'])) {
-                if ($_REQUEST['search'] != "") {
-                    $search = $_REQUEST['search'];
-                }
-            }
-
-        ?>
     
-        <div class="contents row p-2 mx-2 my-2" style="height: 95vh; overflow-y: scroll;">
+        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll;">
 
         <?php
+        
+        $value = "";
+        if ($query == "") { $value = "%"; }
+        else { $value= "%".$query."%"; }
+
         try {
-            $fetchIngredients = "SELECT IngredientID, IngredientName FROM ingredients";
+            $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
             $stmt = $pdo->prepare($fetchIngredients);
+            $stmt->bindParam(':name', $value, PDO::PARAM_STR);
             $stmt->execute();
 
             while ($row = $stmt->fetch()) {
                 $id = $row['IngredientID'];
                 $name = $row['IngredientName'];
+                $allergen = $row['AllergenName'];
 
                 echo '
-                <div class="col-xs-12 col-md-2 my-2">
-                    <div class="card" style="height:40vh;">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                    <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
-                            <h2>'.$name.'</h2>
+                            <h3>'.$name.'</h3>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#ingredientModal-'.$id.'">View</button>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+                echo '
+                <div class="modal fade" id="ingredientModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:85%;">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
+                            <p>Allergen: '.$allergen.'</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rusureModali-'.$id.'">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Ingredient`)">Edit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+                echo '
+                <div class="modal fade" id="rusureModali-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this item?</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-green" data-bs-dismiss="modal">No</button>
+                            <form action="remove.php" method="get">
+                            <button name="iid" type="submit" class="btn btn-green" value="'.$id.'">Yes</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+            unset($fetchIngredients);
+            unset($id);
+            unset($row);
+            unset($name);
+            unset($allergen);
+            unset($stmt);
+            unset($pdo);
+        }
+        catch (PDOException $exception) {
+            echo $exception;
+            unset($pdo);
+            die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
+        }
+        ?>
+
+        <?php
+        include '../config/database.php';
+
+        try {
+            $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
+            $stmt = $pdo->prepare($fetchRecipes);
+            $stmt->bindParam(':name', $value, PDO::PARAM_STR);
+            $stmt->execute();
+
+            while ($row = $stmt->fetch()) {
+                $id = $row['RecipeID'];
+                $name = $row['RecipeName'];
+                $desc = $row['Instructions'];
+
+                echo '
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                    <div class="card h-100">
+                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
+                        <div class="card-body">
+                            <h3>'.$name.'</h3>
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
@@ -118,21 +206,40 @@ $title = "Admin Search";
                 ';
 
                 echo '
-                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:85%;">
+                    <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="word-wrap: break-word;">
                             <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
-                            <p>Details</p>     
+                            <p>'.$desc.'</p>     
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" aria-label="'.$id.'" value="remove" onclick="remItem(this)">Remove</button>
-                            <button type="button" class="btn btn-green" aria-label="'.$id.'" value="edit" onclick="editItem(this)">Edit</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rusureModalr-'.$id.'">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Recipe`)">Edit</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+                echo '
+                <div class="modal fade" id="rusureModalr-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this item?</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-green" data-bs-dismiss="modal">No</button>
+                            <form action="remove.php" method="get">
+                            <button name="rid" type="submit" class="btn btn-green" value="'.$id.'">Yes</button>
+                            </form>
                         </div>
                         </div>
                     </div>
@@ -140,12 +247,20 @@ $title = "Admin Search";
                 ';
             }
 
+            unset($fetchIngredients);
+            unset($id);
+            unset($name);
+            unset($desc);
+            unset($stmt);
+            unset($pdo);
+
         }
         catch (PDOException $exception) {
             echo $exception;
-            die("ERROR: Could not prepare/execute query: $check_username_in_table {$exception->getMessage()}");
+            unset($pdo);
+            die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
         }
-        ?> 
+        ?>
             
         </div>
     </div>
@@ -153,11 +268,11 @@ $title = "Admin Search";
 <footer class="footer bg-grey px-2">
     <div class="container-fluid">
         <div class="row mt-2">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-3">
                 <p>Created by: </p>
-                <p>&copy Andrii Sultanov, Daryna Hnatenko, Dimitar Valkov, Kamil Krauze, Maria Mara Gatillo, Vera Borvinski</p>
+                <p>&copy Andrii Sultanov, Daryna Hnatenko, Dimitar Valkov, Kamil Krauze, Maria Mara Gatillo, Vera Borvinski, Victor Iyida</p>
             </div>
-            <div class="col-sm-12 col-md-6 justify-content-xs-start justify-content-md-end">
+            <div class="col-sm-12 col-md-3 offset-md-3">
                 <p>Some copyright content</p>
             </div>
         </div>
