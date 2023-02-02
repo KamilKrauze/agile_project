@@ -9,10 +9,10 @@ $title = "Management"; // Page title text
 $recipe_name = "";
 include '../config/database.php';
 session_start();
-/*if ($_SESSION['loggedIn'] == "false") {
+if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
     exit();
-}*/
+}
 /*
 $op_type;
 $itemType;
