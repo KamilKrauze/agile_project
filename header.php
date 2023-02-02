@@ -29,36 +29,42 @@ session_start();
     
 </head>
 
-<header class="container-fluid">
-    <nav class="navbar navbar-expand-lg underline-grey">
-        <a href="index.php">
-            <img class="img-fluid" oncontextmenu="return false" src="./media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
-        </a>
+<style>
+    #icon_fb:hover, #icon_insta:hover, #icon_twitter:hover {
+        cursor:pointer;
+    }
+</style>
 
-        <div class="container-fluid">
+<header class="container-fluid underline-grey pt-3">
+    <div class="row justify-content-evenly">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{ Link 2 }</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{ Link 3 }</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{ Link 4 }</a>
-                    </li>
-                </ul>
-            </div>
-            <a class="nav-link" href="https://www.facebook.com/thelittlegreenlarder" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/facebook.svg" alt="Instagram icon"> </a>
-            <a class="nav-link" href="https://www.instagram.com/thelittlegreenlarder/?hl=en" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/instagram.svg" alt="Instagram icon"> </a>
-            <a class="nav-link" href="https://twitter.com/green_larder" target="_blank"> <img class="social-icon img-fluid" src="./media/svg/square-twitter.svg" alt="Twitter icon"> </a>
+        <div class="col-xs-12 col-sm-6 col-md-2 py-2">
+            <a href="index.php">
+                <img class="img-fluid" oncontextmenu="return false" src="./media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo" style="min-width: 75px; min-height: 75px; margin-top:-15px;">
+            </a>
         </div>
-    </nav>
+
+        <div class="col-xs-12 col-sm-6 col-md-auto pt-2">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.php">Home</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-auto pt-2">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" target="_blank" href="https://thelittlegreenlarder.com">Link to Shop</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-auto pt-2 mb-2">
+            <img id="icon_fb" class="social-icon img-fluid" src="./media/svg/facebook.svg" alt="Facebook icon" onclick="window.open(`https://www.facebook.com/thelittlegreenlarder/`, '_blank')">
+            <img id="icon_insta" class="social-icon img-fluid" src="./media/svg/instagram.svg" alt="Instagram icon" onclick="window.open(`https://www.instagram.com/thelittlegreenlarder/?hl=en`, '_blank')">
+            <img id="icon_twitter" class="social-icon img-fluid" src="./media/svg/square-twitter.svg" alt="Twitter icon" onclick="window.open(`https://twitter.com/green_larder`, '_blank')">
+        </div>
+
+    </div>
 </header>
