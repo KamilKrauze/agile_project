@@ -41,8 +41,7 @@
             if (file_exists('./media/img/recipes/'.$rid.'.jpg')){
                 echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
             }
-            echo '<h2>Serves '.$fr['Servings'].' people</h2>';
-
+            
             if (!empty($fr['TotalTime'])){
                 echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
             }
