@@ -162,14 +162,6 @@ a.label {
     flex-grow: 1;
 }
 
-.dont-grow {
-    flex-grow: 0;
-}
-
-/* label:has(input[type="checkbox"]) {
-    background: white;
-} */
-
 label:has(input[type="checkbox"]:checked) {
     background: #329e62;
     color: white;
