@@ -135,7 +135,9 @@ $title = "Admin Search";
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rusureModali-'.$id.'">Remove</button>
+
                             <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Ingredient`)">Edit</button>
                         </div>
                         </div>
@@ -156,6 +158,72 @@ $title = "Admin Search";
                             <form action="remove.php" method="get">
                             <button name="iid" type="submit" class="btn btn-green" value="'.$id.'">Yes</button>
                             </form>
+                            
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+            }
+            unset($fetchIngredients);
+            unset($id);
+            unset($row);
+            unset($name);
+            unset($allergen);
+            unset($stmt);
+            unset($pdo);
+        }
+        catch (PDOException $exception) {
+            echo $exception;
+            unset($pdo);
+            die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
+        }
+        ?>
+
+        <?php
+        include '../config/database.php';
+
+        try {
+            $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
+            $stmt = $pdo->prepare($fetchRecipes);
+            $stmt->bindParam(':name', $value, PDO::PARAM_STR);
+            $stmt->execute();
+
+            while ($row = $stmt->fetch()) {
+                $id = $row['RecipeID'];
+                $name = $row['RecipeName'];
+                $desc = $row['Instructions'];
+
+                echo '
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                    <div class="card h-100">
+                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
+                        <div class="card-body">
+                            <h3>'.$name.'</h3>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#recipeModal-'.$id.'">View</button>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+                echo '
+                <div class="modal fade" id="recipeModal-'.$id.'" tabindex="-1" aria-labelledby="exampleRecipeLabel" aria-hidden="true" style="max-height:85%;">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleRecipeLabel">'.$name.'</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="word-wrap: break-word;">
+                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="'.$name.' oncontextmenu="return false">
+                            <p>'.$desc.'</p>     
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" onclick="remItem(this,'.$id.',`Recipe`)">Remove</button>
+                            <button type="button" class="btn btn-green" onclick="editItem(this,'.$id.',`Recipe`)">Edit</button>
                         </div>
                         </div>
                     </div>
@@ -246,6 +314,13 @@ $title = "Admin Search";
                 </div>
                 ';
             }
+
+            unset($fetchIngredients);
+            unset($id);
+            unset($name);
+            unset($desc);
+            unset($stmt);
+            unset($pdo);
 
             unset($fetchIngredients);
             unset($id);

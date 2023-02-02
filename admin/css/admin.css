@@ -53,14 +53,6 @@
     border-color: #ededed;
 }
 
-.contents {
-    background-color: #dfdfdf;
-    border-radius: 12px;
-    border: 2px;
-    border-style: solid;
-    border-color: #9c9c9c;
-}
-
 .btn-green, .btn-green:after {
     background-color: #42b04d;
     color: white;

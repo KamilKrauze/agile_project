@@ -22,8 +22,8 @@ function login() {
         username: String(usernameField.value),
         password: String(passwordField.value)
     }, (response) => {
-            message = String(response);
-            if (message = "match") {window.location.href = "search.php";}
+            if (response == "match") {window.location.href = "./search.php";}
+            else {alert("Invalid login credentials");}
         });
 
 }
