@@ -46,6 +46,30 @@ a {
     height: 20px;
 }
 
+input[type=number] {
+    width: 100px;
+    border-radius: 8px;
+    border-width: 1px;
+    text-align: right;
+}
+
+button {
+    border-radius: 16px !important;
+    background:#329e62;
+    border-width: 0;
+    color: white;
+    width: 180px;
+    height: auto;
+    padding: 4px;
+    margin: 0 !important;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
 @media (max-width: 800px) {
     .main-body {
         width: 90%;

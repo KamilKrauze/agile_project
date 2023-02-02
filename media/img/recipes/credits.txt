@@ -1,23 +1,37 @@
-https://pixabay.com/photos/curry-food-dish-meal-cuisine-7249247/
-https://pixabay.com/photos/minestrone-soup-vegetable-soup-74303/
-https://pixabay.com/photos/fried-rice-tomato-pot-cooking-rice-1118357/
-https://pixabay.com/photos/curry-curry-rice-seasonal-vegetables-982899/
-https://pixabay.com/photos/burger-meal-hamburger-food-4641173/
-https://www.pexels.com/photo/vegan-falafel-burger-on-wooden-plate-6546024/
-https://www.pexels.com/photo/a-bowl-of-delicious-hot-noodles-with-vegetables-and-nuts-6896514/
-https://www.pexels.com/photo/pancakes-with-strawberry-blueberries-and-maple-syrup-718739/
-https://www.pexels.com/photo/crop-cook-cooking-chili-in-pan-5908190/
-https://pixabay.com/photos/salad-bread-salad-loaf-baguette-4432168/
-https://www.pexels.com/photo/tasty-rice-with-stewed-vegetables-on-plate-7189421/
-https://www.thefullhelping.com/millet-black-lentil-stuffed-delicata-squash/
-https://www.pexels.com/photo/a-risotto-on-a-ceramic-bowl-6659610/
-https://pixabay.com/photos/couscous-food-porridge-a-tomato-4459317/
-https://www.pexels.com/photo/popcorn-in-ceramic-bowl-3537844/
-https://www.pexels.com/photo/quinoa-salad-on-ceramic-bowl-9893176/
-https://pixabay.com/photos/sushi-vegetarian-vegetables-rice-3559729/
-https://pixabay.com/photos/bulgur-salad-turkish-cuisine-k%c3%b6fte-2519399/
-https://pixabay.com/photos/lasagna-bechamel-vegan-lasagna-5946299/
-https://www.pexels.com/photo/a-cheesy-macaroni-dish-5060461/
-https://pixabay.com/photos/veggie-ball-balls-vegetarian-2523065/
-https://www.bbc.co.uk/food/recipes/mushroom_wellington_32741
-https://www.bbcgoodfood.com/recipes/easy-vegan-nut-roast
+Credits to pictures used in order: 
+1 https://pixabay.com/photos/curry-food-dish-meal-cuisine-7249247/
+2 https://pixabay.com/photos/minestrone-soup-vegetable-soup-74303/
+3 https://pixabay.com/photos/fried-rice-tomato-pot-cooking-rice-1118357/
+4 https://pixabay.com/photos/curry-curry-rice-seasonal-vegetables-982899/
+5 https://pixabay.com/photos/burger-meal-hamburger-food-4641173/
+6 https://www.pexels.com/photo/vegan-falafel-burger-on-wooden-plate-6546024/
+7 https://www.pexels.com/photo/a-bowl-of-delicious-hot-noodles-with-vegetables-and-nuts-6896514/
+8 https://www.pexels.com/photo/pancakes-with-strawberry-blueberries-and-maple-syrup-718739/
+9 https://www.pexels.com/photo/crop-cook-cooking-chili-in-pan-5908190/
+10 https://pixabay.com/photos/salad-bread-salad-loaf-baguette-4432168/
+11 https://pixabay.com/photos/rice-pan-rice-peas-carrots-dish-49693/
+12 https://www.riverford.co.uk/recipes/avocado-chickpea-summer-green-wraps
+13 https://pixabay.com/photos/soup-asparagus-winter-soup-1283219/
+14 https://www.pexels.com/photo/pasta-on-white-ceramic-plate-11675216/
+15 https://www.riverford.co.uk/recipes/chipotle-black-bean-corn-spinach-chilli
+16 https://www.pexels.com/photo/a-pasta-with-tomatoes-on-ceramic-bowl-4641611/
+17 https://www.pexels.com/photo/close-up-photo-of-a-food-on-plate-6947606/
+18 https://www.pexels.com/photo/thick-soup-served-in-bowl-with-pieces-of-toasted-bread-11066890/
+19 https://www.pexels.com/photo/pasta-on-white-bowl-besides-fork-64208/
+20 https://pixabay.com/photos/lentil-soup-lenses-stew-food-3738547/
+21 https://pixabay.com/photos/food-kitchen-chutney-spices-3539594/
+22 https://www.pexels.com/photo/pile-of-assorted-sliced-vegetables-on-square-black-plate-750070/
+23 https://www.pexels.com/photo/meal-with-rice-on-plate-8996219/
+24 https://www.pexels.com/photo/tasty-rice-with-stewed-vegetables-on-plate-7189421/
+25 https://www.thefullhelping.com/millet-black-lentil-stuffed-delicata-squash/
+26 https://www.pexels.com/photo/a-risotto-on-a-ceramic-bowl-6659610/
+27 https://pixabay.com/photos/couscous-food-porridge-a-tomato-4459317/
+28 https://www.pexels.com/photo/popcorn-in-ceramic-bowl-3537844/
+29 https://www.pexels.com/photo/quinoa-salad-on-ceramic-bowl-9893176/
+30 https://pixabay.com/photos/sushi-vegetarian-vegetables-rice-3559729/
+31 https://pixabay.com/photos/bulgur-salad-turkish-cuisine-k%c3%b6fte-2519399/
+32 https://pixabay.com/photos/lasagna-bechamel-vegan-lasagna-5946299/
+33 https://www.pexels.com/photo/a-cheesy-macaroni-dish-5060461/
+34 https://pixabay.com/photos/veggie-ball-balls-vegetarian-2523065/
+35 https://www.bbc.co.uk/food/recipes/mushroom_wellington_32741
+36 https://www.bbcgoodfood.com/recipes/easy-vegan-nut-roast
