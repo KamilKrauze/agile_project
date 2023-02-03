@@ -101,7 +101,7 @@ function print_ingredients(){
                         </div>
                     </th>
                     <th>
-                        <button aria-label="${json[i].id}" onclick=remIngredient("ingredient-'. $a . '") class="btn btn-danger" type="button">
+                        <button aria-label="${json[i].id}" name="ingredient-'. $a . '" onclick="remIngredient(this)" class="btn btn-danger" type="button">
                             X
                         </button>
                     </th>

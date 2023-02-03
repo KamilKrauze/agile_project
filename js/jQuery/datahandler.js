@@ -74,7 +74,7 @@ function onclickAdd(){
                     </div>
                 </th>
                 <th>
-                    <button aria-label="" class="btn btn-danger" type="button">
+                    <button aria-label="" name="ingredient-${index}" onclick="remIngredient(this)"class="btn btn-danger" type="button">
                         X
                     </button>
                 </th>
@@ -115,8 +115,9 @@ window.onbeforeunload = function retainProgress(){
     localStorage.setItem("ingredientProperties",JSON.stringify(ingredientProperties));
     localStorage.setItem("saveProgress",JSON.stringify(true));
 }
-function remIngredient(id){
-    var toDelete = document.getElementById(id);
+function remIngredient(element){
+    var toDelete = document.getElementById(element.name);
+    console.log(toDelete);
     toDelete.remove();
 
 }
