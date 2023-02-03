@@ -59,7 +59,7 @@
             </script>
             <div class="button-container" style="align-items: center;">
             <h2>Serves
-                <input type="number" id="servingsNumber" name="servingsNumber"
+                <input type="number" onchange="Scale();" id="servingsNumber" name="servingsNumber"
                     min="1" max="1000" value="<?php echo $fr['Servings']; ?>">
             people</h2>
 
@@ -68,9 +68,11 @@
             
             <div class="button-container">
                 <button onclick="Reset();">Reset servings</button>
-                <button onclick="Scale();">Scale the recipe</button>
                 <button id="recipeAddButton" onclick="addRecipeToList();">Add recipe to the shopping list</button>
-                <script> refreshButton(); </script>
+                <script>
+                addEventListener('storage', refreshButton);
+                refreshButton();
+                </script>
             </div>
 
 <?php
@@ -104,7 +106,7 @@
                     if (!empty($link)) {
                         echo '<a href="'.$link .'">';
                     }
-                    echo '<span class="quantity ingredientItems" ingredient-id="'.$iid['IngredientID'].'" ingredient-name="'.$in.'" defaultvalue="' . $q . '" measurement-type="'.$m.'"> '.$q . ' </span> ' . $m . ' ' . $in;
+                    echo '<span class="quantity ingredientItems" ingredient-link="'.$link.'"ingredient-id="'.$iid['IngredientID'].'" ingredient-name="'.$in.'" defaultvalue="' . $q . '" measurement-type="'.$m.'"> '.$q . ' </span> ' . $m . ' ' . $in;
                     if (!empty($link)) {
                         echo '</a>';
                     }

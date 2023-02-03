@@ -1,5 +1,5 @@
 <head> 
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/shoppinglist.css">
 </head>
 
 <body>
@@ -7,11 +7,11 @@
     
     <!-- Main container -->
     <div class="main-body" id="main-body">
-        <h1>Selected recipes:</h1>
-        <h1 id="ingredients-header">Combined shopping list:</h1>
-        
     </div>
-    <script> refreshList() </script>
+    <script>
+    refreshList()
+    addEventListener('storage', refreshList);
+    </script>
 
     <?php include 'footer.php';?>
 </body>
