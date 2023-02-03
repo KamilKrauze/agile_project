@@ -1,32 +1,166 @@
-<html>
-<body>
+<head> 
+    <link rel="stylesheet" href="./css/recipepage.css">
+</head>
 
+<body>
 <?php include 'header.php';?>
     
     <!-- Main container -->
-    <div class="main-body">
+    <div class="main-body" >
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
-            echo '<h1>Recipe title</h1>';
-            echo '<h2>Ingredients</h2>';
-            echo '<ol>
-                  <li>Coffee</li>
-                  <li>Tea</li>
-                  <li>Milk</li>
-                </ol>';
+            //default recipe id set to 1
+            if(isset($_GET['id'])) {
+                $rid = $_GET['id'];
+            }
+            else{
+                $rid = 1;
+            }
+
+            $findrn = $pdo->prepare("SELECT * FROM recipes WHERE RecipeID = ?");
+            $findrn->bindParam(1, $rid, PDO::PARAM_INT);
+            $findrn->execute();
+
+            $fr = $findrn->fetch(PDO::FETCH_ASSOC);
+
+            $recipename = $fr['RecipeName'];
+
+            $findiid = $pdo->prepare("SELECT IngredientID FROM recipeingredients WHERE RecipeID = ?");
+            $findiid->bindParam(1, $rid, PDO::PARAM_INT);
+            $findiid->execute();
+
+            $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
+
+            echo '<h1 id="recipeName">' . $recipename . '</h1>';
+
+            echo '<div class="flex-container">';
+            if (file_exists('./media/img/recipes/'.$rid.'.jpg')){
+                echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
+            }
+
+?>
+            <script>
+                function Scale() {
+                    var new_servings = document.getElementById("servingsNumber").value;
+                    var old_servings = document.getElementById("servingsNumber").defaultValue;
+
+                    var el = document.getElementsByClassName("quantity")
+                    for (var i = 0, ilen = el.length - 1; i < ilen; i++) {
+                        el[i].innerHTML = parseFloat((el[i].getAttribute('defaultvalue') * new_servings / old_servings).toFixed(2));
+                    }
+                }
+
+                function Reset() {
+                    document.getElementById("servingsNumber").value = document.getElementById("servingsNumber").defaultValue;
+
+                    var el = document.getElementsByClassName("quantity")
+                    for (var i = 0, ilen = el.length - 1; i < ilen; i++) {
+                        el[i].innerHTML = el[i].getAttribute('defaultvalue');
+                    }
+                }
+            </script>
+            <div class="button-container" style="align-items: center;">
+            <h2>Serves
+                <input type="number" onchange="Scale();" id="servingsNumber" name="servingsNumber"
+                    min="1" max="1000" value="<?php echo $fr['Servings']; ?>">
+            people</h2>
+
+            <?php include("php_templates/counter.php") ?>
+            </div>
+            
+            <div class="button-container">
+                <button onclick="Reset();">Reset servings</button>
+                <button id="recipeAddButton" onclick="addRecipeToList();">Add recipe to the shopping list</button>
+                <script>
+                addEventListener('storage', refreshButton);
+                refreshButton();
+                </script>
+            </div>
+
+<?php
+            echo '</div>';
+            echo '<div><h2 style="margin-top:16px;">Ingredients</h2>';
+            echo '<ol>';
+                foreach ($iids as $iid) {
+                    $findm= $pdo->prepare("SELECT * FROM measurements WHERE measurementID = (SELECT MeasurementID FROM recipeingredients WHERE IngredientID = ? and RecipeID = ?)");
+                    $findm->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
+                    $findm->bindParam(2, $rid, PDO::PARAM_INT);
+                    $findm->execute();
+
+                    $m = $findm->fetch(PDO::FETCH_ASSOC)['measurementType'];
+
+                    $findq= $pdo->prepare("SELECT * FROM recipeingredients WHERE IngredientID = ? and RecipeID = ?");
+                    $findq->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
+                    $findq->bindParam(2, $rid, PDO::PARAM_INT);
+                    $findq->execute();
+
+                    $q = $findq->fetch(PDO::FETCH_ASSOC)['Quantity'];
+
+                    $findin= $pdo->prepare("SELECT * FROM Ingredients WHERE IngredientID = ?");
+                    $findin->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
+                    $findin->execute();
+
+                    $f = $findin->fetch(PDO::FETCH_ASSOC);
+                    $in = $f['IngredientName'];
+                    $link = $f['ShopLink'];
+                    
+                    echo '<li>';
+                    if (!empty($link)) {
+                        echo '<a href="'.$link .'">';
+                    }
+                    echo '<span class="quantity ingredientItems" ingredient-link="'.$link.'"ingredient-id="'.$iid['IngredientID'].'" ingredient-name="'.$in.'" defaultvalue="' . $q . '" measurement-type="'.$m.'"> '.$q . ' </span> ' . $m . ' ' . $in;
+                    if (!empty($link)) {
+                        echo '</a>';
+                    }
+                    echo '</li>';
+                }
+            echo '</ol>';
+
+            echo '<div><h2>Allergens</h2>';
+            echo '<ul>';
+            $allergens = array(1);
+            foreach ($iids as $iid) {
+                $findaid= $pdo->prepare("SELECT AllergenID FROM ingredients WHERE IngredientID = ?");
+                $findaid->bindParam(1, $iid['IngredientID'], PDO::PARAM_INT);
+                $findaid->execute();
+
+                $aid = $findaid->fetch(PDO::FETCH_ASSOC)['AllergenID'];
+                
+                if(in_array($aid, $allergens) == false){
+                    $allergens[] = $aid;
+                    $findan= $pdo->prepare("SELECT * FROM allergens WHERE AllergenID = ?");
+                    $findan->bindParam(1, $aid, PDO::PARAM_INT);
+                    $findan->execute();
+
+                    $an = $findan->fetch(PDO::FETCH_ASSOC)['AllergenName'];
+                    echo '<li>' . $an . '</li>';
+                }
+            }
+
+            echo '</ul></div></div>';
+            if (!empty($fr['TotalTime'])){
+                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+            }
+            if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
+                echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
+                echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';
+            }
             echo '<h2>Instructions</h2>';
-            echo '<ol>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </li>
-                  <li>Eros in cursus turpis massa tincidunt dui ut. </li>
-                  <li>Vel quam elementum pulvinar etiam non.</li>
-                </ol>';
+                $findr = $pdo->prepare("SELECT * FROM recipes WHERE RecipeID = ?");
+                $findr->bindParam(1, $rid, PDO::PARAM_INT);
+                $findr->execute();
+
+                $recipeinstructions = $findr->fetch(PDO::FETCH_ASSOC)['Instructions'];
+
+                echo '<p>' . nl2br($recipeinstructions). '</p>';
         ?>
-        <h3>Allergy Disclaimer: LGL's products are plastic free and we can thus not ensure that cross-contamination has not occured.</h3>
+        <h3><b>Allergy Disclaimer:</b> Although we do our best to minimise risk, due to the fact that we sell our products loose there is a risk of cross contamination between products.</h3>
+        <h6><i>Packed in an environment that also handles cereals containing gluten, mustard, nuts, peanuts, sesame seeds, lupin, soya, milk, and sulphur dioxide.</i></h6>
     </div>
 
         <!-- Sharing Alert -->
         <div class="alert alert-success" role="alert">
-          Share this recipe!
+        <p>Share this recipe!</p>
     
         <!-- Sharing Links -->
         <!-- Twitter Share Button -->
@@ -43,4 +177,3 @@
 <?php include 'footer.php';?>
 
 </body>
-</html>

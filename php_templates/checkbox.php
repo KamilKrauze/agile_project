@@ -1,14 +1,39 @@
-<label <?php
-    if (in_array($name, $ingredients) and $dontgrow) {
-        echo "class='checked dont-grow'";
+<?php
+    if (array_key_exists('IngredientID', $ingr_row)) {
+        $name = $ingr_row['IngredientName'];
+        $id = $ingr_row['IngredientID'];
+    } else if (array_key_exists('AllergenID', $ingr_row)) {
+        $name = $ingr_row['AllergenName'];
+        $id = "allergen" . $ingr_row['AllergenID'];
+    } else if (array_key_exists('SeasonID', $ingr_row)) {
+        $name = $ingr_row['SeasonName'];
+        $id = "season" . $ingr_row['SeasonID'];
     }
-    else if (in_array($name, $ingredients)) {
-        echo "class='checked'";
+
+    $is_checked = in_array($id, $ingredients);
+
+    $new_ingredients = $ingredients;
+
+    if ($is_checked) {
+        $new_ingredients = array_diff($new_ingredients, [$id]);
+    } else {
+        array_push($new_ingredients, $id);
     }
-    else if ($dontgrow) {
-        echo "class='dont-grow'";
-    }
-?>>
-    <input onChange="this.form.submit()" type="checkbox" name="ingredientSelection[]" value="<?php echo $name; ?>" 
-    <?php if (in_array($name, $ingredients)) echo "checked='checked'"; ?>><span><?php echo $name; ?></span>
-</label>
+    $query_result = http_build_query(array_values($new_ingredients));
+?>
+
+<a 
+<?php
+
+if ($is_checked) {
+    echo "class='label checked'";
+} else {
+    echo "class='label'";
+}
+
+echo ' href="' . $_SERVER['PHP_SELF'] . '?' . $query_result . '#for-you"';
+
+?>
+>
+    <span><?php echo $name; ?></span>
+</a>

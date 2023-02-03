@@ -1,16 +1,16 @@
-.navbar .navbar-nav .nav-link {
+.nav-link {
     color: #000000
 }
 
-.navbar .navbar-nav .nav-link:hover {
+.nav-link:hover {
     color: #00b30f;
 }
 
-.navbar .navbar-nav .nav-item{
+.nav-item{
     position: relative;
 }
 
-.navbar .navbar-nav .nav-item::after{
+.nav-item::after{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -23,7 +23,7 @@
     transition: all 0.5s;
 }
 
-.navbar .navbar-nav .nav-item:hover::after{
+.nav-item:hover::after{
     width: 100%;
 }
 
@@ -36,205 +36,11 @@
 /* -------------------------------------------------------- */
 
 body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     font-family: "Inter", sans-serif;
     color: #000000;
-}
-
-.main-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 16px;
-    gap: 32px;
-
-    left: 0px;
-    top: 0px;
-}
-
-.basic-flex {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 16px 32px;
-    gap: 16px;
-
-    width: 100%;
-
-    background: #D9D9D9;
-    border-radius: 16px;
-}
-
-.flex-column {
-    flex-direction: column;
-}
-
-.no-padding {
-    padding: 0;
-}
-
-.flex-small {
-    padding: 0;
-    gap: 8px;
-    background: none;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.flex-end {
-    align-items: flex-end;
-}
-
-.filtering-recipes {
-    width:100%;
-}
-
-.suggestions {
-    width: 60%;
-    padding: 0 16px;
-}
-
-.ingredients-selector, .additional-ingredients, .recipe-card {
-    background-color: #BCBCBC;
-}
-
-.recipe-row {
-    display: flex;
-    flex-flow: row no-wrap;
-    overflow-x: auto;
-    align-items: center;
-    padding: 0;
-    gap: 16px;
-
-    width: 100%;
-    height: 272px;
-
-    /* Inside auto layout */
-    flex: none;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar; 
-}
-
-.recipe-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 16px;
-    gap: 8px;
-
-    width: 256px;
-    height: 256px;
-
-    border-radius: 16px;
-
-    /* Inside auto layout */
-    flex: 0 0 auto;
-}
-
-.card-image {
-    width: 224px;
-    height: 144px;
-
-    background: #D9D9D9;
-    border-radius: 8px;
-
-    /* Inside auto layout */
-    flex: none;
-}
-
-.fade-out {
-    position: absolute;
-    right: 48px;
-    width: 244px;
-    height: 288px;
-    background-image: linear-gradient(to right, transparent, #D9D9D9);
-}
-
-a.anchor {
-    all: unset;
-    display: block;
-    position: relative;
-    top: -32px;
-    visibility: hidden;
-}
-
-/* -------------------------------------------------------- */
-/*                 Buttons and checkboxes                   */
-/* -------------------------------------------------------- */
-
-.flex-buttons-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    padding: 0;
-    gap: 8px;
-}
-
-label {
-    height: 32px;
-    border-radius: 16px;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #EAEAEA;
-
-    flex-grow: 1;
-}
-
-.dont-grow {
-    flex-grow: 0;
-}
-
-label:has(input[type="checkbox"]) {
-    background: #EAEAEA;
-}
-
-label:has(input[type="checkbox"]:checked) {
-    background: #66BB6A;
-    color: white;
-}
-
-label.checked {
-    background: #66BB6A;
-    color: white;
-}
-
-input[type="checkbox"] {
-    display: none;
-}
-
-/* -------------------------------------------------------- */
-/*                          Fonts                           */
-/* -------------------------------------------------------- */
-
-h1 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 56px;
-}
-
-h2 {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 32px;
-}
-
-h3 {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-}
-
-h5 {
-    font-style: normal;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 10px;
-    margin: 0;
 }
 
 /* -------------------------------------------------------- */
@@ -271,5 +77,6 @@ h5 {
 
     font-size: 12px;
     color:#757575;
+    margin-top: auto;
 }
 /* -------------------------------------------------------- */

@@ -7,6 +7,20 @@
 A web application connected to a backend for the The Little Green Larder shop.
 
 ---
+## Product and sprint backlog
+
+[Excel link](https://dmail-my.sharepoint.com/:x:/g/personal/2421818_dundee_ac_uk/ETiY2x8N09VLuJpbSTtEzKIB9-Op2SUHMR1-kDjX9HnaSQ)
+
+---
+## Scrum Meeting recording
+
+[Video](https://dmail-my.sharepoint.com/:v:/g/personal/2414951_dundee_ac_uk/EUcvyr_iIkdDoWMxxJmsc0gBz5xWkqrwV-3Y894GtNlIAQ)
+
+---
+## Pair Programming Demonstration
+[Video](https://dmail-my.sharepoint.com/:v:/g/personal/2414951_dundee_ac_uk/ETlu-Q4Y6FNKhv37Am6oF58Bd2LxpxBJNIjUWBM0ONOeUA?e=1pNLBA)
+
+---
 ## Authors
 - Andrii Sultanov
 - Daryna Hnatenko
@@ -14,5 +28,6 @@ A web application connected to a backend for the The Little Green Larder shop.
 - Kamil Krauze
 - Maria Mara Gatillo
 - Vera Borvinski
+- Victor Iyida
 
 ---
