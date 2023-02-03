@@ -47,15 +47,19 @@
 
 .filtering-recipes {
     padding: 32px 16px;
-    width:100%;
+    width: 100%;
+    height: 95vh;
 }
 
 .ingredients-selector {
-    width: 40%;
+    width: 35vw;
+    flex-grow: 1;
+    max-width: 45vw;
+    height: 85vh;
 }
 
 .suggestions {
-    width: 60%;
+    width: fit-content;
     padding: 16px;
 }
 
@@ -65,7 +69,7 @@
 
 .recipe-row {
     display: flex;
-    flex-flow: row no-wrap;
+    flex-flow: row nowrap;
     overflow-x: auto;
     align-items: center;
     padding: 0;
@@ -78,6 +82,14 @@
     flex: none;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar; 
+}
+
+.suggestions > .recipe-row {
+    flex-flow: row wrap;
+    overflow-y: scroll;
+
+    width: 532px;
+    height: 80vh;
 }
 
 .recipe-card {
@@ -120,6 +132,10 @@
     height: 260px;
     background-image: linear-gradient(to right, transparent, white);
     pointer-events: none;
+}
+
+.suggestions > .recipe-row > .fade-out {
+    display: none;
 }
 
 a.anchor {
@@ -227,7 +243,42 @@ h5 {
 
 /* Mobile */
 
-@media (max-width: 992px) {
+@media (max-width: 1050px) {
+    .scroller {
+        height: 125px;
+    }
+
+    .filtering-recipes {
+        flex-direction: column;
+        padding: 8px;
+        height: 100%;
+    }
+
+    .ingredients-selector, .suggestions {
+        width: 100%;
+        max-width: 100%;
+        /* height: 45vh; */
+    }
+
+    .ingredients-selector {
+        height: 100%;
+    }
+
+    .suggestions > .recipe-row {
+        flex-flow: row nowrap !important;
+        overflow-x: auto;
+        overflow-y: auto;
+
+        width: 100%;
+        height: 266px;
+    }
+
+    .suggestions > .recipe-row > .fade-out {
+        right: 16px;
+        height: 270px;
+        display: block;
+    }
+
     .main-body {
         padding: 8px;
         gap: 16px;
@@ -241,15 +292,6 @@ h5 {
     .fade-out {
         right: 16px;
         height: 270px;
-    }
-
-    .filtering-recipes {
-        flex-direction: column;
-        padding: 8px;
-    }
-
-    .ingredients-selector, .suggestions {
-        width: 100%;
     }
 
     .suggestions {
