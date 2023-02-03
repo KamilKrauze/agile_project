@@ -83,9 +83,13 @@ $title = "Admin Search";
                 <div class="input-group">
                     <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
                     <button type="submit" name="submit" value="Search" class="btn btn-secondary">Search</button>
-                    <button type="button" class="btn btn-green">Add item</button>
+                    </form>
+                    <form action="add.php">
+                        <button type="submit" class="btn btn-green">Add item</button>
+                     </form>
                 </div>
-            </form>
+            
+            
         </div>
     
         <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll;">
