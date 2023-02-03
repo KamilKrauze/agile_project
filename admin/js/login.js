@@ -18,7 +18,7 @@ function login() {
         return;
     }
 
-    $.post('../../modules/login_user.php', {
+    $.post('../modules/login_user.php', {
         username: String(usernameField.value),
         password: String(passwordField.value)
     }, (response) => {
