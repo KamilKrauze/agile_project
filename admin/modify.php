@@ -210,7 +210,7 @@ function fetchallergens(){
                 </div>
                 <div class="col-sm-12 col-md-7 col-lg-8">
                     <div class="form-group mt-md-0 mt-sm-3">
-                        <input type="submit" class="btn btn-danger" id="cancelButton" value="cancel">
+                        <input type="submit" class="btn btn-danger" name="cancelChange" id="cancelButton" value="cancel">
                         <input type="submit" class="btn btn-success" id="submitButton" name = "modifyRecipe" value="submit">
                     </div>
                 </div>

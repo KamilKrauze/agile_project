@@ -2,6 +2,9 @@
 <?php
 include '../config/database.php';
 //header("location: ../admin/modify.php");
+if(isset($_POST["cancelChange"])){
+    header("location: ../admin/search.php");
+}
 if (isset($_POST["modifyRecipe"]) && isset($_POST['recipeName'])) {
 
     $update_recipe = "UPDATE recipes SET RecipeName = :name, Instructions = :desc WHERE RecipeID = :id";
