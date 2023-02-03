@@ -55,8 +55,8 @@ $title = "Admin Search";
 </head>
 
 <header class="container-fluid underline-grey">
-    <div class="row justify-content-md-between">
-        <div class="col-md-6">
+    <div class="row justify-content-xs-start justify-content-md-between">
+        <div class="col">
             <a href="../../index.php">
                 <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
             </a>
@@ -69,12 +69,12 @@ $title = "Admin Search";
 
 <body>
      <!-- Main container -->
-    <div class="container-fluid my-2">
+    <div class="container-fluid my-2>
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
         <div class="row px-md-5">
             <form method="post" action="search.php">
                 <div class="input-group">
-                    <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
+                    <input value=<?php echo '"'.$query.'"'?> type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
                     <select id="select_item_type" class="form-select" aria-label="Select item type" aria-describedby="Filter nothing or show explicitly ingredients or recipes." onchange="applyFilter()">
                         <option id="fltr_opt_all" value="all">All</option>
                         <option id="fltr_opt_ingredients" value="ingredients">Ingredients</option>
@@ -90,7 +90,7 @@ $title = "Admin Search";
             
         </div>
     
-        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll; height:200vh;">
+        <div class="contents row mx-5 my-3" style="overflow-y: auto; height:auto; max-height:100vh;">
 
         <?php
 
