@@ -6,6 +6,8 @@
 include '../config/database.php';
 session_start();
 
+$_SESSION['filterBy'] = "all";
+
 $query = "";
 $filterBy = "";
 if (isset($_POST['submit'])) {
@@ -54,7 +56,7 @@ $title = "Admin Search";
     
 </head>
 
-<header class="container-fluid underline-grey">
+<header class="container-fluid underline-grey mb-3">
     <div class="row justify-content-xs-start justify-content-md-between">
         <div class="col">
             <a href="../../index.php">
