@@ -138,11 +138,6 @@
                     }
                 }
             ?>
-            <div class="additional-ingredients basic-flex flex-column">
-                <h2>WIP // maybe something you can cook with ONLY selected ingredients if possible?</h1>
-                <div class="basic-flex flex-column flex-end flex-small">
-                </div>
-            </div>
         </div>
     </div>
     </div>
