@@ -1,5 +1,5 @@
 function logout() {
-    $.post('../../modules/logout.php', () => {
+    $.post('../modules/logout.php', () => {
         localStorage.clear();
         window.location.href = "index.php";
     });
