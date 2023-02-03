@@ -54,26 +54,17 @@ $title = "Admin Search";
     
 </head>
 
-<header class="container-fluid">
-    <nav class="navbar navbar-expand-lg underline-grey">
-    <a href="../../index.php">
-        <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
-    </a>
-
-    <div class="container-fluid">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../../index.php"><?php echo $filterBy;?></a>
-                </li>
-            <ul>
+<header class="container-fluid underline-grey">
+    <div class="row justify-content-md-between">
+        <div class="col-md-6">
+            <a href="../../index.php">
+                <img class="img-fluid" oncontextmenu="return false" src="../../media/img/littleGreenLogo_180x.avif" alt="The Little Green shop logo">
+            </a>
         </div>
-        <button type="button" class="btn btn-green" onclick="logout()">Log out</button>
-    </nav>
+        <div class="col-auto my-5">
+            <button type="button" class="btn btn-green" onclick="logout()">Log out</button>
+        </div>
+    </div>
 </header>
 
 <body>
