@@ -18,17 +18,10 @@ if ($_SESSION['loggedIn'] == "false") {
 $op_type;
 $itemType;
 $id;
-
-echo "<h1>" . $_SESSION['op_type'] . "</h1>";
-echo "<h1>" . $_SESSION['item_type'] . "</h1>";
-echo "<h1>". strval($_SESSION['item_id']) . "</h1>";
-
 if(isset($_SESSION['op_type']) && isset($_SESSION['item_type']) && isset($_SESSION['item_id'])) {
-    echo "<h1> Hello </h1>";
     $op_type = $_SESSION['op_type'];
     $itemType = $_SESSION['item_type'];
     $id = $_SESSION['item_id'];
-    echo $itemType . "</b>";
 }
 
 function print_recipe_name() {
@@ -42,7 +35,6 @@ function print_recipe_name() {
         $stmt = $pdo->prepare($fetchRecipeName);
         $stmt->execute([$item_id]);
         $recipe = $stmt->fetch();
-        echo $recipe['RecipeName'];
     }
 }
 
@@ -185,7 +177,7 @@ function fetchallergens(){
 
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
-    <script type="text/javascript" src="../js\jQuery/onclickEvents.js" defer></script>
+    <script type="text/javascript" src="../js\jQuery/datahandler.js" defer></script>
     <link rel="./css/management.css">
     <script type="text/javascript" src="../js\jQuery/loadprogress.js"></script>
     
@@ -245,7 +237,7 @@ function fetchallergens(){
                 </div>
 
                 <div class="col-xs-12 col-md-12 col-lg-7 my-sm-2">
-                    <textarea type="text" rows="25" class="form-control" id="Description" name="recipeInstructions" aria-describedby="description text box" placeholder="Description"> <?php print_description();?></textarea>
+                    <textarea type="text" rows="25" class="form-control" id="Description" name="recipeInstructions" aria-describedby="description text box" placeholder="Description"><?php print_description();?></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">

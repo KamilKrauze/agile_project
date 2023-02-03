@@ -96,7 +96,6 @@ window.onbeforeunload = function retainProgress(){
     var documentProgress = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
     var description = document.getElementById('Description');
     localStorage.setItem("Description", JSON.stringify(description.value));
-    //console.log(description.value);
     localStorage.setItem("modifyHTML", JSON.stringify(documentProgress));
     var ingredients = document.getElementsByClassName('ingredient');
     var ingredientProperties = [];
@@ -115,11 +114,9 @@ window.onbeforeunload = function retainProgress(){
     }
     localStorage.setItem("ingredientProperties",JSON.stringify(ingredientProperties));
     localStorage.setItem("saveProgress",JSON.stringify(true));
-    console.log(JSON.parse(localStorage.getItem("saveProgress")));
 }
 function remIngredient(id){
     var toDelete = document.getElementById(id);
     toDelete.remove();
-    console.log(document.getElementById('ingredientList').innerHTML);
 
 }
