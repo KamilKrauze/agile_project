@@ -7,31 +7,23 @@
 error_reporting(E_ALL ^ E_WARNING);
 $title = "Management"; // Page title text
 $recipe_name = "";
+
 include '../config/database.php';
 session_start();
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
     exit();
 }
-/*
+
 $op_type;
 $itemType;
 $id;
-
-echo "<h1>" . $_SESSION['op_type'] . "</h1>";
-echo "<h1>" . $_SESSION['item_type'] . "</h1>";
-echo "<h1>". strval($_SESSION['item_id']) . "</h1>";
-
 if(isset($_SESSION['op_type']) && isset($_SESSION['item_type']) && isset($_SESSION['item_id'])) {
-    echo "<h1> Hello </h1>";
     $op_type = $_SESSION['op_type'];
     $itemType = $_SESSION['item_type'];
     $id = $_SESSION['item_id'];
-    echo $itemType . "</b>";
-}else{
-    echo "<h1> Hello 0_0</h1>";
 }
-*/
+
 function print_recipe_name() {
     global $op_type;
     global $item_id;
@@ -43,7 +35,6 @@ function print_recipe_name() {
         $stmt = $pdo->prepare($fetchRecipeName);
         $stmt->execute([$item_id]);
         $recipe = $stmt->fetch();
-        echo $recipe['RecipeName'];
     }
 }
 
@@ -82,13 +73,12 @@ function print_ingredients(){
         $fetchIngredients = "SELECT IngredientName, Quantity, measurementType, AllergenName FROM v_Ingredients_to_recipe WHERE RecipeID = ?";
         $stmtFetch = $pdo->prepare($fetchIngredients);
         $stmtFetch->execute([$item_id]);
-        if(count($stmtFetch->fetch())!=0){
             $a = 0;
         $ids = fetchIngredientIDS();
         while($ingredient = $stmtFetch->fetch()){            
             echo
                 '
-                <tr class="ingredient" id=' . $ingredient['IngredientName'] . '>
+                <tr class="ingredient" id=' . '"ingredient-' . $a . '">
                     <th class="property"><input type="hidden" name="ingredientID-'. $a . '" value="'. $ids[$a] . '">' . $ingredient['IngredientName'] . '</th>
                     <th><input class="quantity-input property" type="number" min="1" name="ingredientQuantity-' . $a . '"onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $ingredient['Quantity'] . '></th>
                     <th>
@@ -111,18 +101,16 @@ function print_ingredients(){
                         </div>
                     </th>
                     <th>
-                        <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
+                        <button aria-label="${json[i].id}" onclick=remIngredient("ingredient-'. $a . '") class="btn btn-danger" type="button">
                             X
                         </button>
                     </th>
                 </tr>
                 ';
             $a++;
-            $_SESSION['index'] = $a;
         }
+        $_SESSION['index'] = $a;
         $a = 0;
-    } else {
-        return;}
 }
 function fetchIngredientIDS(){
     global $pdo;
@@ -189,7 +177,7 @@ function fetchallergens(){
 
     <!-- Custom JS scripts -->
     <script src="./js/logout.js"></script>
-    <script type="text/javascript" src="../js\jQuery/onclickEvents.js" defer></script>
+    <script type="text/javascript" src="../js\jQuery/datahandler.js" defer></script>
     <link rel="./css/management.css">
     <script type="text/javascript" src="../js\jQuery/loadprogress.js"></script>
     
@@ -249,7 +237,7 @@ function fetchallergens(){
                 </div>
 
                 <div class="col-xs-12 col-md-12 col-lg-7 my-sm-2">
-                    <textarea type="text" rows="25" class="form-control" id="Description" name="recipeInstructions" aria-describedby="description text box" placeholder="Description"> <?php print_description();?></textarea>
+                    <textarea type="text" rows="25" class="form-control" id="Description" name="recipeInstructions" aria-describedby="description text box" placeholder="Description"><?php print_description();?></textarea>
                 </div>   
             </div>
             <div class="row mb-3" id="additionalInfo">

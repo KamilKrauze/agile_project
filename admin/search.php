@@ -146,15 +146,11 @@ $title = "Admin Search";
                             </div>
                             <div class="modal-body">
                                 <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="' . $name . ' oncontextmenu="return false">
-                                <p>Allergen: ' . $allergen . '
-                                <br>
-                                ' . $_SESSION["filterBy"] . '
-                                </p>   
+                                <p>Allergen: ' . $allergen . '</p>   
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rusureModali-' . $id . '">Remove</button>
-                                <button type="button" class="btn btn-green" onclick="editItem(this,' . $id . ',`Ingredient`)">Edit</button>
                             </div>
                             </div>
                         </div>
