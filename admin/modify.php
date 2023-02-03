@@ -35,6 +35,7 @@ function print_recipe_name() {
         $stmt = $pdo->prepare($fetchRecipeName);
         $stmt->execute([$item_id]);
         $recipe = $stmt->fetch();
+        echo $recipe['RecipeName'];
     }
 }
 
