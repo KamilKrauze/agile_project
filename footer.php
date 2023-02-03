@@ -1,4 +1,4 @@
-<footer class="footer bg-grey p-3" id="footer">
+<footer class="footer bg-grey p-3" id="footer"
     <div class="container-fluid">
         <div class="row justify-content-between">
 
@@ -29,5 +29,3 @@
         </div>
     </div>
 </footer>
-
-</html>
