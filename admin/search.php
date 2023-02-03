@@ -6,14 +6,17 @@
 include '../config/database.php';
 session_start();
 
-$_SESSION['filterBy'] = "all";
+$_POST['submit'] = " ";
+$_POST['query'] = "";
 
 $query = "";
 $filterBy = "";
 if (isset($_POST['submit'])) {
     if ($_POST['submit']) {
         $query = $_POST['query'];
-        $filterBy = $_SESSION['filterBy'];
+        if (isset($_SESSION['filterBy'])) {
+            $filterBy = $_SESSION['filterBy'];
+        }
     }
 }
 
@@ -64,7 +67,7 @@ $title = "Admin Search";
             </a>
         </div>
         <div class="col-auto my-5">
-            <button type="button" class="btn btn-green" onclick="logout()">Log out</button>
+            <button type="button" class="btn btn-green" onclick="logout()">Logout</button>
         </div>
     </div>
 </header>
@@ -103,7 +106,7 @@ $title = "Admin Search";
             $value = "%" . $query . "%";
         }
 
-        if ($filterBy == "ingredients" || $filterBy == "all") {
+        if ($filterBy == "ingredients" || $filterBy == "all" || !isset($filterBy)) {
             try {
                 $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
                 $stmt = $pdo->prepare($fetchIngredients);
@@ -175,7 +178,7 @@ $title = "Admin Search";
             }
         }
 
-        if ($filterBy == "recipes" || $filterBy == "all") {
+        if ($filterBy == "recipes" || $filterBy == "all" || !isset($filterBy)) {
             try {
                 $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
                 $stmt = $pdo->prepare($fetchRecipes);
