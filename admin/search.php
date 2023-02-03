@@ -112,7 +112,7 @@ $title = "Admin Search";
                 $allergen = $row['AllergenName'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
@@ -196,7 +196,7 @@ $title = "Admin Search";
                 $desc = $row['Instructions'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
