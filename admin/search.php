@@ -6,8 +6,10 @@
 include '../config/database.php';
 session_start();
 
-$_POST['submit'] = " ";
-$_POST['query'] = "";
+if (!isset($_POST['submit']) && !isset($_POST['query'])) {
+    $_POST['submit'] = " ";
+    $_POST['query'] = "";
+}
 
 $query = "";
 $filterBy = "";
