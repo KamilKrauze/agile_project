@@ -10,6 +10,7 @@ $query = "";
 if (isset($_POST['submit'])) {
     if ($_POST['submit']) {
         $query = $_POST['query'];
+        $filterBy = $_POST['selected_type'];
     }
 }
 
@@ -75,6 +76,7 @@ $title = "Admin Search";
 </header>
 
 <body>
+    <?php echo `<h1>{$query}</h1>`; ?>
      <!-- Main container -->
     <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
@@ -82,13 +84,22 @@ $title = "Admin Search";
             <form method="post" action="search.php">
                 <div class="input-group">
                     <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="query"/>
+                    <select id="select_item_type" class="form-select" aria-label="Select item type" aria-describedby="Filter nothing or show explicitly ingredients or recipes." onchange="applyFilter()">
+                        <option value="none">None</option>
+                        <option value="ingredients">Ingredients</option>
+                        <option value="recipes">Recipes</option>
+                    </select>
                     <button type="submit" name="submit" value="Search" class="btn btn-secondary">Search</button>
-                    <button type="button" class="btn btn-green">Add item</button>
-                </div>
             </form>
+                    <form action="add.php">
+                        <button type="submit" class="btn btn-green">Add item</button>
+                     </form>
+                </div>
+            
+            
         </div>
     
-        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll;">
+        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll; height:200vh;">
 
         <?php
         
@@ -108,7 +119,7 @@ $title = "Admin Search";
                 $allergen = $row['AllergenName'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
@@ -192,7 +203,7 @@ $title = "Admin Search";
                 $desc = $row['Instructions'];
 
                 echo '
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
