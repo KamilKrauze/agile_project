@@ -14,12 +14,26 @@ function editItem(element, itemID, itemType) {
             window.location.href = "modify.php";}
     });
 }
+
 window.onbeforeunload = () => {
     console.log("Changing page!");
 }
 window.onload = function clearLocalStorage(){
     localStorage.clear();
 }
+
+function applyFilter() {
+    let select = document.getElementById('select_item_type');
+    console.log( select.options[select.selectedIndex].value);
+   $.ajax({
+        url: '../modules/setFilterValue.php',
+        type: 'POST',
+        async: false,
+        data: {selected_type: select.options[select.selectedIndex].value}
+   });
+
+}
+
 function remItem(element, itemID, itemType) {
     console.log(element);
     console.log(itemType);
