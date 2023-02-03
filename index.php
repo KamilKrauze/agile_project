@@ -41,7 +41,14 @@
                 $stmt->execute();
                 $ingredients_names = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($ingredients_names as $ingr_row) {
-                    include 'php_templates/checkbox.php';
+                    if (in_array($ingr_row['IngredientID'], $ingredients)) {
+                        include 'php_templates/checkbox.php';
+                    }
+                }
+                foreach ($ingredients_names as $ingr_row) {
+                    if (!in_array($ingr_row['IngredientID'], $ingredients)) {
+                        include 'php_templates/checkbox.php';
+                    }
                 }
             ?>
             </div>
@@ -131,11 +138,6 @@
                     }
                 }
             ?>
-            <div class="additional-ingredients basic-flex flex-column">
-                <h2>WIP // maybe something you can cook with ONLY selected ingredients if possible?</h1>
-                <div class="basic-flex flex-column flex-end flex-small">
-                </div>
-            </div>
         </div>
     </div>
     </div>

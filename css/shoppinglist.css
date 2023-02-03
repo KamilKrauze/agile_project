@@ -1,0 +1,101 @@
+.main-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 2em;
+
+    width: 45%;
+    margin: 16px auto;
+
+    border-radius: 16px;
+    border-style: solid;
+    border-color: #93dfb3;
+    border-width: 4px;
+
+    left: 0px;
+    top: 0px;
+}
+
+a {
+    color: black !important;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-items: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-items: center;
+    align-items: center;
+}
+
+.recipe-name {
+    width: 60%;
+    flex-grow: 1;
+}
+
+.recipes-div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+input[type=number] {
+    width: 80px;
+    border-radius: 8px;
+    border-width: 1px;
+    text-align: center;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 26px !important;
+    margin: 0 !important;
+}
+
+h4 {
+    font-style: normal;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    margin-bottom: 0 !important;
+}
+
+
+button {
+    border-radius: 16px !important;
+    background:rgb(255, 71, 71);
+    border-width: 0;
+    color: white;
+    width: 180px;
+    height: auto;
+    padding: 4px;
+    margin: 0 !important;
+}
+
+@media (max-width: 992px) {
+    .main-body {
+        width: 95%;
+        padding: 8px;
+        gap: 16px;
+    }
+
+    button {
+        width: auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

@@ -7,9 +7,6 @@
     
     <!-- Main container -->
     <div class="main-body" >
-        <?php 
-         include("counter.php") 
-        ?>
         <!-- Do fancy code to get recipe title and info here-->
     	<?php 
             //default recipe id set to 1
@@ -34,16 +31,11 @@
 
             $iids = $findiid->fetchAll(\PDO::FETCH_ASSOC);
 
-            echo '<h1>' . $recipename . '</h1>';
+            echo '<h1 id="recipeName">' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
-
             if (file_exists('./media/img/recipes/'.$rid.'.jpg')){
                 echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
-            }
-            
-            if (!empty($fr['TotalTime'])){
-                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
             }
 
 ?>
@@ -67,14 +59,22 @@
                     }
                 }
             </script>
+            <div class="button-container" style="align-items: center;">
             <h2>Serves
-                <input type="number" id="servingsNumber" name="servingsNumber"
+                <input type="number" onchange="Scale();" id="servingsNumber" name="servingsNumber"
                     min="1" max="1000" value="<?php echo $fr['Servings']; ?>">
             people</h2>
+
+            <?php include("php_templates/counter.php") ?>
+            </div>
             
             <div class="button-container">
-                <button value="reset" onclick="Reset()">Reset servings</button>
-                <button value="scale" onclick="Scale()">Scale the recipe</button>
+                <button onclick="Reset();">Reset servings</button>
+                <button id="recipeAddButton" onclick="addRecipeToList();">Add recipe to the shopping list</button>
+                <script>
+                addEventListener('storage', refreshButton);
+                refreshButton();
+                </script>
             </div>
 
 <?php
@@ -103,11 +103,16 @@
                     $f = $findin->fetch(PDO::FETCH_ASSOC);
                     $in = $f['IngredientName'];
                     $link = $f['ShopLink'];
-                    if (!empty($link)){
-                        echo '<li><a href="'.$link .'"><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</a></li>';}
-                    else {
-                        echo '<li><span class="quantity" defaultvalue="' . $q . '">' . $q . '</span> ' . $m . ' ' . $in . '</li>';
+                    
+                    echo '<li>';
+                    if (!empty($link)) {
+                        echo '<a href="'.$link .'">';
                     }
+                    echo '<span class="quantity ingredientItems" ingredient-link="'.$link.'"ingredient-id="'.$iid['IngredientID'].'" ingredient-name="'.$in.'" defaultvalue="' . $q . '" measurement-type="'.$m.'"> '.$q . ' </span> ' . $m . ' ' . $in;
+                    if (!empty($link)) {
+                        echo '</a>';
+                    }
+                    echo '</li>';
                 }
             echo '</ol>';
 
@@ -133,6 +138,9 @@
             }
 
             echo '</ul></div></div>';
+            if (!empty($fr['TotalTime'])){
+                echo '<h3>Total Time: '.$fr['TotalTime'].' minutes</h3>';
+            }
             if (!empty($fr['PrepTime']) and !empty($fr['CookTime'])){
                 echo '<h3>Prep Time: '.$fr['PrepTime'].' minutes</h3>';
                 echo '<h3>Cooking Time: '.$fr['CookTime'].' minutes</h3>';

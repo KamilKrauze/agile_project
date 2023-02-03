@@ -60,7 +60,13 @@ session_start();
 
                 <li class="nav-item" style="margin-left:2.5%;">
                     <div class="col-xs-6 col-sm-6 col-md-auto pt-2">
-                        <a class="nav-link" aria-current="page" target="_blank" href="https://thelittlegreenlarder.com">Link to Shop</a>
+                        <a class="nav-link" aria-current="page" target="_blank" href="https://thelittlegreenlarder.com">Store</a>
+                    </div>
+                </li>
+
+                <li class="nav-item" style="margin-left:2.5%;">
+                    <div class="col-xs-6 col-sm-6 col-md-auto pt-2">
+                        <a class="nav-link" aria-current="page" href="shoppinglist.php" id="shoppingListIcon">Shopping List: Empty</a>
                     </div>
                 </li>
 
@@ -75,3 +81,5 @@ session_start();
         </div>
     </nav>
 </header>
+
+<script src="js/shoppingList.js"></script>
