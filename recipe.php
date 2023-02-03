@@ -34,7 +34,9 @@
             echo '<h1 id="recipeName">' . $recipename . '</h1>';
 
             echo '<div class="flex-container">';
-            echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';
+            if (file_exists('./media/img/recipes/'.$rid.'.jpg')){
+                echo '<img src="./media/img/recipes/'. $rid. '.jpg" ' . 'alt="a picture of ' . $recipename . '" class="r-image">';            
+            }
 
 ?>
             <script>
