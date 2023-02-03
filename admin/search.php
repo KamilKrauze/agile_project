@@ -92,7 +92,7 @@ $title = "Admin Search";
             
         </div>
     
-        <div class="contents row mx-5 my-3 h-100" style="overflow-y: scroll;">
+        <div class="contents row mx-5 my-3" style="overflow-y: scroll; height:200vh;">
 
         <?php
         
