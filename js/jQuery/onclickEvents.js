@@ -34,7 +34,7 @@ function onclickAdd(){
                 }
             });
             alert(index);
-            var newingredientPart1 = `<tr id="${ingredient}" class="ingredient">
+            var newingredientPart1 = `<tr id="ingredient-${index}" class="ingredient">
                 <th class="property"><input type="hidden" name="ingredientID-${index}" value="${exists.id}">${ingredient}</th>
                 <th>
                     <input class="quantity-input property" type="number" min="1" name="ingredientQuantity-${index}" onkeypress="return event.keyCode != 13;" style="width:50%" value="${quantity}">
@@ -117,6 +117,9 @@ window.onbeforeunload = function retainProgress(){
     localStorage.setItem("saveProgress",JSON.stringify(true));
     console.log(JSON.parse(localStorage.getItem("saveProgress")));
 }
-function sendRecipeToDatabse(){
+function remIngredient(id){
+    var toDelete = document.getElementById(id);
+    toDelete.remove();
+    console.log(document.getElementById('ingredientList').innerHTML);
 
 }

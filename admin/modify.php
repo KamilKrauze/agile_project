@@ -7,13 +7,14 @@
 error_reporting(E_ALL ^ E_WARNING);
 $title = "Management"; // Page title text
 $recipe_name = "";
+
 include '../config/database.php';
 session_start();
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
     exit();
 }
-/*
+
 $op_type;
 $itemType;
 $id;
@@ -28,10 +29,8 @@ if(isset($_SESSION['op_type']) && isset($_SESSION['item_type']) && isset($_SESSI
     $itemType = $_SESSION['item_type'];
     $id = $_SESSION['item_id'];
     echo $itemType . "</b>";
-}else{
-    echo "<h1> Hello 0_0</h1>";
 }
-*/
+
 function print_recipe_name() {
     global $op_type;
     global $item_id;
@@ -82,13 +81,12 @@ function print_ingredients(){
         $fetchIngredients = "SELECT IngredientName, Quantity, measurementType, AllergenName FROM v_Ingredients_to_recipe WHERE RecipeID = ?";
         $stmtFetch = $pdo->prepare($fetchIngredients);
         $stmtFetch->execute([$item_id]);
-        if(count($stmtFetch->fetch())!=0){
             $a = 0;
         $ids = fetchIngredientIDS();
         while($ingredient = $stmtFetch->fetch()){            
             echo
                 '
-                <tr class="ingredient" id=' . $ingredient['IngredientName'] . '>
+                <tr class="ingredient" id=' . '"ingredient-' . $a . '">
                     <th class="property"><input type="hidden" name="ingredientID-'. $a . '" value="'. $ids[$a] . '">' . $ingredient['IngredientName'] . '</th>
                     <th><input class="quantity-input property" type="number" min="1" name="ingredientQuantity-' . $a . '"onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $ingredient['Quantity'] . '></th>
                     <th>
@@ -111,18 +109,16 @@ function print_ingredients(){
                         </div>
                     </th>
                     <th>
-                        <button aria-label="${json[i].id}" class="btn btn-danger" type="button">
+                        <button aria-label="${json[i].id}" onclick=remIngredient("ingredient-'. $a . '") class="btn btn-danger" type="button">
                             X
                         </button>
                     </th>
                 </tr>
                 ';
             $a++;
-            $_SESSION['index'] = $a;
         }
+        $_SESSION['index'] = $a;
         $a = 0;
-    } else {
-        return;}
 }
 function fetchIngredientIDS(){
     global $pdo;
