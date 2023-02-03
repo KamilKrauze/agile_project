@@ -28,5 +28,6 @@ A web application connected to a backend for the The Little Green Larder shop.
 - Kamil Krauze
 - Maria Mara Gatillo
 - Vera Borvinski
+- Victor Iyida
 
 ---
