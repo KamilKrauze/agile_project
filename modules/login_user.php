@@ -21,8 +21,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         if(hash_equals(base64_decode($password), $hash)) {
             $_SESSION['loggedIn'] = "true";
-            header("Location: ./search.php", true, 301);
-            exit();
+            echo "match";
         }
 
     }
