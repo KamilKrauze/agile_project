@@ -20,6 +20,7 @@ function login() {
 
     $.ajax({
         url: "../modules/login_user.php",
+        type: 'POST',
         async: false,
         data : {
             username: String(usernameField.value),
