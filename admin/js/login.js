@@ -26,7 +26,7 @@ function login() {
             password: String(passwordField.value)
         },
         success: (response) => {
-            console.log(response)
+            console.log(response);
 
             // if (response == "match") {
             //     window.location.href = "../search.php";
