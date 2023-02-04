@@ -29,10 +29,10 @@ function login() {
         success: (response) => {
             console.log(response);
 
-            // if (response == "match") {
-            //     window.location.href = "../search.php";
-            // }
-            // else {alert("Invalid login credentials");}
+            if (response == "match") {
+                window.location.href = "../search.php";
+            }
+            else {alert("Invalid login credentials");}
         }
     });
 
