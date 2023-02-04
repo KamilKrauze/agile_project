@@ -18,12 +18,28 @@ function login() {
         return;
     }
 
-    $.post('../modules/login_user.php', {
-        username: String(usernameField.value),
-        password: String(passwordField.value)
-    }, (response) => {
-            if (response == "match") {window.location.href = "./search.php";}
+    $.ajax({
+        url: "../modules/login_user.php",
+        async: false,
+        data : {
+            username: String(usernameField.value),
+            password: String(passwordField.value)
+        },
+        success: (response) => {
+            if (response == "match") {
+                window.location.href = "search.php";
+            }
             else {alert("Invalid login credentials");}
-        });
+        }
+    });
+
+
+    // $.post('../modules/login_user.php', {
+    //     username: String(usernameField.value),
+    //     password: String(passwordField.value)
+    // }, (response) => {
+    //         if (response == "match") {window.location.href = "./search.php";}
+    //         else {alert("Invalid login credentials");}
+    //     });
 
 }
