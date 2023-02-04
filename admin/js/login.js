@@ -25,6 +25,14 @@ function login() {
         data : {
             username: String(usernameField.value),
             password: String(passwordField.value)
+        },
+        success: (response) => {
+            console.log(response);
+
+            if (response == "match") {
+                window.location.assign = "./search.php";
+            }
+            else {alert("Invalid login credentials");}
         }
     });
 
