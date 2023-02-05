@@ -6,11 +6,12 @@
 include '../config/database.php';
 session_start();
 
-$filterBy;
-
 if (!isset($_POST['query'])) {
     $_POST['query'] = "";
-    $filterBy = "all";
+}
+
+if (!isset($_POST['submit'])) {
+    $_POST['submit'] = "";
 }
 
 $query = "";
@@ -18,7 +19,10 @@ if (isset($_POST['submit'])) {
     if ($_POST['submit']) {
         $query = $_POST['query'];
         if (isset($_SESSION['filterBy'])) {
-            $filterBy = $_SESSION['filterBy'];
+            // Do nothing
+        }
+        else {
+            $_SESSION['filterBy'] = "all";
         }
     }
 }
@@ -109,7 +113,7 @@ $title = "Admin Search";
             $value = "%" . $query . "%";
         }     
 
-        if ($filterBy == "ingredients" || $filterBy == "all" || !isset($filterBy)) {
+        if ($_SESSION['filterBy'] == "ingredients" || $_SESSION['filterBy'] == "all") {
             try {
                 $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
                 $stmt = $pdo->prepare($fetchIngredients);
@@ -181,7 +185,7 @@ $title = "Admin Search";
             }
         }
 
-        if ($filterBy == "recipes" || $filterBy == "all" || !isset($filterBy)) {
+        if ($_SESSION['filterBy'] == "recipes" || $_SESSION['filterBy'] == "all") {
             try {
                 $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
                 $stmt = $pdo->prepare($fetchRecipes);
