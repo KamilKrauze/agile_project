@@ -6,12 +6,14 @@
 include '../config/database.php';
 session_start();
 
+$filterBy = "";
+
 if (!isset($_POST['query'])) {
     $_POST['query'] = "";
+    $filterBy = "all";
 }
 
 $query = "";
-$filterBy = "all";
 if (isset($_POST['submit'])) {
     if ($_POST['submit']) {
         $query = $_POST['query'];
@@ -177,8 +179,6 @@ $title = "Admin Search";
                 echo $exception;
                 die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
             }
-        } else {
-            echo $_POST['query'];
         }
 
         if ($filterBy == "recipes" || $filterBy == "all" || !isset($filterBy)) {
@@ -253,9 +253,6 @@ $title = "Admin Search";
                 echo $exception;
                 die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
             }
-        }
-        else {
-            echo "hi";
         }
         ?>
             
