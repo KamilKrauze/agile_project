@@ -37,7 +37,7 @@ function onclickAdd(){
             var newingredientPart1 = `<tr id="ingredient-${index}" class="ingredient">
                 <th class="property"><input type="hidden" name="ingredientID-${index}" value="${exists.id}">${ingredient}</th>
                 <th>
-                    <input class="quantity-input property" type="number" min="1" name="ingredientQuantity-${index}" onkeypress="return event.keyCode != 13;" style="width:50%" value="${quantity}">
+                    <input class="quantity-input property" type="number" min="0" step="0.1" name="ingredientQuantity-${index}" onkeypress="return event.keyCode != 13;" style="width:50%" value="${quantity}">
                 </th>
                 <th>
                     <div class="input-group">

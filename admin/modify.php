@@ -81,7 +81,7 @@ function print_ingredients(){
                 '
                 <tr class="ingredient" id=' . '"ingredient-' . $a . '">
                     <th class="property"><input type="hidden" name="ingredientID-'. $a . '" value="'. $ids[$a] . '">' . $ingredient['IngredientName'] . '</th>
-                    <th><input class="quantity-input property" type="number" min="1" name="ingredientQuantity-' . $a . '"onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $ingredient['Quantity'] . '></th>
+                    <th><input class="quantity-input property" type="number" min="0" step="0.1" name="ingredientQuantity-' . $a . '"onkeypress="return event.keyCode != 13;" style="width:50%" value=' . $ingredient['Quantity'] . '></th>
                     <th>
                         <div class="input-group">
                             <select name = "ingredientMeasurement-' . $a . '"class = "form-select property">
