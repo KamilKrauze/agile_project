@@ -6,8 +6,7 @@
 include '../config/database.php';
 session_start();
 
-if (!isset($_POST['submit']) && !isset($_POST['query'])) {
-    $_POST['submit'] = " ";
+if (!isset($_POST['query'])) {
     $_POST['query'] = "all";
 }
 
