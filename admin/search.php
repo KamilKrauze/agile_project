@@ -19,7 +19,9 @@ if (isset($_POST['submit'])) {
     $query = $_POST['query'];
 }
 $filter = "";
-$filter = $_SESSION['filterBy'];
+if (isset($_SESSION['filterBy'])) {
+    $filter = $_SESSION['filterBy'];
+}
 
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
@@ -194,7 +196,7 @@ $title = "Admin Search";
                     echo '
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
-                        <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'.jpg" alt="'.$name.'" oncontextmenu="return false">
+                        <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'.jpg" alt="'.$name.'" oncontextmenu="return false" style="object-fit:cover; height:15vw; width:100%;">
                         <div class="card-body">
                             <h3>' . $name . '</h3>
                         </div>
@@ -214,7 +216,7 @@ $title = "Admin Search";
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="word-wrap: break-word;">
-                            <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'.jpg" alt="' . $name . ' oncontextmenu="return false">
+                            <img class="img-fluid card-img-top mx-auto d-block" src="../media/img/recipes/'.$id.'.jpg" alt="' . $name . ' oncontextmenu="return false" style="object-fit:cover; width:100%;">
                             <p>' . $desc . '</p>     
                         </div>
                         <div class="modal-footer">
