@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
         // Do nothing
     }
     else {
-        $_SESSION['filterBy'] = "";
+        $_SESSION['filterBy'] = "all";
     }
 }
 
@@ -125,9 +125,9 @@ $title = "Admin Search";
 
                     echo '
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
-                        <div class="card h-100">
-                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
-                            <div class="card-body">
+                        <div class="card h-100">'.
+                            // <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
+                            '<div class="card-body">
                                 <h3>' . $name . '</h3>
                             </div>
                             <div class="card-footer">
@@ -145,9 +145,9 @@ $title = "Admin Search";
                                 <h5 class="modal-title" id="exampleRecipeLabel">' . $name . '</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="' . $name . ' oncontextmenu="return false">
-                                <p>Allergen: ' . $allergen . '</p>   
+                            <div class="modal-body">'.
+                                // <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="' . $name . ' oncontextmenu="return false">
+                                '<p>Allergen: ' . $allergen . '</p>   
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

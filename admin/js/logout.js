@@ -1,7 +1,12 @@
 function logout() {
-    $.post('../modules/logout.php', () => {
+    $.ajax({
+        url: '../modules/logout.php',
+        type: 'POST',
+        async: false,
+        success: () => {
         localStorage.clear();
-        window.location.href = "index.php";
+        window.location.assign("./index.php");
+        }
     });
 
 }
