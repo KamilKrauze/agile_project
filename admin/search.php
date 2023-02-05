@@ -6,7 +6,7 @@
 include '../config/database.php';
 session_start();
 
-$filterBy = "";
+$filterBy;
 
 if (!isset($_POST['query'])) {
     $_POST['query'] = "";
