@@ -19,9 +19,7 @@ if (isset($_POST['submit'])) {
     $query = $_POST['query'];
 }
 $filter = "";
-if (isset($_SESSION['filterBy'])) {
-    $filter = $_SESSION['filterBy'];
-}
+$filter = $_SESSION['filterBy'];
 
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
