@@ -16,14 +16,12 @@ if (!isset($_POST['submit'])) {
 
 $query = "";
 if (isset($_POST['submit'])) {
-    if ($_POST['submit']) {
-        $query = $_POST['query'];
-        if (isset($_SESSION['filterBy'])) {
-            // Do nothing
-        }
-        else {
-            $_SESSION['filterBy'] = "all";
-        }
+    $query = $_POST['query'];
+    if (isset($_SESSION['filterBy'])) {
+        // Do nothing
+    }
+    else {
+        $_SESSION['filterBy'] = "all";
     }
 }
 
