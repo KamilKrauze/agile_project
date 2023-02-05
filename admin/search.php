@@ -107,6 +107,11 @@ $title = "Admin Search";
         } else {
             $value = "%" . $query . "%";
         }
+        
+        echo `<h1> `.$_POST['query'].`' </h1>`;
+        echo `<h1> '`.$_POST['submit'].`' </h1>`;
+        
+
 
         if ($filterBy == "ingredients" || $filterBy == "all" || !isset($filterBy)) {
             try {
