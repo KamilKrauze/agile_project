@@ -29,10 +29,7 @@ function applyFilter() {
         url: '../modules/setFilterValue.php',
         type: 'POST',
         async: false,
-        data: {selected_type: select.options[select.selectedIndex].value},
-        success : (response) => {
-            console.log(response);
-        }
+        data: {selected_type: select.options[select.selectedIndex].value}
    });
 
 }
