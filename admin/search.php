@@ -18,6 +18,10 @@ $query = "";
 if (isset($_POST['submit'])) {
     $query = $_POST['query'];
 }
+$filter = "";
+if (isset($_SESSION['filterBy'])) {
+    $filter = $_SESSION['filterBy'];
+}
 
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
@@ -84,7 +88,7 @@ $title = "Admin Search";
                         <option id="fltr_opt_ingredients" value="ingredients">Ingredients</option>
                         <option id="fltr_opt_recipes" value="recipes">Recipes</option>
                     </select>
-                    <button type="submit" name="submit" value="Search" class="btn btn-secondary"><?php echo var_dump($_SESSION['filterBy']);?></button>
+                    <button type="submit" name="submit" value="Search" class="btn btn-secondary"><?php echo var_dump($filter)?></button>
             </form>
                     <form action="add.php">
                         <button type="submit" class="btn btn-green">Add item</button>
@@ -105,7 +109,7 @@ $title = "Admin Search";
             $value = "%" . $query . "%";
         }     
 
-        if ($_SESSION['filterBy'] == "ingredients" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "" || !isset($_SESSION['filterBy'])) {
+        if ($filter == "ingredients" || $filter == "all" || $filter == "" || !isset($filter)) {
             try {
                 $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
                 $stmt = $pdo->prepare($fetchIngredients);
@@ -177,7 +181,7 @@ $title = "Admin Search";
             }
         }
 
-        if ($_SESSION['filterBy'] == "recipes" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "" || !isset($_SESSION['filterBy'])) {
+        if ($filter == "recipes" || $filter == "all" || $filter == "" || !isset($filter)) {
             try {
                 $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
                 $stmt = $pdo->prepare($fetchRecipes);
