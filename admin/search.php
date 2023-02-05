@@ -86,7 +86,7 @@ $title = "Admin Search";
                         <option id="fltr_opt_ingredients" value="ingredients">Ingredients</option>
                         <option id="fltr_opt_recipes" value="recipes">Recipes</option>
                     </select>
-                    <button type="submit" name="submit" value="Search" class="btn btn-secondary"><?php echo var_dump($filter)?></button>
+                    <button type="submit" name="submit" value="Search" class="btn btn-secondary">Search</button>
             </form>
                     <form action="add.php">
                         <button type="submit" class="btn btn-green">Add item</button>
@@ -194,7 +194,7 @@ $title = "Admin Search";
                     echo '
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
                     <div class="card h-100">
-                        <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
+                        <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'" alt="Card image cap" oncontextmenu="return false">
                         <div class="card-body">
                             <h3>' . $name . '</h3>
                         </div>
@@ -214,7 +214,7 @@ $title = "Admin Search";
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="word-wrap: break-word;">
-                            <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="' . $name . ' oncontextmenu="return false">
+                            <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'" alt="' . $name . ' oncontextmenu="return false">
                             <p>' . $desc . '</p>     
                         </div>
                         <div class="modal-footer">
