@@ -106,12 +106,7 @@ $title = "Admin Search";
             $value = "%";
         } else {
             $value = "%" . $query . "%";
-        }
-        
-        echo `<h1> `.$_POST['query'].`' </h1>`;
-        echo `<h1> '`.$_POST['submit'].`' </h1>`;
-        
-
+        }     
 
         if ($filterBy == "ingredients" || $filterBy == "all" || !isset($filterBy)) {
             try {
@@ -183,6 +178,8 @@ $title = "Admin Search";
                 echo $exception;
                 die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
             }
+        } else {
+            echo "Hello!";
         }
 
         if ($filterBy == "recipes" || $filterBy == "all" || !isset($filterBy)) {
@@ -257,6 +254,9 @@ $title = "Admin Search";
                 echo $exception;
                 die("ERROR: Could not prepare/execute query. \n{$exception->getMessage()}");
             }
+        }
+        else {
+            echo "hi";
         }
         ?>
             
