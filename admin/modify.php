@@ -275,7 +275,7 @@ function fetchallergens(){
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-6">
                     <p>Created by: </p>
-                    <p>&copy Andrii Sultanov, Daryna Hnatenko, Dimitar Valkov, Kamil Krauze, Maria Mara Gatillo, Vera Borvinski</p>
+                    <p>&copy Andrii Sultanov, Daryna Hnatenko, Dimitar Valkov, Kamil Krauze, Maria Mara Gatillo, Vera Borvinski, Victor Iyida</p>
                 </div>
                 <div class="col-sm-12 col-md-6 justify-content-xs-start justify-content-md-end">
                     <p>Some copyright content</p>
