@@ -17,12 +17,6 @@ if (!isset($_POST['submit'])) {
 $query = "";
 if (isset($_POST['submit'])) {
     $query = $_POST['query'];
-    if (isset($_SESSION['filterBy'])) {
-        // Do nothing
-    }
-    else {
-        $_SESSION['filterBy'] = "all";
-    }
 }
 
 if ($_SESSION['loggedIn'] == "false") {
@@ -111,7 +105,7 @@ $title = "Admin Search";
             $value = "%" . $query . "%";
         }     
 
-        if ($_SESSION['filterBy'] == "ingredients" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "") {
+        if ($_SESSION['filterBy'] == "ingredients" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "" || !isset($_SESSION['filterBy'])) {
             try {
                 $fetchIngredients = "SELECT * FROM v_allergen_to_ingredient WHERE IngredientName LIKE :name;";
                 $stmt = $pdo->prepare($fetchIngredients);
@@ -183,7 +177,7 @@ $title = "Admin Search";
             }
         }
 
-        if ($_SESSION['filterBy'] == "recipes" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "") {
+        if ($_SESSION['filterBy'] == "recipes" || $_SESSION['filterBy'] == "all" || $_SESSION['filterBy'] == "" || !isset($_SESSION['filterBy'])) {
             try {
                 $fetchRecipes = "SELECT RecipeID, RecipeName, Instructions FROM recipes WHERE RecipeName LIKE :name";
                 $stmt = $pdo->prepare($fetchRecipes);
