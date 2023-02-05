@@ -8,7 +8,7 @@ session_start();
 
 if (!isset($_POST['submit']) && !isset($_POST['query'])) {
     $_POST['submit'] = " ";
-    $_POST['query'] = "";
+    $_POST['query'] = "all";
 }
 
 $query = "";
