@@ -90,7 +90,7 @@ $title = "Admin Search";
                         <option id="fltr_opt_ingredients" value="ingredients">Ingredients</option>
                         <option id="fltr_opt_recipes" value="recipes">Recipes</option>
                     </select>
-                    <button type="submit" name="submit" value="Search" class="btn btn-secondary"><?php echo $_SESSION['filterBy'];?></button>
+                    <button type="submit" name="submit" value="Search" class="btn btn-secondary"><?php echo var_dump($_SESSION['filterBy']);?></button>
             </form>
                     <form action="add.php">
                         <button type="submit" class="btn btn-green">Add item</button>

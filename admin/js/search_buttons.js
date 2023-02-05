@@ -33,11 +33,3 @@ function applyFilter() {
    });
 
 }
-
-function remItem(element, itemID, itemType) {
-    console.log(element);
-    console.log(itemType);
-    console.log(itemID);
-
-    window.location.href = "modify.php";
-}
