@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-if ($_SESSION['loggedIn'] != "true") {
+if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
     exit();
 }

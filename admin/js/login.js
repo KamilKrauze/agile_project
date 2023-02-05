@@ -30,7 +30,7 @@ function login() {
             console.log(response);
 
             if (response == "match") {
-                window.location.assign = "./search.php";
+                window.location.assign("./search.php");
             }
             else {alert("Invalid login credentials");}
         }
