@@ -265,7 +265,7 @@ function fetchallergens(){
                 </div>
             </div>
             <div class="row mb-3">
-                <input type="file" class="form-control-file" id="uploadImage"/>
+                <!-- <input type="file" class="form-control-file" id="uploadImage"/> -->
             </div>
         </form>
     </div>
