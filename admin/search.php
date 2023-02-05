@@ -22,6 +22,9 @@ $filter = "";
 if (isset($_SESSION['filterBy'])) {
     $filter = $_SESSION['filterBy'];
 }
+else if ( isset($_SESSION['filterBy']) == false) {
+    $_SESSION['filterBy'] = "all";
+}
 
 if ($_SESSION['loggedIn'] == "false") {
     header("Location: ./index.php", true, 301);
