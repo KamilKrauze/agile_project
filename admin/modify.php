@@ -121,8 +121,6 @@ function fetchIngredientIDS(){
     $stmt->execute([$item_id]);
 
     $ids = array();
-
-    $stmt->fetch();
     while($row = $stmt->fetch()) {
         array_push($ids, $row['IngredientID']);
     }
