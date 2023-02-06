@@ -80,7 +80,7 @@ $title = "Admin Search";
 
 <body>
      <!-- Main container -->
-    <div class="container-fluid my-2>
+    <div class="container-fluid my-2">
         <!--Source: https://mdbootstrap.com/docs/standard/forms/search/-->
         <div class="row px-md-5">
             <form method="post" action="search.php">
@@ -125,7 +125,7 @@ $title = "Admin Search";
                     $allergen = $row['AllergenName'];
 
                     echo '
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xxl-2 my-2">
                         <div class="card h-100">'.
                             // <img class="img-fluid card-img-top" src="../media/img/littleGreenLogo_180x.avif" alt="Card image cap" oncontextmenu="return false">
                             '<div class="card-body">
@@ -197,7 +197,7 @@ $title = "Admin Search";
                     $desc = $row['Instructions'];
 
                     echo '
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-2 my-2">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xxl-2 my-2">
                     <div class="card h-100">
                         <img class="img-fluid card-img-top" src="../media/img/recipes/'.$id.'.jpg" alt="'.$name.'" oncontextmenu="return false" style="object-fit:cover; height:15vw; width:100%;">
                         <div class="card-body">
