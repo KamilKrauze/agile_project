@@ -33,7 +33,7 @@ function onclickAdd(){
                     index = session;
                 }
             });
-            alert(index);
+            // alert(index);
             var newingredientPart1 = `<tr id="ingredient-${index}" class="ingredient">
                 <th class="property"><input type="hidden" name="ingredientID-${index}" value="${exists.id}">${ingredient}</th>
                 <th>
