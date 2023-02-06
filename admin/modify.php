@@ -226,7 +226,7 @@ function fetchallergens(){
                                 <th scope="col">Ingredient</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Measurement</th>
-                                <th scope="col">Allegen</th>
+                                <th scope="col">Allergens</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
