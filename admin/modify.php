@@ -219,7 +219,7 @@ function fetchallergens(){
 
             <div class="row mb-3" id="description">
                 <!-- Ingredient List -->
-                <div class="col-xs-12 col-md-12 col-lg-5 my-sm-2" style="max-height: 615px; overflow-y: scroll;">
+                <div class="col-xs-12 col-md-12 col-lg-5 my-sm-2" style="max-height: 615px; overflow-y: auto;">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
