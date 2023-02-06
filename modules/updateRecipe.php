@@ -45,6 +45,7 @@ if (isset($_POST["modifyRecipe"]) && isset($_POST['recipeName'])) {
         }
     }
     header("location: ../admin/search.php");
+    exit();
     // $deleteZeros = $pdo->prepare("DELETE FROM recipeingredients WHERE IngredientID = 0");
     // $deleteZeros->execute(); 
     //$deleteIngredients = array_diff($ingredientsExisting, $selectIngredientsToUpdate);
